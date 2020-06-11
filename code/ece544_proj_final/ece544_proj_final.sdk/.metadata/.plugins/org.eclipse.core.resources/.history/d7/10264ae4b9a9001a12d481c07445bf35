@@ -1,0 +1,810 @@
+/*
+ * [Intro]
+ *
+ * ECE544 - Project POV
+ * Thong Doan & Abhiraj Eksambekar
+ * ==================================================
+ * [Descriptions]
+ *
+ * This application display contents onto a POV display
+ * according to the user's selection
+ * ==================================================
+ * [Notes]
+ *
+ * (New hardware export)
+ * - Add following line to xparameters.h to enable usleep and/or timing-related functions
+ *   #define XSLEEP_TIMER_IS_DEFAULT_TIMER
+ * - Change address for Nexys4 IO in xparameters.h
+ * - Eclipse settings: line number, spaces for tabs
+ * - Speed up OLEDrgb drawing:
+ *   >>> freertos10_xilinx_bsp_0/microblaze_0/libsrc/PmodOLEDrgb_v1_0/src/PmodOLEDrgb.c
+ *   >>> function "OLEDrgb_DrawBitmap": reduce sleeping time at the end of function
+ * - linker-script: change Stack size to 0x300
+ *
+ * (Misc.)
+ * - Use vTaskDelay for sleeping (thread-safe)
+ * - Task priority: the smaller the number, the lower priority of the task
+ * - OLEDrgb_SetColor(x, y, z): x, y, x = B, R, G
+ */
+
+// ==================================================
+// LIBRARIES
+// ==================================================
+
+// Common
+#include "ctype.h"
+#include "math.h"
+
+// Kernels
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "timers.h"
+#include "semphr.h"
+
+// BSP includes
+#include "xtmrctr.h"
+#include "xgpio.h"
+#include "sleep.h"
+#include "xwdttb.h"
+#include "nexys4IO.h"
+#include "PmodOLEDrgb.h"
+#include "PmodENC.h"
+#include "xuartlite.h"
+#include "xuartlite_l.h"
+
+// ==================================================
+// DEFINES
+// ==================================================
+
+// GPIO
+#define GPIO_SET_TO_OUTPUT      0U                              // value to set a GPIO port as output
+#define GPIO_SET_TO_INPUT       0xFFFFU                         // value to set a GPIO port as input
+#define GPIO_DEVICE_ID_LED      XPAR_AXI_GPIO_0_DEVICE_ID       // device ID of GPIO LED
+#define GPIO_DEVICE_ID_BTN_SW   XPAR_AXI_GPIO_1_DEVICE_ID       // device ID of GPIO buttons & switches
+#define MASK_BTN_UP				0x4								// mask for btn UP
+#define MASK_BTN_DOWN			0x8								// mask for btn DOWN
+#define MASK_BTN_CENTER			0x10							// mask for btn CENTER
+
+// WDT
+#define WDT_DEVICE_ID       XPAR_AXI_TIMEBASE_WDT_0_DEVICE_ID   // device ID of WDT
+#define MASK_FORCE_CRASH    0x8000                              // mask for force-crash, SW[15]
+
+// Nexys4 IO
+#define NX4IO_BASEADDR      XPAR_NEXYS4IO_0_S00_AXI_BASEADDR    // base address of Nexys4 IO device
+
+// PmodOLEDrgb
+#define RGBDSPLY_GPIO_BASEADDR  XPAR_PMODOLEDRGB_0_AXI_LITE_GPIO_BASEADDR
+#define RGBDSPLY_GPIO_HIGHADDR  XPAR_PMODOLEDRGB_0_AXI_LITE_GPIO_HIGHADD
+#define RGBDSPLY_SPI_BASEADDR   XPAR_PMODOLEDRGB_0_AXI_LITE_SPI_BASEADDR
+#define RGBDSPLY_SPI_HIGHADDR   XPAR_PMODOLEDRGB_0_AXI_LITE_SPI_HIGHADDR
+
+// PmodENC
+#define PMODENC_BASEADDR        XPAR_PMODENC_0_AXI_LITE_GPIO_BASEADDR
+#define SHIFT_PMODENC_STATE		16				// shift amount to retrieve state data
+#define PMODENC_STATE_THRESHOLD	20				// max distance between any two state
+
+// Motor
+#define MOTOR_BASEADDR			XPAR_MOTOR_MEASURE_CONTROL_0_S00_AXI_BASEADDR
+#define MOTOR_REG_ID_DC			0				// register offset of duty cycle
+#define MOTOR_REG_ID_PULSES		4				// register offset of pulses counted
+#define MOTOR_REG_ID_DIR		8				// register offset of direction
+#define MOTOR_PULSE_PERIOD_MS	100				// counting pulse period, in ms
+#define MASK_MOTOR_GAIN         0x0003          // mask for motor speed gain, SW[1:0]
+#define SHIFT_MOTOR_GAIN        0               // shift amount for motor speed gain, SW[1:0]
+#define MOTOR_RPM_MIN			0				// min RPM
+#define MOTOR_RPM_MAX			9999			// max RPM
+#define MOTOR_DC_MIN			0				// min number representing 0% duty cycle
+#define MOTOR_DC_MAX			255				// max number representing 100% duty cycle
+
+// PID
+#define MASK_PID_GAIN           0x0030          // mask for PID constant gain, SW[5:4]
+#define SHIFT_PID_GAIN          4               // shift amount for PID constant gain, SW[5:4]
+#define MASK_PID_SELECT         0x000C          // mask for PID selected constant, SW[3:2]
+#define SHIFT_PID_SELECT        2               // shift amount for PID selected constant, SW[3:2]
+#define PID_CONSTANT_MAX		10000.0F		// max value for a PID constant
+#define PID_CONSTANT_MIN		0.0F			// min value for a PID constant
+#define PID_OFFSET				30.0f			// RPM offset used in the PID control
+#define PID_SAMPLE_PERIOD_TICKS	30				// sampling period in system ticks
+
+// AXI TIMER 1
+#define AXI_TIMER_1_DEVICE_ID	XPAR_AXI_TIMER_1_DEVICE_ID
+#define AXI_TIMER_1_BASEADDR	XPAR_AXI_TIMER_1_BASEADDR
+#define AXI_TIMER_1_TICK_COUNT	1							// to achieve 40KHz (100MHz / 40KHz = 2500)
+
+// UART to NodeMCU
+#define UART_DEVICE_ID			XPAR_AXI_UARTLITE_1_DEVICE_ID
+#define UART_BAUD_RATE			115200
+#define UART_BUFF_RECEIVE_MAX	2048							// max size of the receive buffer
+
+// MISC.
+#define SEMAPHORE_MAX_COUNT		0xFFFFFFFF		// max count for counting-semaphore
+#define QUEUE_MAX_STATES		20				// max states to store in the queues
+
+// ==================================================
+// MACROS
+// ==================================================
+
+/*
+ * Get absolute value of x
+ */
+#define abs(x) ( (x)>0 ? (x) : -(x) )
+
+/*
+ * Get min between 2 given number
+ */
+#define min(x, y) ( (x) < (y) ? (x) : (y))
+
+/*
+ * Get max between 2 given number
+ */
+#define max(x, y) ( (x) < (y) ? (y) : (x))
+
+// ==================================================
+// STRUCTS
+// ==================================================
+
+// struct for a POV message
+typedef struct {
+	int length;							// length of the message
+	char msg[UART_BUFF_RECEIVE_MAX];	// the message
+} pov_msg_t;
+
+// struct for POV info
+typedef struct {
+	int user_choice;	// 0: text, 1: clock
+	int hour;			// clock's hour
+	int min;			// clock's minute
+	int sec;			// clock's second
+	pov_msg_t text;		// user's text
+} pov_info_t;
+
+// ==================================================
+// GLOBAL VARIABLES
+// ==================================================
+
+// Instances
+XGpio gpio_inst_led;            // GPIO for the LEDs
+XGpio gpio_inst_btn_sw;         // GPIO for the buttons & sws
+XWdtTb wdt_inst;                // the WDT instance
+PmodOLEDrgb pmodOLEDrgb_inst;   // the PmodOLEDrgb instance
+PmodENC pmodENC_inst;           // the PmodENC instance
+XTmrCtr axi_timer_1_inst;		// the AXI Timer 1 instance
+XUartLite uart_nodemcu_inst;	// the UART interface to the NodeMCU
+
+// Task related
+xSemaphoreHandle sem_input;		// semaphore notifying new inputs available
+xSemaphoreHandle sem_display;	// semaphore notifying the display should be updated
+xSemaphoreHandle sem_WDT;		// semaphore notifying if WDT expired
+
+// POV
+pov_info_t pov_info;			// store all POV information
+
+// Misc.
+u32 tmp_global = 0;             // temporary global variable
+XWdtTb WatchdogTimebase;
+
+// ==================================================
+// FUNC DECLARATIONS
+// ==================================================
+
+// Project 02
+static XStatus init_platform();
+void msleep(u32);
+int ENC_getSwitch(PmodENC*);
+enum _NX4IO_charcodes getSSEGCharcode(int);
+static void interrupt_handler_GPIO(void*);
+
+// Project 01
+void PMDIO_itoa(int32_t value, char *string, int32_t radix);
+void PMDIO_puthex(PmodOLEDrgb* InstancePtr, uint32_t num);
+void PMDIO_putnum(PmodOLEDrgb* InstancePtr, int32_t num, int32_t radix);
+
+// Project POV
+int main_POV();
+void thread_debug_UART(void*);
+void thread_POV_main(void* p_data);
+void uart_send(char* buff_start, int n_bytes_to_send);
+int uart_receive(char* buff_receiving, int data_size);
+void pov_msg_send(pov_msg_t* p_msg);
+
+// ==================================================
+// FUNC DEFINITIONS
+// ==================================================
+
+/****************************************************************************/
+/*
+ * Main entry to this program. A master-thread will be created later in main.
+ */
+int main(){
+
+	return main_POV();
+//	return main_proj02();
+
+}
+
+/****************************************************************************/
+/*
+ * Set up hardware
+ */
+static XStatus init_platform(){
+
+    // declarations
+    XStatus xStatus;                // operation status, for checking error
+    u32 led_val;                    // values to set to the LEDs
+    u32 ctlsts;						// control register for the AXI Timer 1
+
+    // ------------------------------
+    // GPIO LED
+    // ------------------------------
+
+    xil_printf("Initializing GPIO: LEDs\r\n");
+
+    // initialize & return if error
+    xStatus = XGpio_Initialize( &gpio_inst_led, XPAR_AXI_GPIO_0_DEVICE_ID );
+    if( xStatus != XST_SUCCESS )
+    {
+        xil_printf("ERROR: init GPIO LED\r\n");
+        return xStatus;
+    }
+
+    // set LEDs as output port
+    XGpio_SetDataDirection( &gpio_inst_led, 1, GPIO_SET_TO_OUTPUT);
+
+    // self-check
+    xil_printf("\tCheck that LEDs work\r\n");
+    led_val = 1;
+    for (int i=0; i<32; i++){
+        XGpio_DiscreteWrite( &gpio_inst_led, 1, led_val );
+        led_val = i<16 ? led_val * 2 : led_val / 2;
+        usleep(20000);
+    }
+    XGpio_DiscreteWrite( &gpio_inst_led, 1, 0 );
+
+
+//    // ------------------------------
+//    // GPIO btns & switches
+//    // ------------------------------
+//
+//    xil_printf("Initializing GPIO: buttons & switches\r\n");
+//
+//    // initialize & return if error
+//    xStatus = XGpio_Initialize( &gpio_inst_btn_sw, GPIO_DEVICE_ID_BTN_SW );
+//    if( xStatus != XST_SUCCESS )
+//    {
+//        xil_printf("ERROR: init GPIO buttons & switches\r\n");
+//        return xStatus;
+//    }
+//
+//    // set as input port for: buttons (1) and switches (2)
+//    XGpio_SetDataDirection(&gpio_inst_btn_sw, 1, GPIO_SET_TO_INPUT);
+//    XGpio_SetDataDirection(&gpio_inst_btn_sw, 2, GPIO_SET_TO_INPUT);
+//
+//    // setup interrupt handler
+//    xStatus = xPortInstallInterruptHandler( XPAR_MICROBLAZE_0_AXI_INTC_AXI_GPIO_1_IP2INTC_IRPT_INTR, interrupt_handler_GPIO, NULL );
+//    if( xStatus != pdPASS )
+//    {
+//        xil_printf("ERROR: setup interrupt handler for GPIO buttons & switches\r\n");
+//        return xStatus;
+//    }
+//
+//    // enable interrupt in GPIO & AXI Interrupt Controller
+//    XGpio_InterruptEnable( &gpio_inst_btn_sw, 1 );
+//    XGpio_InterruptEnable( &gpio_inst_btn_sw, 2 );
+//    XGpio_InterruptGlobalEnable( &gpio_inst_btn_sw );
+//    vPortEnableInterrupt( XPAR_MICROBLAZE_0_AXI_INTC_AXI_GPIO_1_IP2INTC_IRPT_INTR );
+
+
+    // ------------------------------
+    // Nexys4 IO
+    // ------------------------------
+
+    xil_printf("Initializing NX4IO\n");
+
+    // initialize & return if error
+    xStatus = NX4IO_initialize(NX4IO_BASEADDR);
+    if (xStatus != XST_SUCCESS)
+    {
+        xil_printf("ERROR: setup NX4IO\n");
+        return XST_FAILURE;
+    }
+
+    // check & reset 7 segs
+    for (int i=0; i<6; i++){
+        if (i%2 == 0){
+            NX410_SSEG_setAllDigits(SSEGHI, CC_8, CC_8, CC_8, CC_8, DP_ALL);
+            NX410_SSEG_setAllDigits(SSEGLO, CC_8, CC_8, CC_8, CC_8, DP_ALL);
+        } else {
+            NX410_SSEG_setAllDigits(SSEGHI, CC_BLANK, CC_BLANK, CC_BLANK, CC_BLANK, DP_NONE);
+            NX410_SSEG_setAllDigits(SSEGLO, CC_BLANK, CC_BLANK, CC_BLANK, CC_BLANK, DP_NONE);
+        }
+        msleep(150);
+    }
+    NX410_SSEG_setAllDigits(SSEGHI, CC_BLANK, CC_BLANK, CC_BLANK, CC_BLANK, DP_NONE);
+    NX410_SSEG_setAllDigits(SSEGLO, CC_BLANK, CC_BLANK, CC_BLANK, CC_BLANK, DP_NONE);
+
+
+    // ------------------------------
+    // OledRGB
+    // ------------------------------
+
+    xil_printf("Initializing PmodOLEDrgb\n");
+
+    // init
+    OLEDrgb_begin(&pmodOLEDrgb_inst, RGBDSPLY_GPIO_BASEADDR, RGBDSPLY_SPI_BASEADDR);
+
+    // check & reset OLEDrgb
+    for (int i=0; i<6; i++){
+        if (i%2 == 0) {
+            OLEDrgb_DrawRectangle(&pmodOLEDrgb_inst, 0, 0, 95, 63, OLEDrgb_BuildRGB(0, 150, 150), 1, OLEDrgb_BuildRGB(0, 150, 150));
+        } else {
+            OLEDrgb_Clear(&pmodOLEDrgb_inst);
+        }
+        msleep(150);
+    }
+    OLEDrgb_Clear(&pmodOLEDrgb_inst);
+
+
+    // ------------------------------
+    // PmodENC
+    // ------------------------------
+
+    xil_printf("Initializing PmodENC\n");
+
+    // initialize the pmodENC and hardware
+    ENC_begin(&pmodENC_inst, PMODENC_BASEADDR);
+
+
+	// ------------------------------
+	// AXI Timer 1 (Nexys4IO)
+	// ------------------------------
+
+    xil_printf("Initializing AXI Timer 1 for Nexys4IO\n");
+
+    // Init timer 1 instance
+	xStatus = XTmrCtr_Initialize(&axi_timer_1_inst, AXI_TIMER_1_DEVICE_ID);
+	if (xStatus != XST_SUCCESS) {
+		xil_printf("ERROR: init instance AXI Timer 1\n");
+		return XST_FAILURE;
+	}
+	xStatus = XTmrCtr_SelfTest(&axi_timer_1_inst, 0);
+	if (xStatus != XST_SUCCESS) {
+		xil_printf("ERROR: self-test AXI Timer 1\n");
+		return XST_FAILURE;
+	}
+
+    // Set timer 1: auto reload, external generate, load timer using value in load-register, count-down mode
+	ctlsts = XTC_CSR_AUTO_RELOAD_MASK | XTC_CSR_EXT_GENERATE_MASK | XTC_CSR_LOAD_MASK |XTC_CSR_DOWN_COUNT_MASK ;
+	XTmrCtr_SetControlStatusReg(AXI_TIMER_1_BASEADDR, 0, ctlsts);
+
+	// Set the value that is loaded into the timer counter and cause it to be loaded into the timer counter
+	XTmrCtr_SetLoadReg(AXI_TIMER_1_BASEADDR, 0, AXI_TIMER_1_TICK_COUNT);
+	XTmrCtr_LoadTimerCounterReg(AXI_TIMER_1_BASEADDR, 0);
+
+	// Turn off load-bit (LOAD1) to allow the timer to run
+	ctlsts = XTmrCtr_GetControlStatusReg(AXI_TIMER_1_BASEADDR, 0);
+	ctlsts &= (~XTC_CSR_LOAD_MASK);
+	XTmrCtr_SetControlStatusReg(AXI_TIMER_1_BASEADDR, 0, ctlsts);
+
+	// Enable timer 1
+	ctlsts = XTmrCtr_GetControlStatusReg(AXI_TIMER_1_BASEADDR, 0);
+	ctlsts |= XTC_CSR_ENABLE_TMR_MASK;
+	XTmrCtr_SetControlStatusReg(AXI_TIMER_1_BASEADDR, 0, ctlsts);
+	XTmrCtr_Enable(AXI_TIMER_1_BASEADDR, 0);
+
+	// Used to test if AXI Timer 1 works
+    NX4IO_RGBLED_setChnlEn(RGB1, TRUE, TRUE, TRUE);
+    NX4IO_RGBLED_setDutyCycle(RGB1, 0, 0, 255);
+
+	// ------------------------------
+	// UARTLite to NodeMCU
+	// ------------------------------
+	xil_printf("Initializing UARTLite to NodeMCU\n");
+
+	// initialize the UartLite driver
+	xStatus = XUartLite_Initialize(&uart_nodemcu_inst, UART_DEVICE_ID);
+	if (xStatus != XST_SUCCESS) {
+		xil_printf("ERROR: init instance UARTLite\n");
+		return XST_FAILURE;
+	}
+
+	// self-test
+	xStatus = XUartLite_SelfTest(&uart_nodemcu_inst);
+	if (xStatus != XST_SUCCESS) {
+		xil_printf("ERROR: self-test UARTLite\n");
+		return XST_FAILURE;
+	}
+
+    return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/*
+ * Get state of the ENC switch: 0(down) & 1(up) (if the SW is on the right of the knob)
+ */
+int ENC_getSwitch(PmodENC* p_inst){
+    return (ENC_getState(p_inst) & 0x8) >> 3;
+}
+
+/****************************************************************************/
+/*
+ * Retrieve the corresponding SSEG char-code with the given digit [0..9]
+ */
+enum _NX4IO_charcodes getSSEGCharcode(int digit){
+    switch (digit) {
+        case 0: return CC_0;
+        case 1: return CC_1;
+        case 2: return CC_2;
+        case 3: return CC_3;
+        case 4: return CC_4;
+        case 5: return CC_5;
+        case 6: return CC_6;
+        case 7: return CC_7;
+        case 8: return CC_8;
+        case 9: return CC_9;
+    }
+
+    return CC_BLANK;
+}
+
+/****************************************************************************/
+/*
+ * Sleep the system within the given milliseconds
+ */
+void msleep(u32 msec){
+    usleep(msec * 1000);
+}
+
+/****************************************************************************/
+/*
+ * Interrupt handler for the GPIO: buttons & switches
+ */
+static void interrupt_handler_GPIO(void* p_data){
+//    xil_printf("interrupt_handler_GPIO is called\n");
+
+    // let input-thread know via input-semaphore
+    xSemaphoreGiveFromISR(sem_input, NULL);
+
+    // clear interrupt: 3 means clear both channels buttons & switches
+    XGpio_InterruptClear( &gpio_inst_btn_sw, 3 );
+}
+
+/****************************************************************************/
+// PROJECT 01 FUNCTIONS
+/****************************************************************************/
+
+/****************************************************************************/
+/**
+* Converts an integer to ASCII characters
+*
+* algorithm borrowed from ReactOS system libraries
+*
+* Converts an integer to ASCII in the specified base.  Assumes string[] is
+* long enough to hold the result plus the terminating null
+*
+* @param 	value is the integer to convert
+* @param 	*string is a pointer to a buffer large enough to hold the converted number plus
+*  			the terminating null
+* @param	radix is the base to use in conversion,
+*
+* @return  *NONE*
+*
+* @note
+* No size check is done on the return string size.  Make sure you leave room
+* for the full string plus the terminating null in string
+*****************************************************************************/
+void PMDIO_itoa(int32_t value, char *string, int32_t radix)
+{
+	char tmp[33];
+	char *tp = tmp;
+	int32_t i;
+	uint32_t v;
+	int32_t  sign;
+	char *sp;
+
+	if (radix > 36 || radix <= 1)
+	{
+		return;
+	}
+
+	sign = ((10 == radix) && (value < 0));
+	if (sign)
+	{
+		v = -value;
+	}
+	else
+	{
+		v = (uint32_t) value;
+	}
+
+  	while (v || tp == tmp)
+  	{
+		i = v % radix;
+		v = v / radix;
+		if (i < 10)
+		{
+			*tp++ = i+'0';
+		}
+		else
+		{
+			*tp++ = i + 'a' - 10;
+		}
+	}
+	sp = string;
+
+	if (sign)
+		*sp++ = '-';
+
+	while (tp > tmp)
+		*sp++ = *--tp;
+	*sp = 0;
+
+  	return;
+}
+
+/****************************************************************************/
+/**
+* Write a 32-bit unsigned hex number to PmodOLEDrgb in Hex
+*
+* Writes  32-bit unsigned number to the pmodOLEDrgb display starting at the current
+* cursor position.
+*
+* @param num is the number to display as a hex value
+*
+* @return  *NONE*
+*
+* @note
+* No size checking is done to make sure the string will fit into a single line,
+* or the entire display, for that matter.  Watch your string sizes.
+*****************************************************************************/
+void PMDIO_puthex(PmodOLEDrgb* InstancePtr, uint32_t num)
+{
+  char  buf[9];
+  int32_t   cnt;
+  char  *ptr;
+  int32_t  digit;
+
+  ptr = buf;
+  for (cnt = 7; cnt >= 0; cnt--) {
+    digit = (num >> (cnt * 4)) & 0xF;
+
+    if (digit <= 9)
+	{
+      *ptr++ = (char) ('0' + digit);
+	}
+    else
+	{
+      *ptr++ = (char) ('a' - 10 + digit);
+	}
+  }
+
+  *ptr = (char) 0;
+  OLEDrgb_PutString(InstancePtr,buf);
+
+  return;
+}
+
+/****************************************************************************/
+/**
+* Write a 32-bit number in Radix "radix" to LCD display
+*
+* Writes a 32-bit number to the LCD display starting at the current
+* cursor position. "radix" is the base to output the number in.
+*
+* @param num is the number to display
+*
+* @param radix is the radix to display number in
+*
+* @return *NONE*
+*
+* @note
+* No size checking is done to make sure the string will fit into a single line,
+* or the entire display, for that matter.  Watch your string sizes.
+*****************************************************************************/
+void PMDIO_putnum(PmodOLEDrgb* InstancePtr, int32_t num, int32_t radix)
+{
+  char  buf[16];
+
+  PMDIO_itoa(num, buf, radix);
+  OLEDrgb_PutString(InstancePtr,buf);
+
+  return;
+}
+
+/****************************************************************************/
+/*
+ * PROJECT POV FUNCTIONS
+ */
+/****************************************************************************/
+
+/****************************************************************************/
+/*
+ * Main entry used for POV project.
+ */
+int main_POV(){
+
+	XStatus xStatus;
+
+	// init platform
+	xStatus = init_platform();
+	if (xStatus != XST_SUCCESS){
+		xil_printf("ERROR: failed to init flatform.");
+		return -1;
+	}
+
+	// create thread & start scheduler
+	xil_printf("Create POV-main-thread\n");
+	xTaskCreate(
+			thread_POV_main,
+			"POV_Main",
+			1024,
+			NULL,
+			1,
+			NULL
+			);
+	vTaskStartScheduler();
+
+	return 0;
+}
+
+/****************************************************************************/
+/*
+ * [THREAD] Thread used for debugging UART
+ */
+void thread_debug_UART(void* p_data){
+	// declarations
+	int Status;
+	int n_bytes_received;						// number of bytes received
+	int n_data_bytes;							// number of bytes in the upcoming message
+	char buff_receive[UART_BUFF_RECEIVE_MAX];
+	char* buff_send;
+
+	/*
+	 * Initialize the UartLite driver so that it is ready to use.
+	 */
+	Status = XUartLite_Initialize(&uart_nodemcu_inst, UART_DEVICE_ID);
+	if (Status != XST_SUCCESS) {
+		vTaskDelete(NULL);
+		return;
+	}
+
+	/*
+	 * Perform a self-test to ensure that the hardware was built correctly.
+	 */
+	Status = XUartLite_SelfTest(&uart_nodemcu_inst);
+	if (Status != XST_SUCCESS) {
+		vTaskDelete(NULL);
+		return;
+	}
+
+	while (1){
+
+		// send until done
+//		buff_send = "Pine\n";
+//		buff_send = "hello12345hello12345hello12345hello12345hello12345hello1234\n";
+		buff_send = "begin--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------end";
+		uart_send(buff_send, strlen(buff_send));
+
+		// receive & construct data size
+		n_bytes_received = uart_receive(buff_receive, 2);
+		n_data_bytes = 0 | (buff_receive[0] << 8);
+		n_data_bytes = n_data_bytes | buff_receive[1];
+		xil_printf("Data_size=%d\n", n_data_bytes);
+
+		// do nothing if data is too big for the buffer
+		if (n_data_bytes > UART_BUFF_RECEIVE_MAX){
+			xil_printf("Data is too big (%d). Stop receiving.\n", n_data_bytes);
+			continue;
+		}
+
+		// receive data
+		n_bytes_received = uart_receive(buff_receive, n_data_bytes);
+
+		// end string & print
+		buff_receive[n_bytes_received] = 0;
+		xil_printf("Data=[%s]\n", buff_receive);
+
+		// delay 1 sec
+		vTaskDelay(1000 / portTICK_PERIOD_MS);
+	}
+
+	// safely delete task
+	vTaskDelete(NULL);
+}
+
+/****************************************************************************/
+/*
+ * [THREAD] Main thread for POV project
+ */
+void thread_POV_main(void* p_data){
+	// declarations
+	int Status;
+	int n_bytes_received;						// number of bytes received
+	int n_data_bytes;							// number of bytes in the upcoming message
+	char buff_receive[UART_BUFF_RECEIVE_MAX];
+	char* buff_send;
+
+	// TODO: fixed text now, change later
+//	char welcome_string[] = "ECE544";
+	char welcome_string[] = "begin--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------end";
+	strcpy(pov_info.text.msg, welcome_string);
+	pov_info.text.length = strlen(welcome_string);
+
+	while (1){
+
+		// send the text
+		pov_msg_send(&pov_info.text);
+
+		// delay 1 sec
+		vTaskDelay(500 / portTICK_PERIOD_MS);
+	}
+
+	// safely delete task
+	vTaskDelete(NULL);
+}
+
+/****************************************************************************/
+/*
+ * (blocking) Send the given buffer until done
+ */
+void uart_send(char* buff_start, int n_bytes_to_send){
+	// declarations
+	int count_send;
+	int remaining_size;
+	char* buff_start_pos;
+
+	// send until done
+	buff_start_pos = buff_start;
+	remaining_size = n_bytes_to_send;
+	while (remaining_size > 0) {
+		count_send = XUartLite_Send(&uart_nodemcu_inst, (u8*)buff_start_pos, remaining_size);
+		remaining_size -= count_send;
+		buff_start_pos += count_send;
+	}
+
+}
+
+/****************************************************************************/
+/*
+ * (blocking) Receive the next packet until done.
+ * Return -1 if failed, >=0 if success & is the number of received bytes
+ */
+int uart_receive(char* buff_receiving, int data_size){
+
+	// declarations
+	int remaining_receive;	// remaining bytes to receive
+	int count_receive;		// number of received bytes in the last receive command
+	u8* buff_start_pos;		// start position for writing to the buffer
+
+	// received until done
+	buff_start_pos = (u8*)buff_receiving;
+	remaining_receive = data_size;
+	while (remaining_receive > 0) {
+		count_receive = XUartLite_Recv(&uart_nodemcu_inst, buff_start_pos, remaining_receive);
+		remaining_receive -= count_receive;
+		buff_start_pos += count_receive;
+	}
+
+	return data_size;
+}
+
+/****************************************************************************/
+/*
+ * (blocking) Send the given POV message
+ */
+void pov_msg_send(pov_msg_t* p_msg){
+
+	// declarations
+	char buff_length[2];	// buffer for sending the length
+
+	// send length first
+	buff_length[0] = (p_msg->length >> 8) & 0x00FF;
+	buff_length[1] = (p_msg->length     ) & 0x00FF;
+	uart_send(buff_length, 2);
+
+	// delay
+	vTaskDelay(10 / portTICK_PERIOD_MS);
+
+	// send data
+	uart_send(p_msg->msg, p_msg->length);
+}

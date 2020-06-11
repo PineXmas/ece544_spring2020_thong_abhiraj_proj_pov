@@ -1,0 +1,24 @@
+02:51:55 **** Incremental Build of configuration Debug for project ece544_proj_final_software ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../freertos10_xilinx_bsp_0/microblaze_0/include -mlittle-endian -mcpu=v10.0 -mxl-soft-mul -mhard-float -mxl-float-convert -mxl-float-sqrt -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+../src/main.c:790:13: warning: 'interrupt_handler_GPIO' defined but not used [-Wunused-function]
+ static void interrupt_handler_GPIO(void* p_data){
+             ^~~~~~~~~~~~~~~~~~~~~~
+'Finished building: ../src/main.c'
+' '
+'Building target: ece544_proj_final_software.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../freertos10_xilinx_bsp_0/microblaze_0/lib -mlittle-endian -mcpu=v10.0 -mxl-soft-mul -mhard-float -mxl-float-convert -mxl-float-sqrt -Wl,--no-relax -Wl,--gc-sections -o "ece544_proj_final_software.elf"  ./src/main.o   -Wl,--start-group,-lxil,-lfreertos,-lgcc,-lc,--end-group
+'Finished building target: ece544_proj_final_software.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size ece544_proj_final_software.elf  |tee "ece544_proj_final_software.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+  57420	   5412	  75152	 137984	  21b00	ece544_proj_final_software.elf
+'Finished building: ece544_proj_final_software.elf.size'
+' '
+
+02:51:56 Build Finished (took 1s.87ms)
+

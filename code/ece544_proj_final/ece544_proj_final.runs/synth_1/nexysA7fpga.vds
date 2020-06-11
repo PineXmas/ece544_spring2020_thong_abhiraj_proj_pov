@@ -1,0 +1,1030 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Sun Jun  7 12:29:30 2020
+# Process ID: 30976
+# Current directory: D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1
+# Command line: vivado.exe -log nexysA7fpga.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source nexysA7fpga.tcl
+# Log file: D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/nexysA7fpga.vds
+# Journal file: D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source nexysA7fpga.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'd:/Projects/Code/ECE544_Proj_GS/ece544_proj_gs_hardware/source/repositories/ece544ip-library-master'.
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'd:/Projects/Code/ECE544_Proj_02/ece-544-project-2-thongd_abhiraja/abhiraj_files/motor_measure_control_3.0'.
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'd:/Projects/Code/ECE544_Proj_GS/ece544_proj_gs_hardware/source/repositories/vivado-library-v2019.1-1'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'D:/Programs/Xilinx/Vivado/2018.2/data/ip'.
+add_files: Time (s): cpu = 00:00:10 ; elapsed = 00:00:20 . Memory (MB): peak = 355.082 ; gain = 89.684
+Command: synth_design -top nexysA7fpga -part xc7a100tcsg324-1 -directive FewerCarryChains -retiming
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: Launching helper process for spawning children vivado processes
+INFO: Helper process launched with PID 33072 
+WARNING: [Synth 8-2507] parameter declaration becomes local in debounce with formal parameter declaration list [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:48]
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 479.172 ; gain = 116.371
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'nexysA7fpga' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:22]
+INFO: [Synth 8-6157] synthesizing module 'PWDET' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/PWDET.v:9]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/PWDET.v:73]
+INFO: [Synth 8-6155] done synthesizing module 'PWDET' (1#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/PWDET.v:9]
+INFO: [Synth 8-6157] synthesizing module 'debounce' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:26]
+	Parameter CLK_FREQUENCY_HZ bound to: 100000000 - type: integer 
+	Parameter DEBOUNCE_FREQUENCY_HZ bound to: 250 - type: integer 
+	Parameter RESET_POLARITY_LOW bound to: 1 - type: integer 
+	Parameter CNTR_WIDTH bound to: 32 - type: integer 
+	Parameter SIMULATE bound to: 0 - type: integer 
+	Parameter SIMULATE_FREQUENCY_CNT bound to: 5 - type: integer 
+	Parameter pb0_in bound to: 4'b0001 
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:104]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:105]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:106]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:107]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:108]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:109]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:112]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:113]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:114]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:115]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:116]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:117]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:118]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:119]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:120]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:121]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:122]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:123]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:124]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:125]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:126]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:127]
+INFO: [Synth 8-6155] done synthesizing module 'debounce' (2#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:26]
+WARNING: [Synth 8-2900] ignoring illegal expression in output port connection [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:196]
+WARNING: [Synth 8-689] width (32) of port connection 'swtch_db' does not match port width (16) of module 'debounce' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:197]
+WARNING: [Synth 8-2900] ignoring illegal expression in output port connection [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:207]
+INFO: [Synth 8-6157] synthesizing module 'PmodENC_decode' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/PmodENC_decode.sv:11]
+INFO: [Synth 8-6155] done synthesizing module 'PmodENC_decode' (3#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/PmodENC_decode.sv:11]
+WARNING: [Synth 8-689] width (16) of port connection 'pos' does not match port width (8) of module 'PmodENC_decode' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:217]
+INFO: [Synth 8-6157] synthesizing module 'embsys' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:13]
+INFO: [Synth 8-6157] synthesizing module 'embsys_PmodENC_0_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_PmodENC_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'embsys_PmodENC_0_0' (4#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_PmodENC_0_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'embsys_PmodOLEDrgb_0_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_PmodOLEDrgb_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'embsys_PmodOLEDrgb_0_0' (5#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_PmodOLEDrgb_0_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'embsys_axi_gpio_0_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_axi_gpio_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'embsys_axi_gpio_0_0' (6#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_axi_gpio_0_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'embsys_axi_gpio_1_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_axi_gpio_1_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'embsys_axi_gpio_1_0' (7#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_axi_gpio_1_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'embsys_axi_gpio_2_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_axi_gpio_2_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'embsys_axi_gpio_2_0' (8#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_axi_gpio_2_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'embsys_axi_timebase_wdt_0_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_axi_timebase_wdt_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'embsys_axi_timebase_wdt_0_0' (9#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_axi_timebase_wdt_0_0_stub.v:6]
+WARNING: [Synth 8-350] instance 'axi_timebase_wdt_0' of module 'embsys_axi_timebase_wdt_0_0' requires 23 connections, but only 21 given [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:841]
+INFO: [Synth 8-6157] synthesizing module 'embsys_axi_timer_0_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_axi_timer_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'embsys_axi_timer_0_0' (10#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_axi_timer_0_0_stub.v:6]
+WARNING: [Synth 8-350] instance 'axi_timer_0' of module 'embsys_axi_timer_0_0' requires 26 connections, but only 23 given [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:863]
+INFO: [Synth 8-6157] synthesizing module 'embsys_axi_timer_1_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_axi_timer_1_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'embsys_axi_timer_1_0' (11#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_axi_timer_1_0_stub.v:6]
+WARNING: [Synth 8-350] instance 'axi_timer_1' of module 'embsys_axi_timer_1_0' requires 26 connections, but only 23 given [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:887]
+INFO: [Synth 8-6157] synthesizing module 'embsys_axi_uartlite_0_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_axi_uartlite_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'embsys_axi_uartlite_0_0' (12#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_axi_uartlite_0_0_stub.v:6]
+WARNING: [Synth 8-350] instance 'axi_uartlite_0' of module 'embsys_axi_uartlite_0_0' requires 22 connections, but only 21 given [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:911]
+INFO: [Synth 8-6157] synthesizing module 'embsys_axi_uartlite_1_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_axi_uartlite_1_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'embsys_axi_uartlite_1_0' (13#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_axi_uartlite_1_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'embsys_clk_wiz_1_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_clk_wiz_1_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'embsys_clk_wiz_1_0' (14#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_clk_wiz_1_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'embsys_mdm_1_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_mdm_1_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'embsys_mdm_1_0' (15#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_mdm_1_0_stub.v:6]
+WARNING: [Synth 8-350] instance 'mdm_1' of module 'embsys_mdm_1_0' requires 30 connections, but only 29 given [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:962]
+INFO: [Synth 8-6157] synthesizing module 'embsys_microblaze_0_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_microblaze_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'embsys_microblaze_0_0' (16#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_microblaze_0_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'embsys_microblaze_0_axi_intc_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_microblaze_0_axi_intc_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'embsys_microblaze_0_axi_intc_0' (17#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_microblaze_0_axi_intc_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'embsys_microblaze_0_axi_periph_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:1495]
+INFO: [Synth 8-6157] synthesizing module 'm00_couplers_imp_OEGTNN' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:3733]
+INFO: [Synth 8-6155] done synthesizing module 'm00_couplers_imp_OEGTNN' (18#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:3733]
+INFO: [Synth 8-6157] synthesizing module 'm01_couplers_imp_1X988FM' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:3865]
+INFO: [Synth 8-6155] done synthesizing module 'm01_couplers_imp_1X988FM' (19#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:3865]
+INFO: [Synth 8-6157] synthesizing module 'm02_couplers_imp_1LSUSSG' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:3997]
+INFO: [Synth 8-6155] done synthesizing module 'm02_couplers_imp_1LSUSSG' (20#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:3997]
+INFO: [Synth 8-6157] synthesizing module 'm03_couplers_imp_Z0V64X' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:4143]
+INFO: [Synth 8-6155] done synthesizing module 'm03_couplers_imp_Z0V64X' (21#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:4143]
+INFO: [Synth 8-6157] synthesizing module 'm04_couplers_imp_10K59R8' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:4275]
+INFO: [Synth 8-6155] done synthesizing module 'm04_couplers_imp_10K59R8' (22#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:4275]
+INFO: [Synth 8-6157] synthesizing module 'm05_couplers_imp_CO79RP' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:4421]
+INFO: [Synth 8-6155] done synthesizing module 'm05_couplers_imp_CO79RP' (23#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:4421]
+INFO: [Synth 8-6157] synthesizing module 'm06_couplers_imp_17TSQV' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:4567]
+INFO: [Synth 8-6155] done synthesizing module 'm06_couplers_imp_17TSQV' (24#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:4567]
+INFO: [Synth 8-6157] synthesizing module 'm07_couplers_imp_1B6JKGM' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:4699]
+INFO: [Synth 8-6155] done synthesizing module 'm07_couplers_imp_1B6JKGM' (25#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:4699]
+INFO: [Synth 8-6157] synthesizing module 'm08_couplers_imp_A8EFSC' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:4831]
+INFO: [Synth 8-6155] done synthesizing module 'm08_couplers_imp_A8EFSC' (26#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:4831]
+INFO: [Synth 8-6157] synthesizing module 'm09_couplers_imp_12FSMBH' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:4963]
+INFO: [Synth 8-6155] done synthesizing module 'm09_couplers_imp_12FSMBH' (27#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:4963]
+INFO: [Synth 8-6157] synthesizing module 'm10_couplers_imp_1LSYS80' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:5095]
+INFO: [Synth 8-6155] done synthesizing module 'm10_couplers_imp_1LSYS80' (28#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:5095]
+INFO: [Synth 8-6157] synthesizing module 'm11_couplers_imp_Z0XR01' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:5227]
+INFO: [Synth 8-6155] done synthesizing module 'm11_couplers_imp_Z0XR01' (29#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:5227]
+INFO: [Synth 8-6157] synthesizing module 'm12_couplers_imp_OEKHZ7' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:5359]
+INFO: [Synth 8-6155] done synthesizing module 'm12_couplers_imp_OEKHZ7' (30#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:5359]
+INFO: [Synth 8-6157] synthesizing module 'm13_couplers_imp_1X9AI6Q' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:5491]
+INFO: [Synth 8-6155] done synthesizing module 'm13_couplers_imp_1X9AI6Q' (31#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:5491]
+INFO: [Synth 8-6157] synthesizing module 'm14_couplers_imp_17X7MV' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:5637]
+INFO: [Synth 8-6155] done synthesizing module 'm14_couplers_imp_17X7MV' (32#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:5637]
+INFO: [Synth 8-6157] synthesizing module 's00_couplers_imp_QRRRG2' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:6003]
+INFO: [Synth 8-6155] done synthesizing module 's00_couplers_imp_QRRRG2' (33#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:6003]
+INFO: [Synth 8-6157] synthesizing module 'embsys_xbar_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_xbar_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'embsys_xbar_0' (34#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_xbar_0_stub.v:6]
+WARNING: [Synth 8-689] width (42) of port connection 'm_axi_arprot' does not match port width (45) of module 'embsys_xbar_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:3694]
+WARNING: [Synth 8-689] width (42) of port connection 'm_axi_awprot' does not match port width (45) of module 'embsys_xbar_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:3698]
+INFO: [Synth 8-6155] done synthesizing module 'embsys_microblaze_0_axi_periph_0' (35#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:1495]
+INFO: [Synth 8-6157] synthesizing module 'microblaze_0_local_memory_imp_1SR2TDT' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:5769]
+INFO: [Synth 8-6157] synthesizing module 'embsys_dlmb_bram_if_cntlr_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_dlmb_bram_if_cntlr_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'embsys_dlmb_bram_if_cntlr_0' (36#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_dlmb_bram_if_cntlr_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'embsys_dlmb_v10_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_dlmb_v10_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'embsys_dlmb_v10_0' (37#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_dlmb_v10_0_stub.v:6]
+WARNING: [Synth 8-350] instance 'dlmb_v10' of module 'embsys_dlmb_v10_0' requires 25 connections, but only 24 given [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:5915]
+INFO: [Synth 8-6157] synthesizing module 'embsys_ilmb_bram_if_cntlr_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_ilmb_bram_if_cntlr_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'embsys_ilmb_bram_if_cntlr_0' (38#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_ilmb_bram_if_cntlr_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'embsys_ilmb_v10_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_ilmb_v10_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'embsys_ilmb_v10_0' (39#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_ilmb_v10_0_stub.v:6]
+WARNING: [Synth 8-350] instance 'ilmb_v10' of module 'embsys_ilmb_v10_0' requires 25 connections, but only 24 given [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:5961]
+INFO: [Synth 8-6157] synthesizing module 'embsys_lmb_bram_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_lmb_bram_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'embsys_lmb_bram_0' (40#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_lmb_bram_0_stub.v:6]
+WARNING: [Synth 8-350] instance 'lmb_bram' of module 'embsys_lmb_bram_0' requires 16 connections, but only 14 given [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:5986]
+INFO: [Synth 8-6155] done synthesizing module 'microblaze_0_local_memory_imp_1SR2TDT' (41#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:5769]
+INFO: [Synth 8-6157] synthesizing module 'embsys_microblaze_0_xlconcat_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_microblaze_0_xlconcat_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'embsys_microblaze_0_xlconcat_0' (42#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_microblaze_0_xlconcat_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'embsys_motor_measure_control_0_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_motor_measure_control_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'embsys_motor_measure_control_0_0' (43#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_motor_measure_control_0_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'embsys_nexys4IO_0_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_nexys4IO_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'embsys_nexys4IO_0_0' (44#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_nexys4IO_0_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'embsys_rst_clk_wiz_1_100M_0' [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_rst_clk_wiz_1_100M_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'embsys_rst_clk_wiz_1_100M_0' (45#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/.Xil/Vivado-30976-Pine-Ripper/realtime/embsys_rst_clk_wiz_1_100M_0_stub.v:6]
+WARNING: [Synth 8-350] instance 'rst_clk_wiz_1_100M' of module 'embsys_rst_clk_wiz_1_100M_0' requires 10 connections, but only 9 given [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:1483]
+INFO: [Synth 8-6155] done synthesizing module 'embsys' (46#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/synth/embsys.v:13]
+INFO: [Synth 8-6157] synthesizing module 'IOBUF' [D:/Programs/Xilinx/Vivado/2018.2/scripts/rt/data/unisim_comp.v:22660]
+	Parameter DRIVE bound to: 12 - type: integer 
+	Parameter IBUF_LOW_PWR bound to: TRUE - type: string 
+	Parameter IOSTANDARD bound to: DEFAULT - type: string 
+	Parameter SLEW bound to: SLOW - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'IOBUF' (47#1) [D:/Programs/Xilinx/Vivado/2018.2/scripts/rt/data/unisim_comp.v:22660]
+INFO: [Synth 8-6155] done synthesizing module 'nexysA7fpga' (48#1) [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:22]
+WARNING: [Synth 8-3917] design nexysA7fpga has port JD[7] driven by constant 0
+WARNING: [Synth 8-3917] design nexysA7fpga has port JD[6] driven by constant 0
+WARNING: [Synth 8-3917] design nexysA7fpga has port JD[5] driven by constant 0
+WARNING: [Synth 8-3917] design nexysA7fpga has port JD[4] driven by constant 0
+WARNING: [Synth 8-3917] design nexysA7fpga has port JD[3] driven by constant 0
+WARNING: [Synth 8-3917] design nexysA7fpga has port JD[2] driven by constant 0
+WARNING: [Synth 8-3917] design nexysA7fpga has port JD[1] driven by constant 0
+WARNING: [Synth 8-3917] design nexysA7fpga has port JD[0] driven by constant 0
+WARNING: [Synth 8-3331] design s00_couplers_imp_QRRRG2 has unconnected port M_ACLK
+WARNING: [Synth 8-3331] design s00_couplers_imp_QRRRG2 has unconnected port M_ARESETN
+WARNING: [Synth 8-3331] design s00_couplers_imp_QRRRG2 has unconnected port S_ACLK
+WARNING: [Synth 8-3331] design s00_couplers_imp_QRRRG2 has unconnected port S_ARESETN
+WARNING: [Synth 8-3331] design m14_couplers_imp_17X7MV has unconnected port M_ACLK
+WARNING: [Synth 8-3331] design m14_couplers_imp_17X7MV has unconnected port M_ARESETN
+WARNING: [Synth 8-3331] design m14_couplers_imp_17X7MV has unconnected port S_ACLK
+WARNING: [Synth 8-3331] design m14_couplers_imp_17X7MV has unconnected port S_ARESETN
+WARNING: [Synth 8-3331] design m13_couplers_imp_1X9AI6Q has unconnected port M_ACLK
+WARNING: [Synth 8-3331] design m13_couplers_imp_1X9AI6Q has unconnected port M_ARESETN
+WARNING: [Synth 8-3331] design m13_couplers_imp_1X9AI6Q has unconnected port S_ACLK
+WARNING: [Synth 8-3331] design m13_couplers_imp_1X9AI6Q has unconnected port S_ARESETN
+WARNING: [Synth 8-3331] design m12_couplers_imp_OEKHZ7 has unconnected port M_ACLK
+WARNING: [Synth 8-3331] design m12_couplers_imp_OEKHZ7 has unconnected port M_ARESETN
+WARNING: [Synth 8-3331] design m12_couplers_imp_OEKHZ7 has unconnected port S_ACLK
+WARNING: [Synth 8-3331] design m12_couplers_imp_OEKHZ7 has unconnected port S_ARESETN
+WARNING: [Synth 8-3331] design m11_couplers_imp_Z0XR01 has unconnected port M_ACLK
+WARNING: [Synth 8-3331] design m11_couplers_imp_Z0XR01 has unconnected port M_ARESETN
+WARNING: [Synth 8-3331] design m11_couplers_imp_Z0XR01 has unconnected port S_ACLK
+WARNING: [Synth 8-3331] design m11_couplers_imp_Z0XR01 has unconnected port S_ARESETN
+WARNING: [Synth 8-3331] design m10_couplers_imp_1LSYS80 has unconnected port M_ACLK
+WARNING: [Synth 8-3331] design m10_couplers_imp_1LSYS80 has unconnected port M_ARESETN
+WARNING: [Synth 8-3331] design m10_couplers_imp_1LSYS80 has unconnected port S_ACLK
+WARNING: [Synth 8-3331] design m10_couplers_imp_1LSYS80 has unconnected port S_ARESETN
+WARNING: [Synth 8-3331] design m09_couplers_imp_12FSMBH has unconnected port M_ACLK
+WARNING: [Synth 8-3331] design m09_couplers_imp_12FSMBH has unconnected port M_ARESETN
+WARNING: [Synth 8-3331] design m09_couplers_imp_12FSMBH has unconnected port S_ACLK
+WARNING: [Synth 8-3331] design m09_couplers_imp_12FSMBH has unconnected port S_ARESETN
+WARNING: [Synth 8-3331] design m08_couplers_imp_A8EFSC has unconnected port M_ACLK
+WARNING: [Synth 8-3331] design m08_couplers_imp_A8EFSC has unconnected port M_ARESETN
+WARNING: [Synth 8-3331] design m08_couplers_imp_A8EFSC has unconnected port S_ACLK
+WARNING: [Synth 8-3331] design m08_couplers_imp_A8EFSC has unconnected port S_ARESETN
+WARNING: [Synth 8-3331] design m07_couplers_imp_1B6JKGM has unconnected port M_ACLK
+WARNING: [Synth 8-3331] design m07_couplers_imp_1B6JKGM has unconnected port M_ARESETN
+WARNING: [Synth 8-3331] design m07_couplers_imp_1B6JKGM has unconnected port S_ACLK
+WARNING: [Synth 8-3331] design m07_couplers_imp_1B6JKGM has unconnected port S_ARESETN
+WARNING: [Synth 8-3331] design m06_couplers_imp_17TSQV has unconnected port M_ACLK
+WARNING: [Synth 8-3331] design m06_couplers_imp_17TSQV has unconnected port M_ARESETN
+WARNING: [Synth 8-3331] design m06_couplers_imp_17TSQV has unconnected port S_ACLK
+WARNING: [Synth 8-3331] design m06_couplers_imp_17TSQV has unconnected port S_ARESETN
+WARNING: [Synth 8-3331] design m05_couplers_imp_CO79RP has unconnected port M_ACLK
+WARNING: [Synth 8-3331] design m05_couplers_imp_CO79RP has unconnected port M_ARESETN
+WARNING: [Synth 8-3331] design m05_couplers_imp_CO79RP has unconnected port S_ACLK
+WARNING: [Synth 8-3331] design m05_couplers_imp_CO79RP has unconnected port S_ARESETN
+WARNING: [Synth 8-3331] design m04_couplers_imp_10K59R8 has unconnected port M_ACLK
+WARNING: [Synth 8-3331] design m04_couplers_imp_10K59R8 has unconnected port M_ARESETN
+WARNING: [Synth 8-3331] design m04_couplers_imp_10K59R8 has unconnected port S_ACLK
+WARNING: [Synth 8-3331] design m04_couplers_imp_10K59R8 has unconnected port S_ARESETN
+WARNING: [Synth 8-3331] design m03_couplers_imp_Z0V64X has unconnected port M_ACLK
+WARNING: [Synth 8-3331] design m03_couplers_imp_Z0V64X has unconnected port M_ARESETN
+WARNING: [Synth 8-3331] design m03_couplers_imp_Z0V64X has unconnected port S_ACLK
+WARNING: [Synth 8-3331] design m03_couplers_imp_Z0V64X has unconnected port S_ARESETN
+WARNING: [Synth 8-3331] design m02_couplers_imp_1LSUSSG has unconnected port M_ACLK
+WARNING: [Synth 8-3331] design m02_couplers_imp_1LSUSSG has unconnected port M_ARESETN
+WARNING: [Synth 8-3331] design m02_couplers_imp_1LSUSSG has unconnected port S_ACLK
+WARNING: [Synth 8-3331] design m02_couplers_imp_1LSUSSG has unconnected port S_ARESETN
+WARNING: [Synth 8-3331] design m01_couplers_imp_1X988FM has unconnected port M_ACLK
+WARNING: [Synth 8-3331] design m01_couplers_imp_1X988FM has unconnected port M_ARESETN
+WARNING: [Synth 8-3331] design m01_couplers_imp_1X988FM has unconnected port S_ACLK
+WARNING: [Synth 8-3331] design m01_couplers_imp_1X988FM has unconnected port S_ARESETN
+WARNING: [Synth 8-3331] design m00_couplers_imp_OEGTNN has unconnected port M_ACLK
+WARNING: [Synth 8-3331] design m00_couplers_imp_OEGTNN has unconnected port M_ARESETN
+WARNING: [Synth 8-3331] design m00_couplers_imp_OEGTNN has unconnected port S_ACLK
+WARNING: [Synth 8-3331] design m00_couplers_imp_OEGTNN has unconnected port S_ARESETN
+WARNING: [Synth 8-3331] design nexysA7fpga has unconnected port JA[7]
+WARNING: [Synth 8-3331] design nexysA7fpga has unconnected port JA[6]
+WARNING: [Synth 8-3331] design nexysA7fpga has unconnected port JA[3]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 526.375 ; gain = 163.574
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+WARNING: [Synth 8-3295] tying undriven pin debouncer_PmodENC:switch_in[15] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:203]
+WARNING: [Synth 8-3295] tying undriven pin debouncer_PmodENC:switch_in[14] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:203]
+WARNING: [Synth 8-3295] tying undriven pin debouncer_PmodENC:switch_in[13] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:203]
+WARNING: [Synth 8-3295] tying undriven pin debouncer_PmodENC:switch_in[12] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:203]
+WARNING: [Synth 8-3295] tying undriven pin debouncer_PmodENC:switch_in[11] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:203]
+WARNING: [Synth 8-3295] tying undriven pin debouncer_PmodENC:switch_in[10] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:203]
+WARNING: [Synth 8-3295] tying undriven pin debouncer_PmodENC:switch_in[9] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:203]
+WARNING: [Synth 8-3295] tying undriven pin debouncer_PmodENC:switch_in[8] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:203]
+WARNING: [Synth 8-3295] tying undriven pin debouncer_PmodENC:switch_in[7] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:203]
+WARNING: [Synth 8-3295] tying undriven pin debouncer_PmodENC:switch_in[6] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:203]
+WARNING: [Synth 8-3295] tying undriven pin debouncer_PmodENC:switch_in[5] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:203]
+WARNING: [Synth 8-3295] tying undriven pin debouncer_PmodENC:switch_in[4] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:203]
+WARNING: [Synth 8-3295] tying undriven pin debouncer_PmodENC:switch_in[3] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:203]
+WARNING: [Synth 8-3295] tying undriven pin debouncer_PmodENC:switch_in[2] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:203]
+WARNING: [Synth 8-3295] tying undriven pin debouncer_PmodENC:switch_in[1] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:203]
+WARNING: [Synth 8-3295] tying undriven pin debouncer_PmodENC:switch_in[0] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:203]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_buttons_tri_i[15] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_buttons_tri_i[14] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_buttons_tri_i[13] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_buttons_tri_i[12] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_buttons_tri_i[9] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_buttons_tri_i[8] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_buttons_tri_i[7] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_buttons_tri_i[6] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_buttons_tri_i[5] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[31] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[30] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[29] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[28] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[27] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[26] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[25] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[24] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[23] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[22] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[21] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[20] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[19] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[18] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[17] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[16] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[15] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[14] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[13] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[12] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[11] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[10] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[9] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[8] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[7] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[6] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[5] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[4] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[3] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[2] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[1] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[0] to constant 0 [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/imports/hardware/nexysA7fpga.v:221]
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 526.375 ; gain = 163.574
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 526.375 ; gain = 163.574
+---------------------------------------------------------------------------------
+INFO: [Netlist 29-17] Analyzing 16 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_microblaze_0_0/embsys_microblaze_0_0/embsys_microblaze_0_0_in_context.xdc] for cell 'EMBSYS/microblaze_0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_microblaze_0_0/embsys_microblaze_0_0/embsys_microblaze_0_0_in_context.xdc] for cell 'EMBSYS/microblaze_0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_nexys4IO_0_0/embsys_nexys4IO_0_0/embsys_nexys4IO_0_0_in_context.xdc] for cell 'EMBSYS/nexys4IO_0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_nexys4IO_0_0/embsys_nexys4IO_0_0/embsys_nexys4IO_0_0_in_context.xdc] for cell 'EMBSYS/nexys4IO_0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodENC_0_0/embsys_PmodENC_0_0/embsys_PmodENC_0_0_in_context.xdc] for cell 'EMBSYS/PmodENC_0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodENC_0_0/embsys_PmodENC_0_0/embsys_PmodENC_0_0_in_context.xdc] for cell 'EMBSYS/PmodENC_0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodOLEDrgb_0_0/embsys_PmodOLEDrgb_0_0/embsys_PmodOLEDrgb_0_0_in_context.xdc] for cell 'EMBSYS/PmodOLEDrgb_0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodOLEDrgb_0_0/embsys_PmodOLEDrgb_0_0/embsys_PmodOLEDrgb_0_0_in_context.xdc] for cell 'EMBSYS/PmodOLEDrgb_0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_gpio_0_0/embsys_axi_gpio_0_0/embsys_axi_gpio_0_0_in_context.xdc] for cell 'EMBSYS/axi_gpio_0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_gpio_0_0/embsys_axi_gpio_0_0/embsys_axi_gpio_0_0_in_context.xdc] for cell 'EMBSYS/axi_gpio_0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_timer_0_0/embsys_axi_timer_0_0/embsys_axi_timer_1_0_in_context.xdc] for cell 'EMBSYS/axi_timer_0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_timer_0_0/embsys_axi_timer_0_0/embsys_axi_timer_1_0_in_context.xdc] for cell 'EMBSYS/axi_timer_0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_uartlite_0_0/embsys_axi_uartlite_0_0/embsys_axi_uartlite_0_0_in_context.xdc] for cell 'EMBSYS/axi_uartlite_0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_uartlite_0_0/embsys_axi_uartlite_0_0/embsys_axi_uartlite_0_0_in_context.xdc] for cell 'EMBSYS/axi_uartlite_0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_microblaze_0_axi_intc_0/embsys_microblaze_0_axi_intc_0/embsys_microblaze_0_axi_intc_0_in_context.xdc] for cell 'EMBSYS/microblaze_0_axi_intc'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_microblaze_0_axi_intc_0/embsys_microblaze_0_axi_intc_0/embsys_microblaze_0_axi_intc_0_in_context.xdc] for cell 'EMBSYS/microblaze_0_axi_intc'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_microblaze_0_xlconcat_0/embsys_microblaze_0_xlconcat_0/embsys_microblaze_0_xlconcat_0_in_context.xdc] for cell 'EMBSYS/microblaze_0_xlconcat'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_microblaze_0_xlconcat_0/embsys_microblaze_0_xlconcat_0/embsys_microblaze_0_xlconcat_0_in_context.xdc] for cell 'EMBSYS/microblaze_0_xlconcat'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_mdm_1_0/embsys_mdm_1_0/embsys_mdm_1_0_in_context.xdc] for cell 'EMBSYS/mdm_1'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_mdm_1_0/embsys_mdm_1_0/embsys_mdm_1_0_in_context.xdc] for cell 'EMBSYS/mdm_1'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_clk_wiz_1_0/embsys_clk_wiz_1_0/embsys_clk_wiz_1_0_in_context.xdc] for cell 'EMBSYS/clk_wiz_1'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_clk_wiz_1_0/embsys_clk_wiz_1_0/embsys_clk_wiz_1_0_in_context.xdc] for cell 'EMBSYS/clk_wiz_1'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_rst_clk_wiz_1_100M_0/embsys_rst_clk_wiz_1_100M_0/embsys_rst_clk_wiz_1_100M_0_in_context.xdc] for cell 'EMBSYS/rst_clk_wiz_1_100M'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_rst_clk_wiz_1_100M_0/embsys_rst_clk_wiz_1_100M_0/embsys_rst_clk_wiz_1_100M_0_in_context.xdc] for cell 'EMBSYS/rst_clk_wiz_1_100M'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_xbar_0/embsys_xbar_0/embsys_xbar_0_in_context.xdc] for cell 'EMBSYS/microblaze_0_axi_periph/xbar'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_xbar_0/embsys_xbar_0/embsys_xbar_0_in_context.xdc] for cell 'EMBSYS/microblaze_0_axi_periph/xbar'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_dlmb_v10_0/embsys_dlmb_v10_0/embsys_dlmb_v10_0_in_context.xdc] for cell 'EMBSYS/microblaze_0_local_memory/dlmb_v10'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_dlmb_v10_0/embsys_dlmb_v10_0/embsys_dlmb_v10_0_in_context.xdc] for cell 'EMBSYS/microblaze_0_local_memory/dlmb_v10'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_ilmb_v10_0/embsys_ilmb_v10_0/embsys_dlmb_v10_0_in_context.xdc] for cell 'EMBSYS/microblaze_0_local_memory/ilmb_v10'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_ilmb_v10_0/embsys_ilmb_v10_0/embsys_dlmb_v10_0_in_context.xdc] for cell 'EMBSYS/microblaze_0_local_memory/ilmb_v10'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_dlmb_bram_if_cntlr_0/embsys_dlmb_bram_if_cntlr_0/embsys_dlmb_bram_if_cntlr_0_in_context.xdc] for cell 'EMBSYS/microblaze_0_local_memory/dlmb_bram_if_cntlr'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_dlmb_bram_if_cntlr_0/embsys_dlmb_bram_if_cntlr_0/embsys_dlmb_bram_if_cntlr_0_in_context.xdc] for cell 'EMBSYS/microblaze_0_local_memory/dlmb_bram_if_cntlr'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_ilmb_bram_if_cntlr_0/embsys_ilmb_bram_if_cntlr_0/embsys_ilmb_bram_if_cntlr_0_in_context.xdc] for cell 'EMBSYS/microblaze_0_local_memory/ilmb_bram_if_cntlr'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_ilmb_bram_if_cntlr_0/embsys_ilmb_bram_if_cntlr_0/embsys_ilmb_bram_if_cntlr_0_in_context.xdc] for cell 'EMBSYS/microblaze_0_local_memory/ilmb_bram_if_cntlr'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_lmb_bram_0/embsys_lmb_bram_0/embsys_lmb_bram_0_in_context.xdc] for cell 'EMBSYS/microblaze_0_local_memory/lmb_bram'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_lmb_bram_0/embsys_lmb_bram_0/embsys_lmb_bram_0_in_context.xdc] for cell 'EMBSYS/microblaze_0_local_memory/lmb_bram'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_gpio_1_0/embsys_axi_gpio_1_0/embsys_axi_gpio_1_0_in_context.xdc] for cell 'EMBSYS/axi_gpio_1'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_gpio_1_0/embsys_axi_gpio_1_0/embsys_axi_gpio_1_0_in_context.xdc] for cell 'EMBSYS/axi_gpio_1'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_timer_1_0/embsys_axi_timer_1_0/embsys_axi_timer_1_0_in_context.xdc] for cell 'EMBSYS/axi_timer_1'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_timer_1_0/embsys_axi_timer_1_0/embsys_axi_timer_1_0_in_context.xdc] for cell 'EMBSYS/axi_timer_1'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_timebase_wdt_0_0/embsys_axi_timebase_wdt_0_0/embsys_axi_timebase_wdt_0_0_in_context.xdc] for cell 'EMBSYS/axi_timebase_wdt_0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_timebase_wdt_0_0/embsys_axi_timebase_wdt_0_0/embsys_axi_timebase_wdt_0_0_in_context.xdc] for cell 'EMBSYS/axi_timebase_wdt_0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_gpio_2_0/embsys_axi_gpio_2_0/embsys_axi_gpio_2_0_in_context.xdc] for cell 'EMBSYS/axi_gpio_2'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_gpio_2_0/embsys_axi_gpio_2_0/embsys_axi_gpio_2_0_in_context.xdc] for cell 'EMBSYS/axi_gpio_2'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_motor_measure_control_0_0/embsys_motor_measure_control_0_0/embsys_motor_measure_control_0_0_in_context.xdc] for cell 'EMBSYS/motor_measure_control_0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_motor_measure_control_0_0/embsys_motor_measure_control_0_0/embsys_motor_measure_control_0_0_in_context.xdc] for cell 'EMBSYS/motor_measure_control_0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_uartlite_1_0/embsys_axi_uartlite_1_0/embsys_axi_uartlite_1_0_in_context.xdc] for cell 'EMBSYS/axi_uartlite_1'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_uartlite_1_0/embsys_axi_uartlite_1_0/embsys_axi_uartlite_1_0_in_context.xdc] for cell 'EMBSYS/axi_uartlite_1'
+Parsing XDC File [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/constrs_1/imports/constraints/nexysA7fpga.xdc]
+Finished Parsing XDC File [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/constrs_1/imports/constraints/nexysA7fpga.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/constrs_1/imports/constraints/nexysA7fpga.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/nexysA7fpga_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/nexysA7fpga_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Parsing XDC File [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/dont_touch.xdc]
+Finished Parsing XDC File [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/dont_touch.xdc]
+Completed Processing XDC Constraints
+
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 16 instances were transformed.
+  IOBUF => IOBUF (IBUF, OBUFT): 16 instances
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.021 . Memory (MB): peak = 885.914 ; gain = 0.000
+WARNING: [Timing 38-316] Clock period '20.000' specified during out-of-context synthesis of instance 'EMBSYS/microblaze_0_local_memory/lmb_bram' at clock pin 'clka' is different from the actual clock period '10.000', this can lead to different synthesis results.
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 885.914 ; gain = 523.113
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a100tcsg324-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 885.914 ; gain = 523.113
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+Applied set_property IO_BUFFER_TYPE = NONE for clk. (constraint file  d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_clk_wiz_1_0/embsys_clk_wiz_1_0/embsys_clk_wiz_1_0_in_context.xdc, line 5).
+Applied set_property CLOCK_BUFFER_TYPE = NONE for clk. (constraint file  d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_clk_wiz_1_0/embsys_clk_wiz_1_0/embsys_clk_wiz_1_0_in_context.xdc, line 6).
+Applied set_property DONT_TOUCH = true for EMBSYS. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for EMBSYS/microblaze_0. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for EMBSYS/nexys4IO_0. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for EMBSYS/PmodENC_0. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for EMBSYS/PmodOLEDrgb_0. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for EMBSYS/axi_gpio_0. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for EMBSYS/axi_timer_0. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for EMBSYS/axi_uartlite_0. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for EMBSYS/microblaze_0_axi_periph. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for EMBSYS/microblaze_0_axi_intc. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for EMBSYS/microblaze_0_xlconcat. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for EMBSYS/mdm_1. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for EMBSYS/clk_wiz_1. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for EMBSYS/rst_clk_wiz_1_100M. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for EMBSYS/microblaze_0_axi_periph/xbar. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for EMBSYS/microblaze_0_local_memory/dlmb_v10. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for EMBSYS/microblaze_0_local_memory/ilmb_v10. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for EMBSYS/microblaze_0_local_memory/dlmb_bram_if_cntlr. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for EMBSYS/microblaze_0_local_memory/ilmb_bram_if_cntlr. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for EMBSYS/microblaze_0_local_memory/lmb_bram. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for EMBSYS/axi_gpio_1. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for EMBSYS/axi_timer_1. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for EMBSYS/axi_timebase_wdt_0. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for EMBSYS/axi_gpio_2. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for EMBSYS/motor_measure_control_0. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for EMBSYS/axi_uartlite_1. (constraint file  auto generated constraint, line ).
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 885.914 ; gain = 523.113
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5545] ROM "db_count" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "shift_pb0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5544] ROM "pbtn_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "pbtn_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "pbtn_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "pbtn_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "pbtn_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "pbtn_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/PmodENC_decode.sv:43]
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:17 ; elapsed = 00:00:19 . Memory (MB): peak = 885.914 ; gain = 523.113
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 11    
+	   2 Input      8 Bit       Adders := 1     
++---Registers : 
+	               32 Bit    Registers := 14    
+	               16 Bit    Registers := 2     
+	                8 Bit    Registers := 4     
+	                6 Bit    Registers := 2     
+	                4 Bit    Registers := 44    
+	                2 Bit    Registers := 3     
+	                1 Bit    Registers := 5     
++---Multipliers : 
+	                 8x32  Multipliers := 3     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 11    
+	   4 Input     32 Bit        Muxes := 9     
+	   2 Input      2 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 15    
+	   4 Input      1 Bit        Muxes := 12    
+	   3 Input      1 Bit        Muxes := 44    
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module PWDET 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 3     
++---Registers : 
+	               32 Bit    Registers := 4     
+	                8 Bit    Registers := 1     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 1     
++---Multipliers : 
+	                 8x32  Multipliers := 1     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 3     
+	   4 Input     32 Bit        Muxes := 3     
+	   2 Input      1 Bit        Muxes := 4     
+	   4 Input      1 Bit        Muxes := 4     
+Module debounce 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 1     
++---Registers : 
+	               32 Bit    Registers := 1     
+	               16 Bit    Registers := 1     
+	                6 Bit    Registers := 1     
+	                4 Bit    Registers := 22    
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 1     
+	   3 Input      1 Bit        Muxes := 22    
+Module PmodENC_decode 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      8 Bit       Adders := 1     
++---Registers : 
+	                8 Bit    Registers := 1     
+	                1 Bit    Registers := 2     
++---Muxes : 
+	   2 Input      2 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 240 (col length:80)
+BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+Warning: Parallel synthesis criteria is not met 
+WARNING: [Synth 8-6014] Unused sequential element debouncer_PmodENC/shift_swtch0_reg was removed.  [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:85]
+WARNING: [Synth 8-6014] Unused sequential element debouncer_PmodENC/shift_swtch1_reg was removed.  [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:86]
+WARNING: [Synth 8-6014] Unused sequential element debouncer_PmodENC/shift_swtch2_reg was removed.  [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:87]
+WARNING: [Synth 8-6014] Unused sequential element debouncer_PmodENC/shift_swtch3_reg was removed.  [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:88]
+WARNING: [Synth 8-6014] Unused sequential element debouncer_PmodENC/shift_swtch4_reg was removed.  [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:89]
+WARNING: [Synth 8-6014] Unused sequential element debouncer_PmodENC/shift_swtch5_reg was removed.  [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:90]
+WARNING: [Synth 8-6014] Unused sequential element debouncer_PmodENC/shift_swtch6_reg was removed.  [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:91]
+WARNING: [Synth 8-6014] Unused sequential element debouncer_PmodENC/shift_swtch7_reg was removed.  [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:92]
+WARNING: [Synth 8-6014] Unused sequential element debouncer_PmodENC/shift_swtch8_reg was removed.  [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:93]
+WARNING: [Synth 8-6014] Unused sequential element debouncer_PmodENC/shift_swtch9_reg was removed.  [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:94]
+WARNING: [Synth 8-6014] Unused sequential element debouncer_PmodENC/shift_swtch10_reg was removed.  [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:95]
+WARNING: [Synth 8-6014] Unused sequential element debouncer_PmodENC/shift_swtch11_reg was removed.  [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:96]
+WARNING: [Synth 8-6014] Unused sequential element debouncer_PmodENC/shift_swtch12_reg was removed.  [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:97]
+WARNING: [Synth 8-6014] Unused sequential element debouncer_PmodENC/shift_swtch13_reg was removed.  [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:98]
+WARNING: [Synth 8-6014] Unused sequential element debouncer_PmodENC/shift_swtch14_reg was removed.  [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:99]
+WARNING: [Synth 8-6014] Unused sequential element debouncer_PmodENC/shift_swtch15_reg was removed.  [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:100]
+WARNING: [Synth 8-6014] Unused sequential element debouncer_PmodENC/swtch_db_reg was removed.  [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/new/debounce.v:112]
+INFO: [Synth 8-5544] ROM "debouncer/swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "debouncer/swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "debouncer/swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "debouncer/swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "debouncer/swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "debouncer/swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "debouncer/swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "debouncer/swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "debouncer/swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "debouncer/swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "debouncer/swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "debouncer/swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "debouncer/swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "debouncer/swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "debouncer/swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "debouncer/swtch_db" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5545] ROM "debouncer/db_count" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "debouncer/shift_pb0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "debouncer_PmodENC/db_count" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "debouncer_PmodENC/shift_pb0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+WARNING: [Synth 8-3917] design nexysA7fpga has port JD[7] driven by constant 0
+WARNING: [Synth 8-3917] design nexysA7fpga has port JD[6] driven by constant 0
+WARNING: [Synth 8-3917] design nexysA7fpga has port JD[5] driven by constant 0
+WARNING: [Synth 8-3917] design nexysA7fpga has port JD[4] driven by constant 0
+WARNING: [Synth 8-3917] design nexysA7fpga has port JD[3] driven by constant 0
+WARNING: [Synth 8-3917] design nexysA7fpga has port JD[2] driven by constant 0
+WARNING: [Synth 8-3917] design nexysA7fpga has port JD[1] driven by constant 0
+WARNING: [Synth 8-3917] design nexysA7fpga has port JD[0] driven by constant 0
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M00_ACLK
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M00_ARESETN
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M01_ACLK
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M01_ARESETN
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M02_ACLK
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M02_ARESETN
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M03_ACLK
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M03_ARESETN
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M04_ACLK
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M04_ARESETN
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M05_ACLK
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M05_ARESETN
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M06_ACLK
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M06_ARESETN
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M07_ACLK
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M07_ARESETN
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M08_ACLK
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M08_ARESETN
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M09_ACLK
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M09_ARESETN
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M10_ACLK
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M10_ARESETN
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M11_ACLK
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M11_ARESETN
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M12_ACLK
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M12_ARESETN
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M13_ACLK
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M13_ARESETN
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M14_ACLK
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port M14_ARESETN
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port S00_ACLK
+WARNING: [Synth 8-3331] design embsys_microblaze_0_axi_periph_0 has unconnected port S00_ARESETN
+WARNING: [Synth 8-3331] design nexysA7fpga has unconnected port JA[7]
+INFO: [Common 17-14] Message 'Synth 8-3331' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+WARNING: [Synth 8-3332] Sequential element (state_reg[31]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[30]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[29]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[28]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[27]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[26]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[25]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[24]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[23]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[22]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[21]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[20]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[19]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[18]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[17]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[16]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[15]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[14]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[13]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[12]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[11]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[10]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[9]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[8]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[7]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[6]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[5]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[4]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[3]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[2]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[1]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (state_reg[0]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (sync_signal_tmp_reg[1]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (sync_signal_tmp_reg[0]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (last_signal_reg) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[31]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[30]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[29]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[28]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[27]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[26]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[25]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[24]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[23]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[22]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[21]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[20]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[19]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[18]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[17]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[16]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[15]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[14]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[13]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[12]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[11]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[10]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[9]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[8]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[7]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[6]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[5]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[4]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[3]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[2]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[1]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_low_reg[0]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[31]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[30]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[29]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[28]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[27]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[26]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[25]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[24]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[23]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[22]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[21]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[20]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[19]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[18]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[17]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[16]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[15]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[14]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[13]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[12]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[11]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[10]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[9]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[8]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[7]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[6]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[5]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[4]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[3]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[2]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[1]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (count_high_reg[0]) is unused and will be removed from module PWDET.
+WARNING: [Synth 8-3332] Sequential element (result_add_reg[31]) is unused and will be removed from module PWDET.
+INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:19 ; elapsed = 00:00:21 . Memory (MB): peak = 885.914 ; gain = 523.113
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5578] Moved timing constraint from pin 'EMBSYS/mdm_1/Dbg_Clk_0' to pin 'EMBSYS/mdm_1/bbstub_Dbg_Clk_0/O'
+INFO: [Synth 8-5578] Moved timing constraint from pin 'EMBSYS/mdm_1/Dbg_Update_0' to pin 'EMBSYS/mdm_1/bbstub_Dbg_Update_0/O'
+INFO: [Synth 8-5578] Moved timing constraint from pin 'EMBSYS/clk_wiz_1/clk_out1' to pin 'EMBSYS/clk_wiz_1/bbstub_clk_out1/O'
+INFO: [Synth 8-5578] Moved timing constraint from pin 'EMBSYS/clk_wiz_1/clk_out2' to pin 'EMBSYS/clk_wiz_1/bbstub_clk_out2/O'
+INFO: [Synth 8-5578] Moved timing constraint from pin 'EMBSYS/clk_wiz_1/clk_out3' to pin 'EMBSYS/clk_wiz_1/bbstub_clk_out3/O'
+INFO: [Synth 8-5578] Moved timing constraint from pin 'EMBSYS/microblaze_0_local_memory/dlmb_bram_if_cntlr/BRAM_Clk_A' to pin 'EMBSYS/microblaze_0_local_memory/dlmb_bram_if_cntlr/bbstub_BRAM_Clk_A/O'
+INFO: [Synth 8-5578] Moved timing constraint from pin 'EMBSYS/microblaze_0_local_memory/ilmb_bram_if_cntlr/BRAM_Clk_A' to pin 'EMBSYS/microblaze_0_local_memory/ilmb_bram_if_cntlr/bbstub_BRAM_Clk_A/O'
+INFO: [Synth 8-5819] Moved 7 constraints on hierarchical pins to their respective driving/loading pins
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:27 ; elapsed = 00:00:30 . Memory (MB): peak = 885.914 ; gain = 523.113
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:28 ; elapsed = 00:00:31 . Memory (MB): peak = 889.574 ; gain = 526.773
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5816] Retiming module `embsys_microblaze_0_axi_periph_0`
+	Effective logic levels is 0, the effective logic levels of whole design is 4
+	Skipping retiming for this module
+
+INFO: [Synth 8-5816] Retiming module `embsys_microblaze_0_axi_periph_0' done
+
+
+INFO: [Synth 8-5816] Retiming module `embsys`
+	Effective logic levels is 0, the effective logic levels of whole design is 4
+	Skipping retiming for this module
+
+INFO: [Synth 8-5816] Retiming module `embsys' done
+
+
+INFO: [Synth 8-5816] Retiming module `nexysA7fpga`
+	Effective logic levels on critical path before retiming is: 4
+	Total number of crtical paths = 760
+
+	Optimizing at the module level
+	Cannot find a feasible solution:
+		Worst path is a self-loop from debouncer/db_count_reg[31] to debouncer/db_count_reg[31]
+	Optimizing locally to improve critical paths(may not reduce worst delay)
+
+	Effective logic levels on critical path after retiming is: 4
+	Total number of crtical paths = 760
+	Numbers of forward move = 0, and backward move = 0
+
+
+INFO: [Synth 8-5816] Retiming module `nexysA7fpga' done
+
+
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:28 ; elapsed = 00:00:31 . Memory (MB): peak = 898.195 ; gain = 535.395
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_buttons_tri_i[15] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_buttons_tri_i[14] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_buttons_tri_i[13] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_buttons_tri_i[12] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_buttons_tri_i[9] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_buttons_tri_i[8] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_buttons_tri_i[7] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_buttons_tri_i[6] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_buttons_tri_i[5] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[31] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[30] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[29] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[28] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[27] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[26] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[25] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[24] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[23] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[22] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[21] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[20] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[19] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[18] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[17] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[16] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[15] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[14] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[13] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[12] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[11] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[10] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[9] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[8] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[7] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[6] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[5] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[4] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[3] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[2] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[1] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin EMBSYS:gpio_hb3_RPM_tri_i[0] to constant 0
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:29 ; elapsed = 00:00:32 . Memory (MB): peak = 898.195 ; gain = 535.395
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:29 ; elapsed = 00:00:32 . Memory (MB): peak = 898.195 ; gain = 535.395
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:29 ; elapsed = 00:00:32 . Memory (MB): peak = 898.195 ; gain = 535.395
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:29 ; elapsed = 00:00:32 . Memory (MB): peak = 898.195 ; gain = 535.395
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:29 ; elapsed = 00:00:32 . Memory (MB): peak = 898.195 ; gain = 535.395
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:29 ; elapsed = 00:00:32 . Memory (MB): peak = 898.195 ; gain = 535.395
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++------+---------------------------------+----------+
+|      |BlackBox name                    |Instances |
++------+---------------------------------+----------+
+|1     |embsys_xbar_0                    |         1|
+|2     |embsys_PmodENC_0_0               |         1|
+|3     |embsys_PmodOLEDrgb_0_0           |         1|
+|4     |embsys_axi_gpio_0_0              |         1|
+|5     |embsys_axi_gpio_1_0              |         1|
+|6     |embsys_axi_gpio_2_0              |         1|
+|7     |embsys_axi_timebase_wdt_0_0      |         1|
+|8     |embsys_axi_timer_0_0             |         1|
+|9     |embsys_axi_timer_1_0             |         1|
+|10    |embsys_axi_uartlite_0_0          |         1|
+|11    |embsys_axi_uartlite_1_0          |         1|
+|12    |embsys_clk_wiz_1_0               |         1|
+|13    |embsys_mdm_1_0                   |         1|
+|14    |embsys_microblaze_0_0            |         1|
+|15    |embsys_microblaze_0_axi_intc_0   |         1|
+|16    |embsys_microblaze_0_xlconcat_0   |         1|
+|17    |embsys_motor_measure_control_0_0 |         1|
+|18    |embsys_nexys4IO_0_0              |         1|
+|19    |embsys_rst_clk_wiz_1_100M_0      |         1|
+|20    |embsys_dlmb_bram_if_cntlr_0      |         1|
+|21    |embsys_dlmb_v10_0                |         1|
+|22    |embsys_ilmb_bram_if_cntlr_0      |         1|
+|23    |embsys_ilmb_v10_0                |         1|
+|24    |embsys_lmb_bram_0                |         1|
++------+---------------------------------+----------+
+
+Report Cell Usage: 
++------+---------------------------------+------+
+|      |Cell                             |Count |
++------+---------------------------------+------+
+|1     |embsys_PmodENC_0_0               |     1|
+|2     |embsys_PmodOLEDrgb_0_0           |     1|
+|3     |embsys_axi_gpio_0_0              |     1|
+|4     |embsys_axi_gpio_1_0              |     1|
+|5     |embsys_axi_gpio_2_0              |     1|
+|6     |embsys_axi_timebase_wdt_0_0      |     1|
+|7     |embsys_axi_timer_0_0             |     1|
+|8     |embsys_axi_timer_1_0             |     1|
+|9     |embsys_axi_uartlite_0_0          |     1|
+|10    |embsys_axi_uartlite_1_0          |     1|
+|11    |embsys_clk_wiz_1_0               |     1|
+|12    |embsys_dlmb_bram_if_cntlr_0      |     1|
+|13    |embsys_dlmb_v10_0                |     1|
+|14    |embsys_ilmb_bram_if_cntlr_0      |     1|
+|15    |embsys_ilmb_v10_0                |     1|
+|16    |embsys_lmb_bram_0                |     1|
+|17    |embsys_mdm_1_0                   |     1|
+|18    |embsys_microblaze_0_0            |     1|
+|19    |embsys_microblaze_0_axi_intc_0   |     1|
+|20    |embsys_microblaze_0_xlconcat_0   |     1|
+|21    |embsys_motor_measure_control_0_0 |     1|
+|22    |embsys_nexys4IO_0_0              |     1|
+|23    |embsys_rst_clk_wiz_1_100M_0      |     1|
+|24    |embsys_xbar_0                    |     1|
+|25    |CARRY4                           |    16|
+|26    |LUT1                             |     4|
+|27    |LUT3                             |     2|
+|28    |LUT4                             |    12|
+|29    |LUT5                             |    36|
+|30    |LUT6                             |     4|
+|31    |FDCE                             |     8|
+|32    |FDPE                             |     2|
+|33    |FDRE                             |   189|
+|34    |IBUF                             |    25|
+|35    |IOBUF                            |    16|
+|36    |OBUF                             |    50|
++------+---------------------------------+------+
+
+Report Instance Areas: 
++------+------------------------------+--------------------------------------+------+
+|      |Instance                      |Module                                |Cells |
++------+------------------------------+--------------------------------------+------+
+|1     |top                           |                                      |  3601|
+|2     |  EMBSYS                      |embsys                                |  3237|
+|3     |    microblaze_0_axi_periph   |embsys_microblaze_0_axi_periph_0      |  1706|
+|4     |    microblaze_0_local_memory |microblaze_0_local_memory_imp_1SR2TDT |   496|
+|5     |  debouncer                   |debounce                              |   176|
+|6     |  debouncer_PmodENC           |debounce_0                            |    75|
+|7     |  rotation_decoder            |PmodENC_decode                        |    22|
++------+------------------------------+--------------------------------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:29 ; elapsed = 00:00:32 . Memory (MB): peak = 898.195 ; gain = 535.395
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 287 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:15 ; elapsed = 00:00:22 . Memory (MB): peak = 898.195 ; gain = 175.855
+Synthesis Optimization Complete : Time (s): cpu = 00:00:29 ; elapsed = 00:00:32 . Memory (MB): peak = 898.195 ; gain = 535.395
+INFO: [Project 1-571] Translating synthesized netlist
+INFO: [Netlist 29-17] Analyzing 57 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-140] Inserted 1 IBUFs to IO ports without IO buffers.
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 16 instances were transformed.
+  IOBUF => IOBUF (IBUF, OBUFT): 16 instances
+
+INFO: [Common 17-83] Releasing license: Synthesis
+200 Infos, 348 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:32 ; elapsed = 00:00:36 . Memory (MB): peak = 898.195 ; gain = 543.113
+WARNING: [Constraints 18-5210] No constraint will be written out.
+INFO: [Common 17-1381] The checkpoint 'D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/synth_1/nexysA7fpga.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file nexysA7fpga_utilization_synth.rpt -pb nexysA7fpga_utilization_synth.pb
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.047 . Memory (MB): peak = 898.195 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Sun Jun  7 12:30:33 2020...

@@ -1,0 +1,1767 @@
+/*
+ * [Intro]
+ *
+ * ECE544 - Project POV
+ * Thong Doan & Abhiraj Eksambekar
+ * ==================================================
+ * [Descriptions]
+ *
+ * This application maintains a motor's speed using PID control feedback
+ * ==================================================
+ * [Notes]
+ *
+ * (New hardware export)
+ * - Add following line to xparameters.h to enable usleep and/or timing-related functions
+ *   #define XSLEEP_TIMER_IS_DEFAULT_TIMER
+ * - Change address for Nexys4 IO in xparameters.h
+ * - Eclipse settings: line number, spaces for tabs
+ * - Speed up OLEDrgb drawing:
+ *   >>> freertos10_xilinx_bsp_0/microblaze_0/libsrc/PmodOLEDrgb_v1_0/src/PmodOLEDrgb.c
+ *   >>> function "OLEDrgb_DrawBitmap": reduce sleeping time at the end of function
+ * - linker-script: change Stack size to 0x300
+ *
+ * (Misc.)
+ * - Use vTaskDelay for sleeping (thread-safe)
+ * - Task priority: the smaller the number, the lower priority of the task
+ * - 100 system-ticks are roughly equal 1 second
+ * - If SW[1:0]/SW[5:4] == 'b11 --> +- 20
+ * - OLEDrgb_SetColor(x, y, z): x, y, x = B, R, G
+ */
+
+// ==================================================
+// LIBRARIES
+// ==================================================
+
+// Common
+#include "ctype.h"
+#include "math.h"
+
+// Kernels
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "timers.h"
+#include "semphr.h"
+
+// BSP includes
+#include "xtmrctr.h"
+#include "xgpio.h"
+#include "sleep.h"
+#include "xwdttb.h"
+#include "nexys4IO.h"
+#include "PmodOLEDrgb.h"
+#include "PmodENC.h"
+#include "xuartlite.h"
+#include "xuartlite_l.h"
+
+// ==================================================
+// DEFINES
+// ==================================================
+
+// GPIO
+#define GPIO_SET_TO_OUTPUT      0U                              // value to set a GPIO port as output
+#define GPIO_SET_TO_INPUT       0xFFFFU                         // value to set a GPIO port as input
+#define GPIO_DEVICE_ID_LED      XPAR_AXI_GPIO_0_DEVICE_ID       // device ID of GPIO LED
+#define GPIO_DEVICE_ID_BTN_SW   XPAR_AXI_GPIO_1_DEVICE_ID       // device ID of GPIO buttons & switches
+#define MASK_BTN_UP				0x4								// mask for btn UP
+#define MASK_BTN_DOWN			0x8								// mask for btn DOWN
+#define MASK_BTN_CENTER			0x10							// mask for btn CENTER
+
+// WDT
+#define WDT_DEVICE_ID       XPAR_AXI_TIMEBASE_WDT_0_DEVICE_ID   // device ID of WDT
+#define MASK_FORCE_CRASH    0x8000                              // mask for force-crash, SW[15]
+
+// Nexys4 IO
+#define NX4IO_BASEADDR      XPAR_NEXYS4IO_0_S00_AXI_BASEADDR    // base address of Nexys4 IO device
+
+// PmodOLEDrgb
+#define RGBDSPLY_GPIO_BASEADDR  XPAR_PMODOLEDRGB_0_AXI_LITE_GPIO_BASEADDR
+#define RGBDSPLY_GPIO_HIGHADDR  XPAR_PMODOLEDRGB_0_AXI_LITE_GPIO_HIGHADD
+#define RGBDSPLY_SPI_BASEADDR   XPAR_PMODOLEDRGB_0_AXI_LITE_SPI_BASEADDR
+#define RGBDSPLY_SPI_HIGHADDR   XPAR_PMODOLEDRGB_0_AXI_LITE_SPI_HIGHADDR
+
+// PmodENC
+#define PMODENC_BASEADDR        XPAR_PMODENC_0_AXI_LITE_GPIO_BASEADDR
+#define SHIFT_PMODENC_STATE		16				// shift amount to retrieve state data
+#define PMODENC_STATE_THRESHOLD	20				// max distance between any two state
+
+// Motor
+#define MOTOR_BASEADDR			XPAR_MOTOR_MEASURE_CONTROL_0_S00_AXI_BASEADDR
+#define MOTOR_REG_ID_DC			0				// register offset of duty cycle
+#define MOTOR_REG_ID_PULSES		4				// register offset of pulses counted
+#define MOTOR_REG_ID_DIR		8				// register offset of direction
+#define MOTOR_PULSE_PERIOD_MS	100				// counting pulse period, in ms
+#define MASK_MOTOR_GAIN         0x0003          // mask for motor speed gain, SW[1:0]
+#define SHIFT_MOTOR_GAIN        0               // shift amount for motor speed gain, SW[1:0]
+#define MOTOR_RPM_MIN			0				// min RPM
+#define MOTOR_RPM_MAX			9999			// max RPM
+#define MOTOR_DC_MIN			0				// min number representing 0% duty cycle
+#define MOTOR_DC_MAX			255				// max number representing 100% duty cycle
+
+// PID
+#define MASK_PID_GAIN           0x0030          // mask for PID constant gain, SW[5:4]
+#define SHIFT_PID_GAIN          4               // shift amount for PID constant gain, SW[5:4]
+#define MASK_PID_SELECT         0x000C          // mask for PID selected constant, SW[3:2]
+#define SHIFT_PID_SELECT        2               // shift amount for PID selected constant, SW[3:2]
+#define PID_CONSTANT_MAX		10000.0F		// max value for a PID constant
+#define PID_CONSTANT_MIN		0.0F			// min value for a PID constant
+#define PID_OFFSET				30.0f			// RPM offset used in the PID control
+#define PID_SAMPLE_PERIOD_TICKS	30				// sampling period in system ticks
+
+// AXI TIMER 1
+#define AXI_TIMER_1_DEVICE_ID	XPAR_AXI_TIMER_1_DEVICE_ID
+#define AXI_TIMER_1_BASEADDR	XPAR_AXI_TIMER_1_BASEADDR
+#define AXI_TIMER_1_TICK_COUNT	1							// to achieve 40KHz (100MHz / 40KHz = 2500)
+
+// UART to NodeMCU
+#define UART_DEVICE_ID			XPAR_AXI_UARTLITE_1_DEVICE_ID
+#define UART_BAUD_RATE			115200
+#define UART_BUFF_RECEIVE_MAX	2048							// max size of the receive buffer
+
+// MISC.
+#define SEMAPHORE_MAX_COUNT		0xFFFFFFFF		// max count for counting-semaphore
+#define QUEUE_MAX_STATES		20				// max states to store in the queues
+
+// ==================================================
+// MACROS
+// ==================================================
+
+/*
+ * Get absolute value of x
+ */
+#define abs(x) ( (x)>0 ? (x) : -(x) )
+
+/*
+ * Get min between 2 given number
+ */
+#define min(x, y) ( (x) < (y) ? (x) : (y))
+
+/*
+ * Get max between 2 given number
+ */
+#define max(x, y) ( (x) < (y) ? (y) : (x))
+
+// ==================================================
+// STRUCTS
+// ==================================================
+
+// struct for holding system settings
+typedef struct {
+
+    // Motor
+    int motor_gain;             // SW[1:0] | current gain when adjusting motor speed: +- 1/5/10
+    int motor_RPM_curr;         //         | current motor RPM
+    int motor_RPM_target;       // KNOB    | target motor RPM
+    int motor_PWM;              //         | current PWM that drives the motor
+    int motor_DIR;              // ENC SW  | direction for the motor: 1 (clockwise) or 0 (counter-clockwise)
+
+    // PID control
+    int PID_gain;               // SW[5:4] | current gain when adjusting PID constants (Kp, Ki, Kd): +- 1/5/10
+    int PID_constants[3];       // UP/DOWN | hold the 3 constants Kp(0), Ki(1), Kd(2)
+    int PID_selected;           // SW[3:2] | current selected constant to be adjusted: 01(Kp), 10(Ki), 11(Kd)
+
+    // Force crash control
+    bool is_forced_crash;       // SW[15]  | turn on/off forced-crash
+    bool is_crash_happened;     //         | flag whether a flag just just happens
+    int WDT_timeout_count;      //         | count number of times WDT interrupt happens
+
+    // ENC
+    int enc_state_last;			// store last read state of PmodENC
+
+} SETTINGS_T;
+
+// struct for PID control
+typedef struct {
+	float derPrevError;		// Last error
+	float integratAccum;	// Integrator accumulation
+	float integratGain;		// integral gain
+	float propGain;			// proportional gain
+	float derGain;			// derivative gain
+	float offset;			// PID offset
+} PID_T;
+
+// struct for a POV message
+typedef struct {
+	int length;							// length of the message
+	char msg[UART_BUFF_RECEIVE_MAX];	// the message
+} pov_msg_t;
+
+// struct for POV info
+typedef struct {
+	int user_choice;	// 0: text, 1: clock
+	int hour;			// clock's hour
+	int min;			// clock's minute
+	int sec;			// clock's second
+	pov_msg_t text;		// user's text
+} pov_info_t;
+
+// ==================================================
+// GLOBAL VARIABLES
+// ==================================================
+
+// Instances
+XGpio gpio_inst_led;            // GPIO for the LEDs
+XGpio gpio_inst_btn_sw;         // GPIO for the buttons & sws
+XWdtTb wdt_inst;                // the WDT instance
+PmodOLEDrgb pmodOLEDrgb_inst;   // the PmodOLEDrgb instance
+PmodENC pmodENC_inst;           // the PmodENC instance
+XTmrCtr axi_timer_1_inst;		// the AXI Timer 1 instance
+XUartLite uart_nodemcu_inst;	// the UART interface to the NodeMCU
+
+// System
+SETTINGS_T sys_settings;        // hold all system settings
+
+// Task related
+xSemaphoreHandle sem_input;		// semaphore notifying new inputs available
+xSemaphoreHandle sem_display;	// semaphore notifying the display should be updated
+xSemaphoreHandle sem_WDT;		// semaphore notifying if WDT expired
+
+// POV
+pov_info_t pov_info;			// store all POV information
+
+// Misc.
+u32 tmp_global = 0;             // temporary global variable
+XWdtTb WatchdogTimebase;
+
+// ==================================================
+// FUNC DECLARATIONS
+// ==================================================
+
+// Project 02
+int main_proj02();
+int main_debug();
+static XStatus init_platform();
+void msleep(u32);
+int ENC_getSwitch(PmodENC*);
+enum _NX4IO_charcodes getSSEGCharcode(int);
+void settings_print();
+void settings_reset();
+void settings_update_from_switches();
+void settings_update_from_ENC();
+void settings_update_from_buttons();
+void settings_display_OLEDrgb();
+int settings_get_gain(u16, u16, u32);
+bool settings_check_refresh_display(SETTINGS_T*);
+void thread_master(void*);
+void thread_input(void*);
+void thread_display(void*);
+void thread_PID(void*);
+void thread_debug(void*);
+void thread_debug_RPM_listing(void*);
+void thread_debug_02(void*);
+static void interrupt_handler_GPIO(void*);
+static void interrupt_handler_WDT(void*);
+void motor_setDir(bool);
+void motor_setDutyCycle(int);
+int motor_getPulses();
+int motor_getRPM();
+void PID_setup(PID_T*);
+float PID_update_02(PID_T*, float, float);
+
+// Project 01
+void PMDIO_itoa(int32_t value, char *string, int32_t radix);
+void PMDIO_puthex(PmodOLEDrgb* InstancePtr, uint32_t num);
+void PMDIO_putnum(PmodOLEDrgb* InstancePtr, int32_t num, int32_t radix);
+
+// Project POV
+int main_POV();
+void thread_debug_UART(void*);
+void thread_POV_main(void* p_data);
+void uart_send(char* buff_start, int n_bytes_to_send);
+int uart_receive(char* buff_receiving, int data_size);
+void pov_msg_send(pov_msg_t* p_msg);
+
+// ==================================================
+// FUNC DEFINITIONS
+// ==================================================
+
+/****************************************************************************/
+/*
+ * Main entry to this program. A master-thread will be created later in main.
+ */
+int main(){
+
+	return main_POV();
+//	return main_proj02();
+
+}
+
+/****************************************************************************/
+/*
+ * Main entry used for debugging.
+ */
+int main_debug(){
+
+	// create thread & start scheduler
+	xil_printf("Create debug-thread\n");
+	xTaskCreate(
+			thread_debug_UART,
+			"Debug_Thread",
+			1024,
+			NULL,
+			1,
+			NULL
+			);
+	vTaskStartScheduler();
+
+	return 0;
+}
+
+/****************************************************************************/
+/*
+ * Main entry to Project 02. A master-thread will be created later.
+ */
+int main_proj02(){
+    // declarations
+    XStatus xStatus;        // operation status, for checking error
+
+    // announcement
+    xil_printf("==================================================\n");
+    xil_printf("ECE544 - Project 02\n");
+    xil_printf("by Thong & Abhiraj\n");
+    xil_printf("==================================================\n\n");
+
+    // init semaphores
+    sem_input = xSemaphoreCreateCounting(SEMAPHORE_MAX_COUNT, 0);
+	sem_display = xSemaphoreCreateCounting(SEMAPHORE_MAX_COUNT, 0);
+//	sem_WDT = xSemaphoreCreateCounting(SEMAPHORE_MAX_COUNT, 0);
+
+    // setup hardware
+    xStatus = init_platform();
+    if( xStatus != XST_SUCCESS )
+    {
+        xil_printf("ERROR: init platform\r\n");
+        return xStatus;
+    }
+
+    // reset settings
+    settings_reset();
+
+    // create master-thread
+    xTaskCreate(
+        thread_master,
+        (const char *) "Master_Thread",
+        1024,
+        NULL,
+        4,
+        NULL
+    );
+
+    // start scheduler
+    xil_printf("Start task scheduler\n");
+    vTaskStartScheduler();
+
+    return 0;
+}
+
+/****************************************************************************/
+/*
+ * [THREAD] Master thread to handle Watch-Dog Timer & keep system up
+ */
+void thread_master(void* p_data){
+
+    // create display-thread
+    xTaskCreate(
+        thread_display,
+        (const char *) "Display_Thread",
+        1024,
+        NULL,
+        2,
+        NULL
+    );
+
+    // create input-thread
+    xTaskCreate(
+        thread_input,
+        (const char *) "Input_Thread",
+        1024,
+        NULL,
+        3,
+        NULL
+    );
+
+    // create PID-thread
+    xTaskCreate(
+        thread_PID,
+        (const char *) "PID_Thread",
+        1024,
+        NULL,
+        2,
+        NULL
+    );
+
+    // initial display
+    xSemaphoreGive(sem_display);
+
+    // start WDT
+    XWdtTb_Start(&wdt_inst);
+
+    while (1){
+
+//    	// restart WDT if NOT "force-crash"
+//    	if (XWdtTb_IsWdtExpired(&wdt_inst) && !sys_settings.is_forced_crash){
+//    		xil_printf("WDT restarted\n");
+//    		XWdtTb_RestartWdt(&wdt_inst);
+//    	}
+
+    	// delay some time before checking WDT again
+    	vTaskDelay(500);
+    }
+
+    // safely end task, if reached
+    vTaskDelete(NULL);
+}
+
+/****************************************************************************/
+/*
+ * [THREAD] Input thread to handle inputs
+ */
+void thread_input(void* p_data){
+
+	// declarations
+	SETTINGS_T org_settings;			// hold old value of system settings
+
+	// initial ENC state
+	sys_settings.enc_state_last = XGpio_DiscreteRead(&gpio_inst_btn_sw, 1) >> SHIFT_PMODENC_STATE;
+
+    while (1){
+    	// wait for semaphore notification
+    	if (!xSemaphoreTake(sem_input, 500)){
+    		continue;
+    	}
+    	xil_printf("[INPUT] Semaphore received\n");
+
+    	// copy current settings for determining refreshing later
+    	org_settings = sys_settings;
+
+        // update settings based on switches
+        settings_update_from_switches();
+
+        // update settings based on buttons
+        settings_update_from_buttons();
+
+        // update RPM target
+        settings_update_from_ENC();
+
+        // refresh display if settings is changed
+        if(settings_check_refresh_display(&org_settings)){
+        	xSemaphoreGive(sem_display);
+        }
+
+//        // notify master-thread if "force-crash" is changed
+//        if(org_settings.is_forced_crash != sys_settings.is_forced_crash){
+//        	xSemaphoreGive(sem_WDT);
+//        }
+    }
+
+    // safely end task, if reached
+    vTaskDelete(NULL);
+}
+
+/****************************************************************************/
+/*
+ * [THREAD] Display thread to handle system's visualization
+ */
+void thread_display(void* p_data){
+
+    // declarations
+    u16 led_value;				// store LED value
+    u16 sseg_value;     		// store 7-Segs value
+    int digit, remain;  		// for calculating 7-Segs values
+
+    while (1){
+    	// keep updating until the semaphore is no more
+    	if (!xSemaphoreTake(sem_display, 500)){
+    		continue;
+    	}
+//    	xil_printf("[DISPLAY] Semaphore received\n");
+
+        // write settings to console for debug
+//		settings_print();
+
+        /*
+         * construct LED value by:
+         * 1/ map from PID constant select to LED values
+         * 		-1 = 0
+         * 		0 = 1
+         * 		1 = 2
+         * 		2 = 4
+         * 2/ force-crash bit at LED[15]
+         */
+        led_value = (sys_settings.PID_selected != 2 ? sys_settings.PID_selected + 1 : 4) & 0x0007;
+        led_value = (sys_settings.is_forced_crash << 15) | led_value;
+
+        // construct 7-Segs
+        remain = sys_settings.motor_RPM_target;
+        sseg_value = 0;
+        for (int i=1000; i>0; i=i/10){
+            digit = remain / i;
+            remain = remain % i;
+            sseg_value = (sseg_value << 4) | digit;
+        }
+
+        // update LED
+        XGpio_DiscreteWrite(&gpio_inst_led, 1, led_value);
+
+        // update 7-Segs
+        NX4IO_SSEG_putU16Hex(SSEGLO, sseg_value);
+
+        // update OLEDrgb
+        settings_display_OLEDrgb();
+        msleep(1);
+    }
+
+    // safely end task, if reached
+    vTaskDelete(NULL);
+}
+
+/****************************************************************************/
+/*
+ * [THREAD] PID thread to control motor
+ */
+void thread_PID(void* p_data){
+
+	// declarations
+	int RPM;
+	int sample_period_ticks = PID_SAMPLE_PERIOD_TICKS;
+	float sum = 0;
+	float readings = 0;
+	float avg;
+	TickType_t time_last = xTaskGetTickCount();
+	TickType_t time_now;
+	PID_T pid;
+
+	// setup PID
+	pid.integratAccum = 0;
+	pid.derPrevError = 0;
+	pid.offset = PID_OFFSET;
+
+	while (1){
+
+		// restart WDT if NOT "force-crash"
+		if (XWdtTb_IsWdtExpired(&wdt_inst) && !sys_settings.is_forced_crash){
+			xil_printf("[PID] WDT restarted\n");
+			XWdtTb_RestartWdt(&wdt_inst);
+		}
+
+		// do nothing if target RPM is zero
+		if (sys_settings.motor_RPM_target <= 0){
+			motor_setDutyCycle(0);
+			motor_setDir(sys_settings.motor_DIR);
+			continue;
+		}
+
+		// scale PID constants
+		pid.propGain = sys_settings.PID_constants[0] / PID_CONSTANT_MAX;
+		pid.integratGain = sys_settings.PID_constants[1] / PID_CONSTANT_MAX;
+		pid.derGain = sys_settings.PID_constants[2] / PID_CONSTANT_MAX;
+
+		// average RPM
+		RPM = motor_getRPM();
+		sum += RPM;
+		readings++;
+		avg = sum / readings;
+
+		// update DC after some delay
+		time_now = xTaskGetTickCount();
+		if (time_now - time_last >= sample_period_ticks){
+
+			// report & reset RPM sample timing
+			sys_settings.motor_RPM_curr = (int)avg;
+			xil_printf("%d, %d, %d\n", sys_settings.motor_PWM, sys_settings.motor_RPM_curr, sys_settings.motor_RPM_target);
+			time_last = time_now;
+			sum = 0;
+			readings = 0;
+
+			// update display
+			xSemaphoreGive(sem_display);
+
+			// update DC
+			sys_settings.motor_PWM = (int)PID_update_02(&pid, sys_settings.motor_RPM_curr, sys_settings.motor_RPM_target);
+			sys_settings.motor_PWM = min(sys_settings.motor_PWM, MOTOR_DC_MAX);
+			sys_settings.motor_PWM = max(sys_settings.motor_PWM, MOTOR_DC_MIN);
+		}
+
+		// drive motor
+		motor_setDutyCycle(sys_settings.motor_PWM);
+	}
+
+	// stop motor
+	motor_setDutyCycle(0);
+
+	// safely delete task
+	vTaskDelete(NULL);
+}
+
+/****************************************************************************/
+/*
+ * [THREAD] Thread used for debugging stuffs
+*/
+void thread_debug(void* p_data){
+
+	int dc = 0;
+	int RPM;
+	float sum = 0;
+	float readings = 0;
+	float avg;
+	TickType_t time_last = xTaskGetTickCount();
+	TickType_t time_now;
+
+	while (1){
+
+		// update DC after 2 seconds
+		time_now = xTaskGetTickCount();
+		if (time_now - time_last >= 200){
+
+			// report before changing duty cycle
+			xil_printf("%d, %d\n", dc, (int)avg);
+
+//			// stop if try all 100%
+//			if (dc >= 255){
+//				break;
+//			}
+//
+//			dc += 1;
+
+			// reset timing
+			time_last = time_now;
+			sum = 0;
+			readings = 0;
+		}
+
+		// drive motor
+		motor_setDir(1);
+		motor_setDutyCycle(255);
+
+		// average RPM
+		RPM = motor_getRPM();
+		sum += RPM;
+		readings++;
+		avg = sum / readings;
+	}
+
+	// stop motor
+	motor_setDutyCycle(0);
+
+	// safely delete task
+	vTaskDelete(NULL);
+}
+
+/****************************************************************************/
+/*
+ * [THREAD] Thread used for listing all the RPM according to the duty cycle
+*/
+void thread_debug_RPM_listing(void* p_data){
+
+	int dc = 0;
+	int RPM;
+	float sum = 0;
+	float readings = 0;
+	float avg;
+	TickType_t time_last = xTaskGetTickCount();
+	TickType_t time_now;
+
+	while (1){
+
+		// update DC after 2 seconds
+		time_now = xTaskGetTickCount();
+		if (time_now - time_last >= 400){
+
+			// report before changing duty cycle
+			xil_printf("%d, %d\n", dc, (int)avg);
+
+			// stop if try all 100%
+			if (dc >= 255){
+				break;
+			}
+
+			dc += 1;
+			time_last = time_now;
+			sum = 0;
+			readings = 0;
+		}
+
+		// drive motor
+		motor_setDir(1);
+		motor_setDutyCycle(dc);
+
+		// average & report
+		RPM = motor_getRPM();
+		sum += RPM;
+		readings++;
+		avg = sum / readings;
+	}
+
+	// stop motor
+	motor_setDutyCycle(0);
+
+	// safely delete task
+	vTaskDelete(NULL);
+}
+
+/****************************************************************************/
+/*
+ * [THREAD] Thread used for debugging PID control
+ */
+void thread_debug_02(void* p_data){
+	int dc = 0;
+	int RPM;
+	int RPM_set;
+	int sample_period_ticks = 30;
+	float sum = 0;
+	float readings = 0;
+	float avg;
+	float tmp_P, tmp_I, tmp_D, tmp_offset, tmp_RPM_set;
+	TickType_t time_last = xTaskGetTickCount();
+	TickType_t time_now;
+	PID_T pid;
+
+	// setup PID
+	tmp_I = 0;
+	pid.integratAccum = 0;
+	pid.integratGain = 1.0f/10.0f;
+	pid.integratGain = 0;
+
+	tmp_D = 0;
+	pid.derPrevError = 0;
+	pid.derGain = 1.0f/15.0f;
+	pid.derGain = 0;
+
+	tmp_P = 0;
+	pid.propGain = 1.0f/25.0f;
+
+	tmp_offset = PID_OFFSET;
+	tmp_RPM_set = 4000;
+
+	// setup input
+	XGpio_Initialize(&gpio_inst_btn_sw, GPIO_DEVICE_ID_BTN_SW);
+	settings_reset();
+
+	while (1){
+
+		// debug: break here & adjust constants
+		pid.propGain = tmp_P / 1000.0f;
+		pid.integratGain = tmp_I / 1000.0f;
+		pid.derGain = tmp_D / 1000.0f;
+		pid.offset = tmp_offset;
+		RPM_set = tmp_RPM_set;
+
+		// average
+		RPM = motor_getRPM();
+		sum += RPM;
+		readings++;
+		avg = sum / readings;
+
+		// update DC after 2 seconds
+		time_now = xTaskGetTickCount();
+		if (time_now - time_last >= sample_period_ticks){
+			xil_printf("%d, %d, %d\n", dc, (int)avg, RPM_set);
+			time_last = time_now;
+
+			dc = (int)PID_update_02(&pid, avg, RPM_set);
+			dc = min(dc, 255);
+			dc = max(dc, 0);
+
+			sum = 0;
+			readings = 0;
+		}
+
+		// drive motor
+		motor_setDir(1);
+		motor_setDutyCycle(dc);
+
+	}
+
+	// stop motor
+	motor_setDutyCycle(0);
+
+	// safely delete task
+	vTaskDelete(NULL);
+}
+
+/****************************************************************************/
+/*
+ * Set up hardware
+ */
+static XStatus init_platform(){
+
+    // declarations
+    XStatus xStatus;                // operation status, for checking error
+    u32 led_val;                    // values to set to the LEDs
+    u32 ctlsts;						// control register for the AXI Timer 1
+
+    // ------------------------------
+    // GPIO LED
+    // ------------------------------
+
+    xil_printf("Initializing GPIO: LEDs\r\n");
+
+    // initialize & return if error
+    xStatus = XGpio_Initialize( &gpio_inst_led, XPAR_AXI_GPIO_0_DEVICE_ID );
+    if( xStatus != XST_SUCCESS )
+    {
+        xil_printf("ERROR: init GPIO LED\r\n");
+        return xStatus;
+    }
+
+    // set LEDs as output port
+    XGpio_SetDataDirection( &gpio_inst_led, 1, GPIO_SET_TO_OUTPUT);
+
+    // self-check
+    xil_printf("\tCheck that LEDs work\r\n");
+    led_val = 1;
+    for (int i=0; i<32; i++){
+        XGpio_DiscreteWrite( &gpio_inst_led, 1, led_val );
+        led_val = i<16 ? led_val * 2 : led_val / 2;
+        usleep(20000);
+    }
+    XGpio_DiscreteWrite( &gpio_inst_led, 1, 0 );
+
+
+    // ------------------------------
+    // GPIO btns & switches
+    // ------------------------------
+
+    xil_printf("Initializing GPIO: buttons & switches\r\n");
+
+    // initialize & return if error
+    xStatus = XGpio_Initialize( &gpio_inst_btn_sw, GPIO_DEVICE_ID_BTN_SW );
+    if( xStatus != XST_SUCCESS )
+    {
+        xil_printf("ERROR: init GPIO buttons & switches\r\n");
+        return xStatus;
+    }
+
+    // set as input port for: buttons (1) and switches (2)
+    XGpio_SetDataDirection(&gpio_inst_btn_sw, 1, GPIO_SET_TO_INPUT);
+    XGpio_SetDataDirection(&gpio_inst_btn_sw, 2, GPIO_SET_TO_INPUT);
+
+    // setup interrupt handler
+    xStatus = xPortInstallInterruptHandler( XPAR_MICROBLAZE_0_AXI_INTC_AXI_GPIO_1_IP2INTC_IRPT_INTR, interrupt_handler_GPIO, NULL );
+    if( xStatus != pdPASS )
+    {
+        xil_printf("ERROR: setup interrupt handler for GPIO buttons & switches\r\n");
+        return xStatus;
+    }
+
+    // enable interrupt in GPIO & AXI Interrupt Controller
+    XGpio_InterruptEnable( &gpio_inst_btn_sw, 1 );
+    XGpio_InterruptEnable( &gpio_inst_btn_sw, 2 );
+    XGpio_InterruptGlobalEnable( &gpio_inst_btn_sw );
+    vPortEnableInterrupt( XPAR_MICROBLAZE_0_AXI_INTC_AXI_GPIO_1_IP2INTC_IRPT_INTR );
+
+
+    // ------------------------------
+    // Nexys4 IO
+    // ------------------------------
+
+    xil_printf("Initializing NX4IO\n");
+
+    // initialize & return if error
+    xStatus = NX4IO_initialize(NX4IO_BASEADDR);
+    if (xStatus != XST_SUCCESS)
+    {
+        xil_printf("ERROR: setup NX4IO\n");
+        return XST_FAILURE;
+    }
+
+    // check & reset 7 segs
+    for (int i=0; i<6; i++){
+        if (i%2 == 0){
+            NX410_SSEG_setAllDigits(SSEGHI, CC_8, CC_8, CC_8, CC_8, DP_ALL);
+            NX410_SSEG_setAllDigits(SSEGLO, CC_8, CC_8, CC_8, CC_8, DP_ALL);
+        } else {
+            NX410_SSEG_setAllDigits(SSEGHI, CC_BLANK, CC_BLANK, CC_BLANK, CC_BLANK, DP_NONE);
+            NX410_SSEG_setAllDigits(SSEGLO, CC_BLANK, CC_BLANK, CC_BLANK, CC_BLANK, DP_NONE);
+        }
+        msleep(150);
+    }
+    NX410_SSEG_setAllDigits(SSEGHI, CC_BLANK, CC_BLANK, CC_BLANK, CC_BLANK, DP_NONE);
+    NX410_SSEG_setAllDigits(SSEGLO, CC_BLANK, CC_BLANK, CC_BLANK, CC_BLANK, DP_NONE);
+
+
+    // ------------------------------
+    // OledRGB
+    // ------------------------------
+
+    xil_printf("Initializing PmodOLEDrgb\n");
+
+    // init
+    OLEDrgb_begin(&pmodOLEDrgb_inst, RGBDSPLY_GPIO_BASEADDR, RGBDSPLY_SPI_BASEADDR);
+
+    // check & reset OLEDrgb
+    for (int i=0; i<6; i++){
+        if (i%2 == 0) {
+            OLEDrgb_DrawRectangle(&pmodOLEDrgb_inst, 0, 0, 95, 63, OLEDrgb_BuildRGB(0, 150, 150), 1, OLEDrgb_BuildRGB(0, 150, 150));
+        } else {
+            OLEDrgb_Clear(&pmodOLEDrgb_inst);
+        }
+        msleep(150);
+    }
+    OLEDrgb_Clear(&pmodOLEDrgb_inst);
+
+
+    // ------------------------------
+    // PmodENC
+    // ------------------------------
+
+    xil_printf("Initializing PmodENC\n");
+
+    // initialize the pmodENC and hardware
+    ENC_begin(&pmodENC_inst, PMODENC_BASEADDR);
+
+
+	// ------------------------------
+	// AXI Timer 1 (Nexys4IO)
+	// ------------------------------
+
+    xil_printf("Initializing AXI Timer 1 for Nexys4IO\n");
+
+    // Init timer 1 instance
+	xStatus = XTmrCtr_Initialize(&axi_timer_1_inst, AXI_TIMER_1_DEVICE_ID);
+	if (xStatus != XST_SUCCESS) {
+		xil_printf("ERROR: init instance AXI Timer 1\n");
+		return XST_FAILURE;
+	}
+	xStatus = XTmrCtr_SelfTest(&axi_timer_1_inst, 0);
+	if (xStatus != XST_SUCCESS) {
+		xil_printf("ERROR: self-test AXI Timer 1\n");
+		return XST_FAILURE;
+	}
+
+    // Set timer 1: auto reload, external generate, load timer using value in load-register, count-down mode
+	ctlsts = XTC_CSR_AUTO_RELOAD_MASK | XTC_CSR_EXT_GENERATE_MASK | XTC_CSR_LOAD_MASK |XTC_CSR_DOWN_COUNT_MASK ;
+	XTmrCtr_SetControlStatusReg(AXI_TIMER_1_BASEADDR, 0, ctlsts);
+
+	// Set the value that is loaded into the timer counter and cause it to be loaded into the timer counter
+	XTmrCtr_SetLoadReg(AXI_TIMER_1_BASEADDR, 0, AXI_TIMER_1_TICK_COUNT);
+	XTmrCtr_LoadTimerCounterReg(AXI_TIMER_1_BASEADDR, 0);
+
+	// Turn off load-bit (LOAD1) to allow the timer to run
+	ctlsts = XTmrCtr_GetControlStatusReg(AXI_TIMER_1_BASEADDR, 0);
+	ctlsts &= (~XTC_CSR_LOAD_MASK);
+	XTmrCtr_SetControlStatusReg(AXI_TIMER_1_BASEADDR, 0, ctlsts);
+
+	// Enable timer 1
+	ctlsts = XTmrCtr_GetControlStatusReg(AXI_TIMER_1_BASEADDR, 0);
+	ctlsts |= XTC_CSR_ENABLE_TMR_MASK;
+	XTmrCtr_SetControlStatusReg(AXI_TIMER_1_BASEADDR, 0, ctlsts);
+	XTmrCtr_Enable(AXI_TIMER_1_BASEADDR, 0);
+
+	// Used to test if AXI Timer 1 works
+    NX4IO_RGBLED_setChnlEn(RGB1, TRUE, TRUE, TRUE);
+    NX4IO_RGBLED_setDutyCycle(RGB1, 0, 0, 255);
+
+	// ------------------------------
+	// UARTLite to NodeMCU
+	// ------------------------------
+	xil_printf("Initializing UARTLite to NodeMCU\n");
+
+	// initialize the UartLite driver
+	xStatus = XUartLite_Initialize(&uart_nodemcu_inst, UART_DEVICE_ID);
+	if (xStatus != XST_SUCCESS) {
+		xil_printf("ERROR: init instance UARTLite\n");
+		return XST_FAILURE;
+	}
+
+	// self-test
+	xStatus = XUartLite_SelfTest(&uart_nodemcu_inst);
+	if (xStatus != XST_SUCCESS) {
+		xil_printf("ERROR: self-test UARTLite\n");
+		return XST_FAILURE;
+	}
+
+    return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/*
+ * Reset the whole system settings
+ */
+void settings_reset(){
+
+    // WDT settings
+    sys_settings.is_crash_happened = false;
+    sys_settings.WDT_timeout_count = 0;
+
+    // motor settings
+    sys_settings.motor_PWM = 0;
+    sys_settings.motor_RPM_target = 0;
+    sys_settings.motor_RPM_curr = 0;
+
+    // PID settings
+    sys_settings.PID_constants[0] = 0;
+    sys_settings.PID_constants[1] = 0;
+    sys_settings.PID_constants[2] = 0;
+
+    // reset based on Switches input
+    settings_update_from_switches();
+}
+
+/****************************************************************************/
+/*
+ * Update settings based on switches inputs
+ */
+void settings_update_from_switches(){
+
+    // declarations
+    u16 SW_status;
+
+    // read inputs
+    SW_status = XGpio_DiscreteRead(&gpio_inst_btn_sw, 2);
+
+    // WDT
+    sys_settings.is_forced_crash = SW_status & MASK_FORCE_CRASH;
+
+    // motor settings
+    sys_settings.motor_gain = settings_get_gain(SW_status, MASK_MOTOR_GAIN, SHIFT_MOTOR_GAIN);
+    sys_settings.motor_DIR = !ENC_getSwitch(&pmodENC_inst);
+
+    // PID settings
+    sys_settings.PID_gain = settings_get_gain(SW_status, MASK_PID_GAIN, SHIFT_PID_GAIN);
+    sys_settings.PID_selected = ((SW_status & MASK_PID_SELECT) >> SHIFT_PID_SELECT) - 1;
+}
+
+/****************************************************************************/
+/*
+ * Update settings based on ENC inputs
+ */
+void settings_update_from_ENC(){
+
+	// declarations
+	volatile int enc_state;				// current state of the PmodENC
+	int enc_state_distance;				// distance between two states
+
+	// read current ENC pos
+	enc_state = XGpio_DiscreteRead(&gpio_inst_btn_sw, 1) >> SHIFT_PMODENC_STATE;
+
+	// check case ENC pos is wrap around: from 0 down to 255 or from 255 up to 0
+	enc_state_distance = enc_state - sys_settings.enc_state_last;
+	if (abs(enc_state_distance) > PMODENC_STATE_THRESHOLD){
+		enc_state_distance = -enc_state_distance;
+	}
+
+	// check rotation & adjust target RPM
+	if (enc_state_distance > 0){
+		sys_settings.motor_RPM_target -= sys_settings.motor_gain * 10;
+	} else if (enc_state_distance < 0){
+		sys_settings.motor_RPM_target += sys_settings.motor_gain * 10;
+	}
+
+	// prevent target RPM from wrap around
+	sys_settings.motor_RPM_target = min(sys_settings.motor_RPM_target, MOTOR_RPM_MAX);
+	sys_settings.motor_RPM_target = max(sys_settings.motor_RPM_target, MOTOR_RPM_MIN);
+
+	// update last ENC state
+	sys_settings.enc_state_last = enc_state;
+}
+
+/****************************************************************************/
+/*
+ * Print settings to console
+ */
+void settings_print(){
+    xil_printf("[SETTINGS]===============================\n");
+
+    xil_printf("Motor:\n");
+    xil_printf("motor_DIR=%d\n", sys_settings.motor_DIR);
+    xil_printf("motor_PWM=%d\n", sys_settings.motor_PWM);
+    xil_printf("motor_RPM_curr=%d\n", sys_settings.motor_RPM_curr);
+    xil_printf("motor_RPM_target=%d\n", sys_settings.motor_RPM_target);
+    xil_printf("motor_gain=%d\n", sys_settings.motor_gain);
+
+    xil_printf("PID:\n");
+    xil_printf("PID_gain=%d\n", sys_settings.PID_gain);
+    xil_printf("PID_selected=%d\n", sys_settings.PID_selected);
+    for (int i=0; i<3; i++){
+        xil_printf("constant[%d]=%d\n", i, sys_settings.PID_constants[i]);
+    }
+
+    xil_printf("WDT:\n");
+    xil_printf("is_crash_happened=%d\n", sys_settings.is_crash_happened);
+    xil_printf("is_forced_crash=%d\n", sys_settings.is_forced_crash);
+    xil_printf("WDT_timeout_count=%d\n", sys_settings.WDT_timeout_count);
+
+    xil_printf("=========================================\n");
+}
+
+/****************************************************************************/
+/*
+ * Display settings on the OledRGB
+ */
+void settings_display_OLEDrgb(){
+
+	// declarations
+	const char PID_chars[] = "PID";
+
+	// clear
+	OLEDrgb_Clear(&pmodOLEDrgb_inst);
+
+	// PID selected
+	if (sys_settings.PID_selected >= 0 && sys_settings.PID_selected <= 2){
+//		// arrow
+//		OLEDrgb_SetFontColor(&pmodOLEDrgb_inst, OLEDrgb_BuildRGB(5, 5, 5));
+//		OLEDrgb_SetCursor(&pmodOLEDrgb_inst, 5, sys_settings.PID_selected);
+//		OLEDrgb_PutString(&pmodOLEDrgb_inst, "<");
+
+		// highlight
+		OLEDrgb_DrawRectangle(&pmodOLEDrgb_inst, 0, sys_settings.PID_selected * 8, 63, sys_settings.PID_selected * 8 + 7, OLEDrgb_BuildRGB(255, 0, 0), 1, OLEDrgb_BuildRGB(255, 0, 0));
+	}
+
+	// PID constants
+	for (int i=0; i<3; i++){
+		if (sys_settings.PID_selected == i) {
+			OLEDrgb_SetFontBkColor(&pmodOLEDrgb_inst, OLEDrgb_BuildRGB(0, 255, 0));
+			OLEDrgb_SetFontColor(&pmodOLEDrgb_inst, OLEDrgb_BuildRGB(255, 255, 255));
+		} else {
+			OLEDrgb_SetFontBkColor(&pmodOLEDrgb_inst, OLEDrgb_BuildRGB(0, 0, 0));
+			OLEDrgb_SetFontColor(&pmodOLEDrgb_inst, OLEDrgb_BuildRGB(255, 255, 255));
+		}
+		OLEDrgb_SetCursor(&pmodOLEDrgb_inst, 0, i);
+		OLEDrgb_PutChar(&pmodOLEDrgb_inst, PID_chars[i]);
+		OLEDrgb_PutChar(&pmodOLEDrgb_inst, ':');
+		PMDIO_putnum(&pmodOLEDrgb_inst, sys_settings.PID_constants[i], 10);
+	}
+
+	/* font to WHITE, background to BLACK */
+	OLEDrgb_SetFontBkColor(&pmodOLEDrgb_inst, OLEDrgb_BuildRGB(0, 0, 0));
+	OLEDrgb_SetFontColor(&pmodOLEDrgb_inst, OLEDrgb_BuildRGB(255, 255, 255));
+
+	// PID gain
+	OLEDrgb_SetCursor(&pmodOLEDrgb_inst, 0, 3);
+	OLEDrgb_PutString(&pmodOLEDrgb_inst, "+:");
+	PMDIO_putnum(&pmodOLEDrgb_inst, sys_settings.PID_gain, 10);
+
+	// motor RPM current
+	OLEDrgb_SetCursor(&pmodOLEDrgb_inst, 0, 5);
+	OLEDrgb_PutString(&pmodOLEDrgb_inst, "now:");
+	PMDIO_putnum(&pmodOLEDrgb_inst, sys_settings.motor_RPM_curr, 10);
+
+	// motor RPM target
+	OLEDrgb_SetCursor(&pmodOLEDrgb_inst, 0, 6);
+	OLEDrgb_PutString(&pmodOLEDrgb_inst, "set:");
+	PMDIO_putnum(&pmodOLEDrgb_inst, sys_settings.motor_RPM_target, 10);
+
+	// motor speed gain
+	OLEDrgb_SetCursor(&pmodOLEDrgb_inst, 0, 7);
+	OLEDrgb_PutString(&pmodOLEDrgb_inst, "+  :");
+	PMDIO_putnum(&pmodOLEDrgb_inst, sys_settings.motor_gain, 10);
+
+	/* font to BLUE, background to BLACK */
+	OLEDrgb_SetFontBkColor(&pmodOLEDrgb_inst, OLEDrgb_BuildRGB(0, 0, 0));
+	OLEDrgb_SetFontColor(&pmodOLEDrgb_inst, OLEDrgb_BuildRGB(255, 0, 0));
+
+	// motor direction
+	OLEDrgb_SetCursor(&pmodOLEDrgb_inst, 9, 5);
+	if (sys_settings.motor_DIR == 0){
+		OLEDrgb_PutString(&pmodOLEDrgb_inst, ">>>");
+	} else {
+		OLEDrgb_PutString(&pmodOLEDrgb_inst, "<<<");
+	}
+
+	/* font to RED, background to BLACK */
+	OLEDrgb_SetFontBkColor(&pmodOLEDrgb_inst, OLEDrgb_BuildRGB(0, 0, 0));
+	OLEDrgb_SetFontColor(&pmodOLEDrgb_inst, OLEDrgb_BuildRGB(0, 255, 0));
+
+	// force-crash
+	OLEDrgb_SetCursor(&pmodOLEDrgb_inst, 9, 0);
+	if (sys_settings.is_forced_crash){
+		OLEDrgb_PutString(&pmodOLEDrgb_inst, "!!!");
+	}
+
+}
+
+/****************************************************************************/
+/*
+ * Determine gain based on the given SW status, masking and shift amount.
+ * Could be used for motor-gain & PID-gain
+ */
+int settings_get_gain(u16 SW, u16 gain_mask, u32 gain_shift){
+
+    // mask
+    switch ((SW & gain_mask) >> gain_shift){
+    case 0:
+        return 1;
+    case 1:
+        return 5;
+    case 2:
+        return 10;
+    }
+
+    // increase by 20 if else
+    return 20;
+}
+
+/****************************************************************************/
+/*
+ * Update settings from buttons, including: PID constants & reset (center button).
+ */
+void settings_update_from_buttons(){
+
+	// declarations
+	u32 btn_data;		// button data from GPIO
+
+
+
+	// read buttons
+	btn_data = XGpio_DiscreteRead(&gpio_inst_btn_sw, 1);
+
+	// adjust PID constant & wrap around
+	if (sys_settings.PID_selected >= 0 && sys_settings.PID_selected <= 2){
+		if (btn_data & MASK_BTN_UP) {
+			sys_settings.PID_constants[sys_settings.PID_selected] += sys_settings.PID_gain;
+		} else if (btn_data & MASK_BTN_DOWN) {
+			sys_settings.PID_constants[sys_settings.PID_selected] -= sys_settings.PID_gain;
+		}
+		sys_settings.PID_constants[sys_settings.PID_selected] =
+				sys_settings.PID_constants[sys_settings.PID_selected] > PID_CONSTANT_MAX ? PID_CONSTANT_MIN :
+						(sys_settings.PID_constants[sys_settings.PID_selected] < PID_CONSTANT_MIN ? PID_CONSTANT_MAX :
+								sys_settings.PID_constants[sys_settings.PID_selected]);
+	}
+
+	// reset according to center button
+	if (btn_data & MASK_BTN_CENTER) {
+		xil_printf("Center is pressed\n");
+		sys_settings.motor_RPM_target = 0;
+		if (!sys_settings.PID_constants[0]) {
+			sys_settings.PID_constants[0] = 300;
+		}
+		if (!sys_settings.PID_constants[1]) {
+			sys_settings.PID_constants[1] = 50;
+		}
+		if (!sys_settings.PID_constants[2]) {
+			sys_settings.PID_constants[2] = 1;
+		}
+	}
+}
+
+/****************************************************************************/
+/*
+ * Check if the display needs to be refreshed.
+ * By comparing the current settings with the given (previous) settings.
+ * Return TRUE (need) or FALSE (NOT need)
+ */
+bool settings_check_refresh_display(SETTINGS_T *p_settings){
+
+	if (
+			(sys_settings.PID_gain			!= p_settings->PID_gain)
+			| (sys_settings.PID_selected		!= p_settings->PID_selected)
+
+			| (sys_settings.motor_DIR 		!= p_settings->motor_DIR)
+			| (sys_settings.motor_PWM 		!= p_settings->motor_PWM)
+			| (sys_settings.motor_RPM_curr	!= p_settings->motor_RPM_curr)
+			| (sys_settings.motor_RPM_target	!= p_settings->motor_RPM_target)
+			| (sys_settings.motor_gain		!= p_settings->motor_gain)
+
+			| (sys_settings.WDT_timeout_count	!= p_settings->WDT_timeout_count)
+			| (sys_settings.is_crash_happened	!= p_settings->is_crash_happened)
+			| (sys_settings.is_forced_crash		!= p_settings->is_forced_crash)
+			){
+		return true;
+	}
+
+	for (int i=0; i<3; i++){
+		if (sys_settings.PID_constants[i] != p_settings->PID_constants[i]){
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/****************************************************************************/
+/*
+ * Get state of the ENC switch: 0(down) & 1(up) (if the SW is on the right of the knob)
+ */
+int ENC_getSwitch(PmodENC* p_inst){
+    return (ENC_getState(p_inst) & 0x8) >> 3;
+}
+
+/****************************************************************************/
+/*
+ * Retrieve the corresponding SSEG char-code with the given digit [0..9]
+ */
+enum _NX4IO_charcodes getSSEGCharcode(int digit){
+    switch (digit) {
+        case 0: return CC_0;
+        case 1: return CC_1;
+        case 2: return CC_2;
+        case 3: return CC_3;
+        case 4: return CC_4;
+        case 5: return CC_5;
+        case 6: return CC_6;
+        case 7: return CC_7;
+        case 8: return CC_8;
+        case 9: return CC_9;
+    }
+
+    return CC_BLANK;
+}
+
+/****************************************************************************/
+/*
+ * Sleep the system within the given milliseconds
+ */
+void msleep(u32 msec){
+    usleep(msec * 1000);
+}
+
+/****************************************************************************/
+/*
+ * Interrupt handler for the GPIO: buttons & switches
+ */
+static void interrupt_handler_GPIO(void* p_data){
+//    xil_printf("interrupt_handler_GPIO is called\n");
+
+    // let input-thread know via input-semaphore
+    xSemaphoreGiveFromISR(sem_input, NULL);
+
+    // clear interrupt: 3 means clear both channels buttons & switches
+    XGpio_InterruptClear( &gpio_inst_btn_sw, 3 );
+}
+
+/****************************************************************************/
+/*
+ * Interrupt handler for the WDT
+ */
+static void interrupt_handler_WDT(void* p_data){
+    xil_printf("interrupt_handler_WDT is called\n");
+
+//    // notify master-thread
+//    xSemaphoreGive(sem_WDT);
+
+//    XWdtTb_RestartWdt(&WatchdogTimebase);
+//    tmp_global++;
+//    xil_printf("Restart in interrupt %d\n", tmp_global);
+}
+
+/****************************************************************************/
+/*
+ * Set duty cycle for the motor
+ */
+void motor_setDutyCycle(int dc){
+	Xil_Out32(MOTOR_BASEADDR + MOTOR_REG_ID_DC, dc);
+}
+
+/****************************************************************************/
+/*
+ * Set direction for the motor
+ */
+void motor_setDir(bool is_clockwise){
+	Xil_Out32(MOTOR_BASEADDR + MOTOR_REG_ID_DIR, is_clockwise);
+}
+
+/****************************************************************************/
+/*
+ * Get pulses counted so far
+ */
+int motor_getPulses(){
+	return Xil_In32(MOTOR_BASEADDR + MOTOR_REG_ID_PULSES);
+}
+
+/****************************************************************************/
+/*
+ * Get motor's RPM
+ */
+int motor_getRPM(){
+
+	// get pulses
+	int pulses = motor_getPulses();
+
+	// convert to RPM
+	float RPS = (float)pulses * (1000.0f / (float)MOTOR_PULSE_PERIOD_MS) / 12.0f;
+	int RPM = (int) (RPS * 60.0f);
+
+	return RPM;
+}
+
+/****************************************************************************/
+/*
+ * Update duty cycle using PID feedback loop algorithm
+ */
+float PID_update_02(PID_T* pid, float RPM_now, float RPM_set){
+	// declarations
+	float pTerm, dTerm, iTerm;		// PID terms
+	float error;					// error = target - current
+	float pid_val;					// final pid value
+
+	// calculate error
+	error = RPM_set - RPM_now;
+
+	/*****/
+	/* P */
+	/*****/
+
+	pTerm = pid->propGain * error;
+
+	/*****/
+	/* I */
+	/*****/
+
+	// calculate the integral state with appropriate limiting
+	pid->integratAccum += error;
+	if (error >= RPM_set/10.0f) {
+		pid->integratAccum = 0;
+	}
+
+	// calculate the integral term
+	iTerm = pid->integratGain * pid->integratAccum;
+
+	/*****/
+	/* D */
+	/*****/
+
+	dTerm = pid->derGain * (error - pid->derPrevError);
+	pid->derPrevError = error;
+
+	// calculate pid
+	pid_val = pTerm + dTerm + iTerm + pid->offset;
+
+	return pid_val;
+}
+
+/****************************************************************************/
+/*
+ * Set up the given PID structure
+ */
+void PID_setup(PID_T* pid){
+
+}
+
+/****************************************************************************/
+// PROJECT 01 FUNCTIONS
+/****************************************************************************/
+
+/****************************************************************************/
+/**
+* Converts an integer to ASCII characters
+*
+* algorithm borrowed from ReactOS system libraries
+*
+* Converts an integer to ASCII in the specified base.  Assumes string[] is
+* long enough to hold the result plus the terminating null
+*
+* @param 	value is the integer to convert
+* @param 	*string is a pointer to a buffer large enough to hold the converted number plus
+*  			the terminating null
+* @param	radix is the base to use in conversion,
+*
+* @return  *NONE*
+*
+* @note
+* No size check is done on the return string size.  Make sure you leave room
+* for the full string plus the terminating null in string
+*****************************************************************************/
+void PMDIO_itoa(int32_t value, char *string, int32_t radix)
+{
+	char tmp[33];
+	char *tp = tmp;
+	int32_t i;
+	uint32_t v;
+	int32_t  sign;
+	char *sp;
+
+	if (radix > 36 || radix <= 1)
+	{
+		return;
+	}
+
+	sign = ((10 == radix) && (value < 0));
+	if (sign)
+	{
+		v = -value;
+	}
+	else
+	{
+		v = (uint32_t) value;
+	}
+
+  	while (v || tp == tmp)
+  	{
+		i = v % radix;
+		v = v / radix;
+		if (i < 10)
+		{
+			*tp++ = i+'0';
+		}
+		else
+		{
+			*tp++ = i + 'a' - 10;
+		}
+	}
+	sp = string;
+
+	if (sign)
+		*sp++ = '-';
+
+	while (tp > tmp)
+		*sp++ = *--tp;
+	*sp = 0;
+
+  	return;
+}
+
+/****************************************************************************/
+/**
+* Write a 32-bit unsigned hex number to PmodOLEDrgb in Hex
+*
+* Writes  32-bit unsigned number to the pmodOLEDrgb display starting at the current
+* cursor position.
+*
+* @param num is the number to display as a hex value
+*
+* @return  *NONE*
+*
+* @note
+* No size checking is done to make sure the string will fit into a single line,
+* or the entire display, for that matter.  Watch your string sizes.
+*****************************************************************************/
+void PMDIO_puthex(PmodOLEDrgb* InstancePtr, uint32_t num)
+{
+  char  buf[9];
+  int32_t   cnt;
+  char  *ptr;
+  int32_t  digit;
+
+  ptr = buf;
+  for (cnt = 7; cnt >= 0; cnt--) {
+    digit = (num >> (cnt * 4)) & 0xF;
+
+    if (digit <= 9)
+	{
+      *ptr++ = (char) ('0' + digit);
+	}
+    else
+	{
+      *ptr++ = (char) ('a' - 10 + digit);
+	}
+  }
+
+  *ptr = (char) 0;
+  OLEDrgb_PutString(InstancePtr,buf);
+
+  return;
+}
+
+/****************************************************************************/
+/**
+* Write a 32-bit number in Radix "radix" to LCD display
+*
+* Writes a 32-bit number to the LCD display starting at the current
+* cursor position. "radix" is the base to output the number in.
+*
+* @param num is the number to display
+*
+* @param radix is the radix to display number in
+*
+* @return *NONE*
+*
+* @note
+* No size checking is done to make sure the string will fit into a single line,
+* or the entire display, for that matter.  Watch your string sizes.
+*****************************************************************************/
+void PMDIO_putnum(PmodOLEDrgb* InstancePtr, int32_t num, int32_t radix)
+{
+  char  buf[16];
+
+  PMDIO_itoa(num, buf, radix);
+  OLEDrgb_PutString(InstancePtr,buf);
+
+  return;
+}
+
+/****************************************************************************/
+// PROJECT POV FUNCTIONS
+/****************************************************************************/
+
+/****************************************************************************/
+/*
+ * Main entry used for POV project.
+ */
+int main_POV(){
+
+	XStatus xStatus;
+
+	// init platform
+	xStatus = init_platform();
+	if (xStatus != XST_SUCCESS){
+		xil_printf("ERROR: failed to init flatform.");
+		return -1;
+	}
+
+	// create thread & start scheduler
+	xil_printf("Create POV-main-thread\n");
+	xTaskCreate(
+			thread_POV_main,
+			"POV_Main",
+			1024,
+			NULL,
+			1,
+			NULL
+			);
+	vTaskStartScheduler();
+
+	return 0;
+}
+
+/****************************************************************************/
+/*
+ * [THREAD] Thread used for debugging UART
+ */
+void thread_debug_UART(void* p_data){
+	// declarations
+	int Status;
+	int n_bytes_received;						// number of bytes received
+	int n_data_bytes;							// number of bytes in the upcoming message
+	char buff_receive[UART_BUFF_RECEIVE_MAX];
+	char* buff_send;
+
+	/*
+	 * Initialize the UartLite driver so that it is ready to use.
+	 */
+	Status = XUartLite_Initialize(&uart_nodemcu_inst, UART_DEVICE_ID);
+	if (Status != XST_SUCCESS) {
+		vTaskDelete(NULL);
+		return;
+	}
+
+	/*
+	 * Perform a self-test to ensure that the hardware was built correctly.
+	 */
+	Status = XUartLite_SelfTest(&uart_nodemcu_inst);
+	if (Status != XST_SUCCESS) {
+		vTaskDelete(NULL);
+		return;
+	}
+
+	while (1){
+
+		// send until done
+//		buff_send = "Pine\n";
+//		buff_send = "hello12345hello12345hello12345hello12345hello12345hello1234\n";
+		buff_send = "begin--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------end\n";
+		uart_send(buff_send, strlen(buff_send));
+
+		// receive & construct data size
+		n_bytes_received = uart_receive(buff_receive, 2);
+		n_data_bytes = 0 | (buff_receive[0] << 8);
+		n_data_bytes = n_data_bytes | buff_receive[1];
+		xil_printf("Data_size=%d\n", n_data_bytes);
+
+		// do nothing if data is too big for the buffer
+		if (n_data_bytes > UART_BUFF_RECEIVE_MAX){
+			xil_printf("Data is too big (%d). Stop receiving.\n", n_data_bytes);
+			continue;
+		}
+
+		// receive data
+		n_bytes_received = uart_receive(buff_receive, n_data_bytes);
+
+		// end string & print
+		buff_receive[n_bytes_received] = 0;
+		xil_printf("Data=[%s]\n", buff_receive);
+
+		// delay 1 sec
+		vTaskDelay(1000 / portTICK_PERIOD_MS);
+	}
+
+	// safely delete task
+	vTaskDelete(NULL);
+}
+
+/****************************************************************************/
+/*
+ * [THREAD] Main thread for POV project
+ */
+void thread_POV_main(void* p_data){
+	// declarations
+	int Status;
+	int n_bytes_received;						// number of bytes received
+	int n_data_bytes;							// number of bytes in the upcoming message
+	char buff_receive[UART_BUFF_RECEIVE_MAX];
+	char* buff_send;
+
+	// TODO: fixed text now, change later
+	char welcome_string[] = "ECE544";
+	strcpy(pov_info.text.msg, welcome_string);
+	pov_info.text.length = strlen(welcome_string);
+
+	while (1){
+
+		// send the text
+		pov_msg_send(&pov_info.text);
+
+		// delay 1 sec
+		vTaskDelay(1000 / portTICK_PERIOD_MS);
+	}
+
+	// safely delete task
+	vTaskDelete(NULL);
+}
+
+/****************************************************************************/
+/*
+ * (blocking) Send the given buffer until done
+ */
+void uart_send(char* buff_start, int n_bytes_to_send){
+	// declarations
+	int count_send;
+	int remaining_size;
+	char* buff_start_pos;
+
+	// send until done
+	buff_start_pos = buff_start;
+	remaining_size = n_bytes_to_send;
+	while (remaining_size > 0) {
+		count_send = XUartLite_Send(&uart_nodemcu_inst, (u8*)buff_start_pos, remaining_size);
+		remaining_size -= count_send;
+		buff_start_pos += count_send;
+	}
+
+}
+
+/****************************************************************************/
+/*
+ * (blocking) Receive the next packet until done.
+ * Return -1 if failed, >=0 if success & is the number of received bytes
+ */
+int uart_receive(char* buff_receiving, int data_size){
+
+	// declarations
+	int remaining_receive;	// remaining bytes to receive
+	int count_receive;		// number of received bytes in the last receive command
+	u8* buff_start_pos;		// start position for writing to the buffer
+
+	// received until done
+	buff_start_pos = (u8*)buff_receiving;
+	remaining_receive = data_size;
+	while (remaining_receive > 0) {
+		count_receive = XUartLite_Recv(&uart_nodemcu_inst, buff_start_pos, remaining_receive);
+		remaining_receive -= count_receive;
+		buff_start_pos += count_receive;
+	}
+
+	return data_size;
+}
+
+
+/****************************************************************************/
+/*
+ * (blocking) Send the given POV message
+ */
+void pov_msg_send(pov_msg_t* p_msg){
+
+	// declarations
+	char buff_length[2];	// buffer for sending the length
+
+	// send length first
+	buff_length[0] = (p_msg->length >> 8) & 0x00FF;
+	buff_length[1] = (p_msg->length     ) & 0x00FF;
+	uart_send(buff_length, 2);
+
+	// delay
+	vTaskDelay(10 / portTICK_PERIOD_MS);
+
+	// send data
+	uart_send(p_msg->msg, p_msg->length);
+}

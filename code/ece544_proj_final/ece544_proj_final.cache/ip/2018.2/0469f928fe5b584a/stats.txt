@@ -1,0 +1,4 @@
+NumberHits:0
+Timestamp: Fri Jun 05 22:00:25 UTC 2020
+VLNV: xilinx.com:ip:xlconcat:2.1
+SynthRuntime: 38

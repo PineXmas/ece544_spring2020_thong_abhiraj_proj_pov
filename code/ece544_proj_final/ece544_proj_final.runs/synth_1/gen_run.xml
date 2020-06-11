@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1591558166">
+  <File Type="PA-TCL" Name="nexysA7fpga.tcl"/>
+  <File Type="REPORTS-TCL" Name="nexysA7fpga_reports.tcl"/>
+  <File Type="RDS-RDS" Name="nexysA7fpga.vds"/>
+  <File Type="RDS-UTIL" Name="nexysA7fpga_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="nexysA7fpga_utilization_synth.pb"/>
+  <File Type="RDS-DCP" Name="nexysA7fpga.dcp"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/bd/embsys/embsys.bd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../ECE544_Proj_GS/ece544_proj_gs_hardware/ece544_proj_gs_hardware.srcs/sources_1/bd/embsys/embsys.bd"/>
+        <Attr Name="ImportTime" Val="1586141878"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/debounce.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../ECE544_Proj_02/ece-544-project-2-thongd_abhiraja/code/ece544_project_02/ece544_project_02.srcs/sources_1/new/debounce.v"/>
+        <Attr Name="ImportTime" Val="1589504499"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/PWDET.v">
+      <FileInfo SFType="SVerilog">
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../ECE544_Proj_01/ece544_proj_01/ece544_proj_01.srcs/sources_1/new/PWDET.v"/>
+        <Attr Name="ImportTime" Val="1587254398"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/PmodENC_decode.sv">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../ECE544_Proj_02/ece-544-project-2-thongd_abhiraja/code/ece544_project_02/ece544_project_02.srcs/sources_1/new/PmodENC_decode.sv"/>
+        <Attr Name="ImportTime" Val="1589506754"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/hardware/nexysA7fpga.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../ECE544_Proj_GS/ece544_proj_gs_hardware/source/hardware/nexysA7fpga.v"/>
+        <Attr Name="ImportTime" Val="1585875941"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/nexysA7fpga_backup.v">
+      <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../ECE544_Proj_02/ece-544-project-2-thongd_abhiraja/code/ece544_project_02/ece544_project_02.srcs/sources_1/new/nexysA7fpga_backup.v"/>
+        <Attr Name="ImportTime" Val="1589591292"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/PmodENC_decode_v2.v">
+      <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../ECE544_Proj_02/ece-544-project-2-thongd_abhiraja/code/ece544_project_02/ece544_project_02.srcs/sources_1/new/PmodENC_decode_v2.v"/>
+        <Attr Name="ImportTime" Val="1589501740"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="nexysA7fpga"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <File Path="$PSRCDIR/constrs_1/imports/constraints/nexysA7fpga.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../ECE544_Proj_GS/ece544_proj_gs_hardware/source/constraints/nexysA7fpga.xdc"/>
+        <Attr Name="ImportTime" Val="1585602053"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="bestone" Flow="Vivado Synthesis 2018"/>
+    <Step Id="synth_design">
+      <Option Id="Directive">6</Option>
+      <Option Id="ReTiming">1</Option>
+    </Step>
+  </Strategy>
+  <BlockFileSet Type="BlockSrcs" Name="embsys_axi_uartlite_1_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="embsys_xbar_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="embsys_dlmb_bram_if_cntlr_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="embsys_axi_gpio_1_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="embsys_clk_wiz_1_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="embsys_axi_gpio_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="embsys_axi_timer_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="embsys_microblaze_0_axi_intc_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="embsys_microblaze_0_xlconcat_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="embsys_axi_timer_1_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="embsys_axi_timebase_wdt_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="embsys_axi_gpio_2_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="embsys_microblaze_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="embsys_motor_measure_control_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="embsys_nexys4IO_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="embsys_PmodENC_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="embsys_PmodOLEDrgb_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="embsys_axi_uartlite_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="embsys_mdm_1_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="embsys_rst_clk_wiz_1_100M_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="embsys_dlmb_v10_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="embsys_ilmb_v10_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="embsys_ilmb_bram_if_cntlr_0"/>
+</GenRun>

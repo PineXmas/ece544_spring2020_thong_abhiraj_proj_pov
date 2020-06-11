@@ -1,0 +1,823 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Sun Jun  7 12:30:40 2020
+# Process ID: 5232
+# Current directory: D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/impl_1
+# Command line: vivado.exe -log nexysA7fpga.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source nexysA7fpga.tcl -notrace
+# Log file: D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/impl_1/nexysA7fpga.vdi
+# Journal file: D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/impl_1\vivado.jou
+#-----------------------------------------------------------
+source nexysA7fpga.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'd:/Projects/Code/ECE544_Proj_GS/ece544_proj_gs_hardware/source/repositories/ece544ip-library-master'.
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'd:/Projects/Code/ECE544_Proj_02/ece-544-project-2-thongd_abhiraja/abhiraj_files/motor_measure_control_3.0'.
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'd:/Projects/Code/ECE544_Proj_GS/ece544_proj_gs_hardware/source/repositories/vivado-library-v2019.1-1'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'D:/Programs/Xilinx/Vivado/2018.2/data/ip'.
+add_files: Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 356.598 ; gain = 86.738
+Command: link_design -top nexysA7fpga -part xc7a100tcsg324-1
+Design is defaulting to srcset: sources_1
+Design is defaulting to constrset: constrs_1
+INFO: [Project 1-454] Reading design checkpoint 'd:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodENC_0_0/embsys_PmodENC_0_0.dcp' for cell 'EMBSYS/PmodENC_0'
+INFO: [Project 1-454] Reading design checkpoint 'd:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodOLEDrgb_0_0/embsys_PmodOLEDrgb_0_0.dcp' for cell 'EMBSYS/PmodOLEDrgb_0'
+INFO: [Project 1-454] Reading design checkpoint 'd:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_gpio_0_0/embsys_axi_gpio_0_0.dcp' for cell 'EMBSYS/axi_gpio_0'
+INFO: [Project 1-454] Reading design checkpoint 'd:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_gpio_1_0/embsys_axi_gpio_1_0.dcp' for cell 'EMBSYS/axi_gpio_1'
+INFO: [Project 1-454] Reading design checkpoint 'd:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_gpio_2_0/embsys_axi_gpio_2_0.dcp' for cell 'EMBSYS/axi_gpio_2'
+INFO: [Project 1-454] Reading design checkpoint 'd:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_timebase_wdt_0_0/embsys_axi_timebase_wdt_0_0.dcp' for cell 'EMBSYS/axi_timebase_wdt_0'
+INFO: [Project 1-454] Reading design checkpoint 'd:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_timer_0_0/embsys_axi_timer_0_0.dcp' for cell 'EMBSYS/axi_timer_0'
+INFO: [Project 1-454] Reading design checkpoint 'd:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_timer_1_0/embsys_axi_timer_1_0.dcp' for cell 'EMBSYS/axi_timer_1'
+INFO: [Project 1-454] Reading design checkpoint 'd:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_uartlite_0_0/embsys_axi_uartlite_0_0.dcp' for cell 'EMBSYS/axi_uartlite_0'
+INFO: [Project 1-454] Reading design checkpoint 'd:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_uartlite_1_0/embsys_axi_uartlite_1_0.dcp' for cell 'EMBSYS/axi_uartlite_1'
+INFO: [Project 1-454] Reading design checkpoint 'd:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_clk_wiz_1_0/embsys_clk_wiz_1_0.dcp' for cell 'EMBSYS/clk_wiz_1'
+INFO: [Project 1-454] Reading design checkpoint 'd:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_mdm_1_0/embsys_mdm_1_0.dcp' for cell 'EMBSYS/mdm_1'
+INFO: [Project 1-454] Reading design checkpoint 'd:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_microblaze_0_0/embsys_microblaze_0_0.dcp' for cell 'EMBSYS/microblaze_0'
+INFO: [Project 1-454] Reading design checkpoint 'd:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_microblaze_0_axi_intc_0/embsys_microblaze_0_axi_intc_0.dcp' for cell 'EMBSYS/microblaze_0_axi_intc'
+INFO: [Project 1-454] Reading design checkpoint 'd:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_microblaze_0_xlconcat_0/embsys_microblaze_0_xlconcat_0.dcp' for cell 'EMBSYS/microblaze_0_xlconcat'
+INFO: [Project 1-454] Reading design checkpoint 'd:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_motor_measure_control_0_0/embsys_motor_measure_control_0_0.dcp' for cell 'EMBSYS/motor_measure_control_0'
+INFO: [Project 1-454] Reading design checkpoint 'd:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_nexys4IO_0_0/embsys_nexys4IO_0_0.dcp' for cell 'EMBSYS/nexys4IO_0'
+INFO: [Project 1-454] Reading design checkpoint 'd:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_rst_clk_wiz_1_100M_0/embsys_rst_clk_wiz_1_100M_0.dcp' for cell 'EMBSYS/rst_clk_wiz_1_100M'
+INFO: [Project 1-454] Reading design checkpoint 'd:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_xbar_0/embsys_xbar_0.dcp' for cell 'EMBSYS/microblaze_0_axi_periph/xbar'
+INFO: [Project 1-454] Reading design checkpoint 'd:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_dlmb_bram_if_cntlr_0/embsys_dlmb_bram_if_cntlr_0.dcp' for cell 'EMBSYS/microblaze_0_local_memory/dlmb_bram_if_cntlr'
+INFO: [Project 1-454] Reading design checkpoint 'd:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_dlmb_v10_0/embsys_dlmb_v10_0.dcp' for cell 'EMBSYS/microblaze_0_local_memory/dlmb_v10'
+INFO: [Project 1-454] Reading design checkpoint 'd:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_ilmb_bram_if_cntlr_0/embsys_ilmb_bram_if_cntlr_0.dcp' for cell 'EMBSYS/microblaze_0_local_memory/ilmb_bram_if_cntlr'
+INFO: [Project 1-454] Reading design checkpoint 'd:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_ilmb_v10_0/embsys_ilmb_v10_0.dcp' for cell 'EMBSYS/microblaze_0_local_memory/ilmb_v10'
+INFO: [Project 1-454] Reading design checkpoint 'd:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_lmb_bram_0/embsys_lmb_bram_0.dcp' for cell 'EMBSYS/microblaze_0_local_memory/lmb_bram'
+INFO: [Netlist 29-17] Analyzing 784 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2018.2
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+WARNING: [Opt 31-35] Removing redundant IBUF, EMBSYS/clk_wiz_1/inst/clkin1_ibufg, from the path connected to top-level port: clk 
+Resolution: The tool has removed redundant IBUF. To resolve this warning, check for redundant IBUF in the input design.
+WARNING: [Constraints 18-550] Could not create 'IBUF_LOW_PWR' constraint because net 'EMBSYS/clk_wiz_1/clk_in1' is not directly connected to top level port. Synthesis is ignored for d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_clk_wiz_1_0/embsys_clk_wiz_1_0/embsys_clk_wiz_1_0.edf but preserved for implementation. [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_clk_wiz_1_0/embsys_clk_wiz_1_0/embsys_clk_wiz_1_0.edf:327]
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_microblaze_0_0/embsys_microblaze_0_0.xdc] for cell 'EMBSYS/microblaze_0/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_microblaze_0_0/embsys_microblaze_0_0.xdc] for cell 'EMBSYS/microblaze_0/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodENC_0_0/src/PmodENC_pmod_bridge_0_0/PmodENC_pmod_bridge_0_0_board.xdc] for cell 'EMBSYS/PmodENC_0/inst/pmod_bridge_0/inst'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodENC_0_0/src/PmodENC_pmod_bridge_0_0/PmodENC_pmod_bridge_0_0_board.xdc] for cell 'EMBSYS/PmodENC_0/inst/pmod_bridge_0/inst'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodENC_0_0/src/PmodENC_axi_gpio_0_0/PmodENC_axi_gpio_0_0_board.xdc] for cell 'EMBSYS/PmodENC_0/inst/axi_gpio_0/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodENC_0_0/src/PmodENC_axi_gpio_0_0/PmodENC_axi_gpio_0_0_board.xdc] for cell 'EMBSYS/PmodENC_0/inst/axi_gpio_0/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodENC_0_0/src/PmodENC_axi_gpio_0_0/PmodENC_axi_gpio_0_0.xdc] for cell 'EMBSYS/PmodENC_0/inst/axi_gpio_0/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodENC_0_0/src/PmodENC_axi_gpio_0_0/PmodENC_axi_gpio_0_0.xdc] for cell 'EMBSYS/PmodENC_0/inst/axi_gpio_0/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodENC_0_0/embsys_PmodENC_0_0_board.xdc] for cell 'EMBSYS/PmodENC_0/inst'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodENC_0_0/embsys_PmodENC_0_0_board.xdc] for cell 'EMBSYS/PmodENC_0/inst'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodOLEDrgb_0_0/ip/PmodOLEDrgb_axi_quad_spi_0_0/PmodOLEDrgb_axi_quad_spi_0_0_board.xdc] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodOLEDrgb_0_0/ip/PmodOLEDrgb_axi_quad_spi_0_0/PmodOLEDrgb_axi_quad_spi_0_0_board.xdc] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodOLEDrgb_0_0/ip/PmodOLEDrgb_axi_quad_spi_0_0/PmodOLEDrgb_axi_quad_spi_0_0.xdc] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodOLEDrgb_0_0/ip/PmodOLEDrgb_axi_quad_spi_0_0/PmodOLEDrgb_axi_quad_spi_0_0.xdc] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodOLEDrgb_0_0/ip/PmodOLEDrgb_axi_gpio_0_1/PmodOLEDrgb_axi_gpio_0_1_board.xdc] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_gpio_0/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodOLEDrgb_0_0/ip/PmodOLEDrgb_axi_gpio_0_1/PmodOLEDrgb_axi_gpio_0_1_board.xdc] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_gpio_0/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodOLEDrgb_0_0/ip/PmodOLEDrgb_axi_gpio_0_1/PmodOLEDrgb_axi_gpio_0_1.xdc] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_gpio_0/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodOLEDrgb_0_0/ip/PmodOLEDrgb_axi_gpio_0_1/PmodOLEDrgb_axi_gpio_0_1.xdc] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_gpio_0/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodOLEDrgb_0_0/ip/PmodOLEDrgb_pmod_bridge_0_0/PmodOLEDrgb_pmod_bridge_0_0_board.xdc] for cell 'EMBSYS/PmodOLEDrgb_0/inst/pmod_bridge_0/inst'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodOLEDrgb_0_0/ip/PmodOLEDrgb_pmod_bridge_0_0/PmodOLEDrgb_pmod_bridge_0_0_board.xdc] for cell 'EMBSYS/PmodOLEDrgb_0/inst/pmod_bridge_0/inst'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodOLEDrgb_0_0/embsys_PmodOLEDrgb_0_0_board.xdc] for cell 'EMBSYS/PmodOLEDrgb_0/inst'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodOLEDrgb_0_0/embsys_PmodOLEDrgb_0_0_board.xdc] for cell 'EMBSYS/PmodOLEDrgb_0/inst'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_gpio_0_0/embsys_axi_gpio_0_0_board.xdc] for cell 'EMBSYS/axi_gpio_0/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_gpio_0_0/embsys_axi_gpio_0_0_board.xdc] for cell 'EMBSYS/axi_gpio_0/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_gpio_0_0/embsys_axi_gpio_0_0.xdc] for cell 'EMBSYS/axi_gpio_0/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_gpio_0_0/embsys_axi_gpio_0_0.xdc] for cell 'EMBSYS/axi_gpio_0/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_timer_0_0/embsys_axi_timer_0_0.xdc] for cell 'EMBSYS/axi_timer_0/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_timer_0_0/embsys_axi_timer_0_0.xdc] for cell 'EMBSYS/axi_timer_0/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_uartlite_0_0/embsys_axi_uartlite_0_0_board.xdc] for cell 'EMBSYS/axi_uartlite_0/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_uartlite_0_0/embsys_axi_uartlite_0_0_board.xdc] for cell 'EMBSYS/axi_uartlite_0/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_uartlite_0_0/embsys_axi_uartlite_0_0.xdc] for cell 'EMBSYS/axi_uartlite_0/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_uartlite_0_0/embsys_axi_uartlite_0_0.xdc] for cell 'EMBSYS/axi_uartlite_0/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_microblaze_0_axi_intc_0/embsys_microblaze_0_axi_intc_0.xdc] for cell 'EMBSYS/microblaze_0_axi_intc/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_microblaze_0_axi_intc_0/embsys_microblaze_0_axi_intc_0.xdc] for cell 'EMBSYS/microblaze_0_axi_intc/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_mdm_1_0/embsys_mdm_1_0.xdc] for cell 'EMBSYS/mdm_1/U0'
+INFO: [Timing 38-35] Done setting XDC timing constraints. [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_mdm_1_0/embsys_mdm_1_0.xdc:50]
+get_clocks: Time (s): cpu = 00:00:13 ; elapsed = 00:00:15 . Memory (MB): peak = 1353.453 ; gain = 566.957
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_mdm_1_0/embsys_mdm_1_0.xdc] for cell 'EMBSYS/mdm_1/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_clk_wiz_1_0/embsys_clk_wiz_1_0_board.xdc] for cell 'EMBSYS/clk_wiz_1/inst'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_clk_wiz_1_0/embsys_clk_wiz_1_0_board.xdc] for cell 'EMBSYS/clk_wiz_1/inst'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_clk_wiz_1_0/embsys_clk_wiz_1_0.xdc] for cell 'EMBSYS/clk_wiz_1/inst'
+INFO: [Timing 38-2] Deriving generated clocks [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_clk_wiz_1_0/embsys_clk_wiz_1_0.xdc:57]
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_clk_wiz_1_0/embsys_clk_wiz_1_0.xdc] for cell 'EMBSYS/clk_wiz_1/inst'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_rst_clk_wiz_1_100M_0/embsys_rst_clk_wiz_1_100M_0_board.xdc] for cell 'EMBSYS/rst_clk_wiz_1_100M/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_rst_clk_wiz_1_100M_0/embsys_rst_clk_wiz_1_100M_0_board.xdc] for cell 'EMBSYS/rst_clk_wiz_1_100M/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_rst_clk_wiz_1_100M_0/embsys_rst_clk_wiz_1_100M_0.xdc] for cell 'EMBSYS/rst_clk_wiz_1_100M/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_rst_clk_wiz_1_100M_0/embsys_rst_clk_wiz_1_100M_0.xdc] for cell 'EMBSYS/rst_clk_wiz_1_100M/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_dlmb_v10_0/embsys_dlmb_v10_0.xdc] for cell 'EMBSYS/microblaze_0_local_memory/dlmb_v10/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_dlmb_v10_0/embsys_dlmb_v10_0.xdc] for cell 'EMBSYS/microblaze_0_local_memory/dlmb_v10/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_ilmb_v10_0/embsys_ilmb_v10_0.xdc] for cell 'EMBSYS/microblaze_0_local_memory/ilmb_v10/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_ilmb_v10_0/embsys_ilmb_v10_0.xdc] for cell 'EMBSYS/microblaze_0_local_memory/ilmb_v10/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_gpio_1_0/embsys_axi_gpio_1_0_board.xdc] for cell 'EMBSYS/axi_gpio_1/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_gpio_1_0/embsys_axi_gpio_1_0_board.xdc] for cell 'EMBSYS/axi_gpio_1/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_gpio_1_0/embsys_axi_gpio_1_0.xdc] for cell 'EMBSYS/axi_gpio_1/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_gpio_1_0/embsys_axi_gpio_1_0.xdc] for cell 'EMBSYS/axi_gpio_1/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_timer_1_0/embsys_axi_timer_1_0.xdc] for cell 'EMBSYS/axi_timer_1/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_timer_1_0/embsys_axi_timer_1_0.xdc] for cell 'EMBSYS/axi_timer_1/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_timebase_wdt_0_0/embsys_axi_timebase_wdt_0_0.xdc] for cell 'EMBSYS/axi_timebase_wdt_0/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_timebase_wdt_0_0/embsys_axi_timebase_wdt_0_0.xdc] for cell 'EMBSYS/axi_timebase_wdt_0/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_gpio_2_0/embsys_axi_gpio_2_0_board.xdc] for cell 'EMBSYS/axi_gpio_2/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_gpio_2_0/embsys_axi_gpio_2_0_board.xdc] for cell 'EMBSYS/axi_gpio_2/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_gpio_2_0/embsys_axi_gpio_2_0.xdc] for cell 'EMBSYS/axi_gpio_2/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_gpio_2_0/embsys_axi_gpio_2_0.xdc] for cell 'EMBSYS/axi_gpio_2/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_uartlite_1_0/embsys_axi_uartlite_1_0_board.xdc] for cell 'EMBSYS/axi_uartlite_1/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_uartlite_1_0/embsys_axi_uartlite_1_0_board.xdc] for cell 'EMBSYS/axi_uartlite_1/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_uartlite_1_0/embsys_axi_uartlite_1_0.xdc] for cell 'EMBSYS/axi_uartlite_1/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_axi_uartlite_1_0/embsys_axi_uartlite_1_0.xdc] for cell 'EMBSYS/axi_uartlite_1/U0'
+Parsing XDC File [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/constrs_1/imports/constraints/nexysA7fpga.xdc]
+Finished Parsing XDC File [D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/constrs_1/imports/constraints/nexysA7fpga.xdc]
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodOLEDrgb_0_0/ip/PmodOLEDrgb_axi_quad_spi_0_0/PmodOLEDrgb_axi_quad_spi_0_0_clocks.xdc] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_PmodOLEDrgb_0_0/ip/PmodOLEDrgb_axi_quad_spi_0_0/PmodOLEDrgb_axi_quad_spi_0_0_clocks.xdc] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0'
+Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_microblaze_0_axi_intc_0/embsys_microblaze_0_axi_intc_0_clocks.xdc] for cell 'EMBSYS/microblaze_0_axi_intc/U0'
+Finished Parsing XDC File [d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_microblaze_0_axi_intc_0/embsys_microblaze_0_axi_intc_0_clocks.xdc] for cell 'EMBSYS/microblaze_0_axi_intc/U0'
+Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.TX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.rd_pntr_cdc_inst'
+Finished Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.TX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.rd_pntr_cdc_inst'
+Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.RX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.wr_pntr_cdc_inst'
+Finished Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.RX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.wr_pntr_cdc_inst'
+Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.RX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.rd_pntr_cdc_inst'
+Finished Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.RX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.rd_pntr_cdc_inst'
+Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.TX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.wr_pntr_cdc_inst'
+Finished Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.TX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.wr_pntr_cdc_inst'
+Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.TX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.wr_pntr_cdc_dc_inst'
+Finished Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.TX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.wr_pntr_cdc_dc_inst'
+Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.RX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.wr_pntr_cdc_dc_inst'
+Finished Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.RX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.wr_pntr_cdc_dc_inst'
+Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.TX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.rd_pntr_cdc_dc_inst'
+Finished Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.TX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.rd_pntr_cdc_dc_inst'
+Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.RX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.rd_pntr_cdc_dc_inst'
+Finished Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.RX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.rd_pntr_cdc_dc_inst'
+Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_sync_rst.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.TX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/xpm_fifo_rst_inst/gen_rst_ic.rrst_wr_inst'
+Finished Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_sync_rst.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.TX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/xpm_fifo_rst_inst/gen_rst_ic.rrst_wr_inst'
+Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_sync_rst.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.RX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/xpm_fifo_rst_inst/gen_rst_ic.wrst_rd_inst'
+Finished Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_sync_rst.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.RX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/xpm_fifo_rst_inst/gen_rst_ic.wrst_rd_inst'
+Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_sync_rst.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.RX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/xpm_fifo_rst_inst/gen_rst_ic.rrst_wr_inst'
+Finished Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_sync_rst.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.RX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/xpm_fifo_rst_inst/gen_rst_ic.rrst_wr_inst'
+Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_sync_rst.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.TX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/xpm_fifo_rst_inst/gen_rst_ic.wrst_rd_inst'
+Finished Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_sync_rst.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.TX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/xpm_fifo_rst_inst/gen_rst_ic.wrst_rd_inst'
+Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_fifo/tcl/xpm_fifo_rst.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.TX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst'
+Finished Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_fifo/tcl/xpm_fifo_rst.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.TX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst'
+Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_fifo/tcl/xpm_fifo_rst.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.RX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst'
+Finished Sourcing Tcl File [D:/Programs/Xilinx/Vivado/2018.2/data/ip/xpm/xpm_fifo/tcl/xpm_fifo_rst.tcl] for cell 'EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.RX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst'
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Generating merged BMM file for the design top 'nexysA7fpga'...
+INFO: [Memdata 28-144] Successfully populated the BRAM INIT strings from the following elf files: d:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.srcs/sources_1/bd/embsys/ip/embsys_microblaze_0_0/data/mb_bootloop_le.elf 
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 148 instances were transformed.
+  IOBUF => IOBUF (IBUF, OBUFT): 16 instances
+  LUT6_2 => LUT6_2 (LUT5, LUT6): 80 instances
+  RAM16X1D => RAM32X1D (RAMD32, RAMD32): 32 instances
+  RAM32M => RAM32M (RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMS32, RAMS32): 20 instances
+
+39 Infos, 2 Warnings, 0 Critical Warnings and 0 Errors encountered.
+link_design completed successfully
+link_design: Time (s): cpu = 00:00:34 ; elapsed = 00:00:40 . Memory (MB): peak = 1356.527 ; gain = 999.930
+Command: opt_design -directive ExploreSequentialArea
+INFO: [Vivado_Tcl 4-136] Directive used for opt_design is: ExploreSequentialArea
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
+Running DRC as a precondition to command opt_design
+
+Starting DRC Task
+INFO: [DRC 23-27] Running DRC with 2 threads
+WARNING: [DRC RPBF-3] IO port buffering is incomplete: Device port JA[0] expects both input and output buffering but the buffers are incomplete.
+WARNING: [DRC RPBF-3] IO port buffering is incomplete: Device port JA[1] expects both input and output buffering but the buffers are incomplete.
+WARNING: [DRC RPBF-3] IO port buffering is incomplete: Device port JA[2] expects both input and output buffering but the buffers are incomplete.
+WARNING: [DRC RPBF-3] IO port buffering is incomplete: Device port JA[4] expects both input and output buffering but the buffers are incomplete.
+WARNING: [DRC RPBF-3] IO port buffering is incomplete: Device port JA[5] expects both input and output buffering but the buffers are incomplete.
+INFO: [Project 1-461] DRC finished with 0 Errors, 5 Warnings
+INFO: [Project 1-462] Please refer to the DRC report (report_drc) for more information.
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 1356.527 ; gain = 0.000
+
+Starting Cache Timing Information Task
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+Ending Cache Timing Information Task | Checksum: 123e2e44b
+
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 1356.527 ; gain = 0.000
+
+Starting Logic Optimization Task
+
+Phase 1 Retarget
+INFO: [Opt 31-138] Pushed 1 inverter(s) to 1 load pin(s).
+INFO: [Opt 31-49] Retargeted 0 cell(s).
+Phase 1 Retarget | Checksum: 1115af4a5
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:02 . Memory (MB): peak = 1356.527 ; gain = 0.000
+INFO: [Opt 31-389] Phase Retarget created 0 cells and removed 0 cells
+
+Phase 2 Constant propagation
+INFO: [Opt 31-138] Pushed 1 inverter(s) to 1 load pin(s).
+Phase 2 Constant propagation | Checksum: 176392957
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 1356.527 ; gain = 0.000
+INFO: [Opt 31-389] Phase Constant propagation created 41 cells and removed 136 cells
+
+Phase 3 Sweep
+Phase 3 Sweep | Checksum: 195eae617
+
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:04 . Memory (MB): peak = 1356.527 ; gain = 0.000
+INFO: [Opt 31-389] Phase Sweep created 16 cells and removed 980 cells
+
+Phase 4 BUFG optimization
+INFO: [Opt 31-194] Inserted BUFG clk_IBUF_BUFG_inst to drive 200 load(s) on clock net clk_IBUF_BUFG
+INFO: [Opt 31-193] Inserted 1 BUFG(s) on clock nets
+Phase 4 BUFG optimization | Checksum: 19ae0a0d6
+
+Time (s): cpu = 00:00:06 ; elapsed = 00:00:05 . Memory (MB): peak = 1356.527 ; gain = 0.000
+INFO: [Opt 31-662] Phase BUFG optimization created 1 cells of which 1 are BUFGs and removed 0 cells.
+
+Phase 5 Shift Register Optimization
+Phase 5 Shift Register Optimization | Checksum: 100b3a3f9
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 1356.527 ; gain = 0.000
+INFO: [Opt 31-389] Phase Shift Register Optimization created 0 cells and removed 0 cells
+
+Phase 6 Constant propagation
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Phase 6 Constant propagation | Checksum: 100b3a3f9
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 1356.527 ; gain = 0.000
+INFO: [Opt 31-389] Phase Constant propagation created 0 cells and removed 0 cells
+
+Phase 7 Sweep
+Phase 7 Sweep | Checksum: 3fba5ecd
+
+Time (s): cpu = 00:00:08 ; elapsed = 00:00:07 . Memory (MB): peak = 1356.527 ; gain = 0.000
+INFO: [Opt 31-389] Phase Sweep created 0 cells and removed 0 cells
+
+Phase 8 Resynthesis
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Opt 31-74] Optimized 36 modules.
+INFO: [Opt 31-75] Optimized module 'embsys_PmodENC_0_0_address_decoder'.
+INFO: [Opt 31-75] Optimized module 'embsys_PmodENC_0_0_slave_attachment'.
+INFO: [Opt 31-75] Optimized module 'embsys_PmodOLEDrgb_0_0_qspi_mode_0_module'.
+INFO: [Opt 31-75] Optimized module 'embsys_PmodOLEDrgb_0_0_slave_attachment'.
+INFO: [Opt 31-75] Optimized module 'embsys_PmodOLEDrgb_0_0_slave_attachment__parameterized0'.
+INFO: [Opt 31-75] Optimized module 'embsys_axi_gpio_0_0__slave_attachment'.
+INFO: [Opt 31-75] Optimized module 'embsys_axi_gpio_1_0__address_decoder'.
+INFO: [Opt 31-75] Optimized module 'embsys_axi_gpio_1_0__slave_attachment'.
+INFO: [Opt 31-75] Optimized module 'embsys_axi_gpio_2_0__address_decoder'.
+INFO: [Opt 31-75] Optimized module 'embsys_axi_gpio_2_0__slave_attachment'.
+INFO: [Opt 31-75] Optimized module 'embsys_axi_timebase_wdt_0_0_address_decoder'.
+INFO: [Opt 31-75] Optimized module 'embsys_axi_timebase_wdt_0_0_slave_attachment'.
+INFO: [Opt 31-75] Optimized module 'embsys_axi_timer_0_0__slave_attachment'.
+INFO: [Opt 31-75] Optimized module 'embsys_axi_timer_0_0__timer_control'.
+INFO: [Opt 31-75] Optimized module 'embsys_axi_timer_1_0__slave_attachment'.
+INFO: [Opt 31-75] Optimized module 'embsys_axi_timer_1_0__timer_control'.
+INFO: [Opt 31-75] Optimized module 'embsys_axi_uartlite_0_0_address_decoder'.
+INFO: [Opt 31-75] Optimized module 'embsys_axi_uartlite_0_0_cntr_incr_decr_addn_f'.
+INFO: [Opt 31-75] Optimized module 'embsys_axi_uartlite_0_0_uartlite_tx'.
+INFO: [Opt 31-75] Optimized module 'embsys_axi_uartlite_1_0_address_decoder'.
+INFO: [Opt 31-75] Optimized module 'embsys_axi_uartlite_1_0_cntr_incr_decr_addn_f'.
+INFO: [Opt 31-75] Optimized module 'embsys_axi_uartlite_1_0_uartlite_tx'.
+INFO: [Opt 31-75] Optimized module 'embsys_lmb_bram_0__blk_mem_gen_prim_wrapper__parameterized61'.
+INFO: [Opt 31-75] Optimized module 'embsys_microblaze_0_0__Decode_gti'.
+INFO: [Opt 31-75] Optimized module 'embsys_microblaze_0_0__FPU_ADDSUB'.
+INFO: [Opt 31-75] Optimized module 'embsys_microblaze_0_0__Fpu'.
+INFO: [Opt 31-75] Optimized module 'embsys_microblaze_0_0__MB_FDR_165'.
+INFO: [Opt 31-75] Optimized module 'embsys_microblaze_0_0__MB_FDR_175'.
+INFO: [Opt 31-75] Optimized module 'embsys_microblaze_0_0__MB_FDR_203'.
+INFO: [Opt 31-75] Optimized module 'embsys_microblaze_0_0__fpu_conv'.
+INFO: [Opt 31-75] Optimized module 'embsys_microblaze_0_axi_intc_0_intc_core'.
+INFO: [Opt 31-75] Optimized module 'embsys_motor_measure_control_0_0_motor_measure_control_v1_0_S00_AXI'.
+INFO: [Opt 31-75] Optimized module 'embsys_nexys4IO_0_0_nexys4IO_v2_0_S00_AXI'.
+INFO: [Opt 31-75] Optimized module 'embsys_xbar_0_axi_crossbar_v2_1_18_crossbar_sasd'.
+INFO: [Opt 31-75] Optimized module 'embsys_xbar_0_axi_crossbar_v2_1_18_splitter'.
+INFO: [Opt 31-75] Optimized module 'embsys_xbar_0_axi_register_slice_v2_1_17_axic_register_slice'.
+INFO: [Opt 31-138] Pushed 5 inverter(s) to 17 load pin(s).
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Phase 8 Resynthesis | Checksum: 13530e41f
+
+Time (s): cpu = 00:00:23 ; elapsed = 00:00:23 . Memory (MB): peak = 1356.527 ; gain = 0.000
+INFO: [Opt 31-389] Phase Resynthesis created 2556 cells and removed 2833 cells
+
+Phase 9 Post Processing Netlist
+Phase 9 Post Processing Netlist | Checksum: 13530e41f
+
+Time (s): cpu = 00:00:24 ; elapsed = 00:00:23 . Memory (MB): peak = 1356.527 ; gain = 0.000
+INFO: [Opt 31-389] Phase Post Processing Netlist created 0 cells and removed 0 cells
+
+Starting Connectivity Check Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.055 . Memory (MB): peak = 1356.527 ; gain = 0.000
+Ending Logic Optimization Task | Checksum: 12d3a570b
+
+Time (s): cpu = 00:00:24 ; elapsed = 00:00:24 . Memory (MB): peak = 1356.527 ; gain = 0.000
+
+Starting Power Optimization Task
+INFO: [Pwropt 34-132] Skipping clock gating for clocks with a period < 2.00 ns.
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=2.976 | TNS=0.000 |
+Running Vector-less Activity Propagation...
+
+Finished Running Vector-less Activity Propagation
+INFO: [Pwropt 34-9] Applying IDT optimizations ...
+INFO: [Pwropt 34-10] Applying ODC optimizations ...
+
+
+Starting PowerOpt Patch Enables Task
+INFO: [Pwropt 34-162] WRITE_MODE attribute of 0 BRAM(s) out of a total of 128 has been updated to save power. Run report_power_opt to get a complete listing of the BRAMs updated.
+INFO: [Pwropt 34-201] Structural ODC has moved 0 WE to EN ports
+Number of BRAM Ports augmented: 0 newly gated: 0 Total Ports: 256
+Ending PowerOpt Patch Enables Task | Checksum: 12d3a570b
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.628 . Memory (MB): peak = 1821.316 ; gain = 0.000
+Ending Power Optimization Task | Checksum: 12d3a570b
+
+Time (s): cpu = 00:00:38 ; elapsed = 00:00:29 . Memory (MB): peak = 1821.316 ; gain = 464.789
+
+Starting Final Cleanup Task
+Ending Final Cleanup Task | Checksum: 12d3a570b
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1821.316 ; gain = 0.000
+INFO: [Common 17-83] Releasing license: Implementation
+108 Infos, 7 Warnings, 0 Critical Warnings and 0 Errors encountered.
+opt_design completed successfully
+opt_design: Time (s): cpu = 00:01:06 ; elapsed = 00:00:55 . Memory (MB): peak = 1821.316 ; gain = 464.789
+INFO: [Timing 38-480] Writing timing data to binary archive.
+Writing placer database...
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.066 . Memory (MB): peak = 1821.316 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/impl_1/nexysA7fpga_opt.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_drc -file nexysA7fpga_drc_opted.rpt -pb nexysA7fpga_drc_opted.pb -rpx nexysA7fpga_drc_opted.rpx
+Command: report_drc -file nexysA7fpga_drc_opted.rpt -pb nexysA7fpga_drc_opted.pb -rpx nexysA7fpga_drc_opted.rpx
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Coretcl 2-168] The results of DRC are in file D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/impl_1/nexysA7fpga_drc_opted.rpt.
+report_drc completed successfully
+Command: place_design -directive EarlyBlockPlacement
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+Running DRC as a precondition to command place_design
+INFO: [DRC 23-27] Running DRC with 2 threads
+WARNING: [DRC RPBF-3] IO port buffering is incomplete: Device port JA[0] expects both input and output buffering but the buffers are incomplete.
+WARNING: [DRC RPBF-3] IO port buffering is incomplete: Device port JA[1] expects both input and output buffering but the buffers are incomplete.
+WARNING: [DRC RPBF-3] IO port buffering is incomplete: Device port JA[2] expects both input and output buffering but the buffers are incomplete.
+WARNING: [DRC RPBF-3] IO port buffering is incomplete: Device port JA[4] expects both input and output buffering but the buffers are incomplete.
+WARNING: [DRC RPBF-3] IO port buffering is incomplete: Device port JA[5] expects both input and output buffering but the buffers are incomplete.
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors, 5 Warnings
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+
+Starting Placer Task
+INFO: [Place 46-5] The placer was invoked with the 'EarlyBlockPlacement' directive.
+INFO: [Place 30-611] Multithreading enabled for place_design using a maximum of 2 CPUs
+
+Phase 1 Placer Initialization
+
+Phase 1.1 Placer Initialization Netlist Sorting
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.072 . Memory (MB): peak = 1821.316 ; gain = 0.000
+Phase 1.1 Placer Initialization Netlist Sorting | Checksum: 40c58af1
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.104 . Memory (MB): peak = 1821.316 ; gain = 0.000
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.061 . Memory (MB): peak = 1821.316 ; gain = 0.000
+
+Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device | Checksum: c359b9a7
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 1821.316 ; gain = 0.000
+
+Phase 1.3 Build Placer Netlist Model
+Phase 1.3 Build Placer Netlist Model | Checksum: ce65acaa
+
+Time (s): cpu = 00:00:13 ; elapsed = 00:00:10 . Memory (MB): peak = 1821.316 ; gain = 0.000
+
+Phase 1.4 Constrain Clocks/Macros
+Phase 1.4 Constrain Clocks/Macros | Checksum: ce65acaa
+
+Time (s): cpu = 00:00:13 ; elapsed = 00:00:10 . Memory (MB): peak = 1821.316 ; gain = 0.000
+Phase 1 Placer Initialization | Checksum: ce65acaa
+
+Time (s): cpu = 00:00:13 ; elapsed = 00:00:10 . Memory (MB): peak = 1821.316 ; gain = 0.000
+
+Phase 2 Global Placement
+
+Phase 2.1 Floorplanning
+Phase 2.1 Floorplanning | Checksum: 14d37f126
+
+Time (s): cpu = 00:00:15 ; elapsed = 00:00:12 . Memory (MB): peak = 1821.316 ; gain = 0.000
+
+Phase 2.2 Physical Synthesis In Placer
+INFO: [Physopt 32-76] Pass 1. Identified 1 candidate net for fanout optimization.
+INFO: [Physopt 32-81] Processed net EMBSYS/microblaze_0/U0/MicroBlaze_Core_I/sync_reset. Replicated 7 times.
+INFO: [Physopt 32-232] Optimized 1 net. Created 7 new instances.
+INFO: [Physopt 32-775] End 1 Pass. Optimized 1 net or cell. Created 7 new cells, deleted 0 existing cell and moved 0 existing cell
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.118 . Memory (MB): peak = 1821.316 ; gain = 0.000
+INFO: [Physopt 32-64] No nets found for fanout-optimization.
+INFO: [Physopt 32-232] Optimized 0 net. Created 0 new instance.
+INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.067 . Memory (MB): peak = 1821.316 ; gain = 0.000
+
+Summary of Physical Synthesis Optimizations
+============================================
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+|  Optimization       |  Added Cells  |  Removed Cells  |  Optimized Cells/Nets  |  Dont Touch  |  Iterations  |  Elapsed   |
+-----------------------------------------------------------------------------------------------------------------------------
+|  Very High Fanout   |            7  |              0  |                     1  |           0  |           1  |  00:00:01  |
+|  Fanout             |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  Total              |            7  |              0  |                     1  |           0  |           2  |  00:00:01  |
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+Phase 2.2 Physical Synthesis In Placer | Checksum: 1ac90c00e
+
+Time (s): cpu = 00:01:00 ; elapsed = 00:00:43 . Memory (MB): peak = 1821.316 ; gain = 0.000
+Phase 2 Global Placement | Checksum: 1f89b36ef
+
+Time (s): cpu = 00:01:01 ; elapsed = 00:00:44 . Memory (MB): peak = 1821.316 ; gain = 0.000
+
+Phase 3 Detail Placement
+
+Phase 3.1 Commit Multi Column Macros
+Phase 3.1 Commit Multi Column Macros | Checksum: 1f89b36ef
+
+Time (s): cpu = 00:01:02 ; elapsed = 00:00:44 . Memory (MB): peak = 1821.316 ; gain = 0.000
+
+Phase 3.2 Commit Most Macros & LUTRAMs
+Phase 3.2 Commit Most Macros & LUTRAMs | Checksum: 1e70e3ad7
+
+Time (s): cpu = 00:01:07 ; elapsed = 00:00:48 . Memory (MB): peak = 1821.316 ; gain = 0.000
+
+Phase 3.3 Area Swap Optimization
+Phase 3.3 Area Swap Optimization | Checksum: 24e326e93
+
+Time (s): cpu = 00:01:07 ; elapsed = 00:00:48 . Memory (MB): peak = 1821.316 ; gain = 0.000
+
+Phase 3.4 Pipeline Register Optimization
+Phase 3.4 Pipeline Register Optimization | Checksum: 22fc26be9
+
+Time (s): cpu = 00:01:07 ; elapsed = 00:00:48 . Memory (MB): peak = 1821.316 ; gain = 0.000
+
+Phase 3.5 Timing Path Optimizer
+Phase 3.5 Timing Path Optimizer | Checksum: 22fc26be9
+
+Time (s): cpu = 00:01:07 ; elapsed = 00:00:48 . Memory (MB): peak = 1821.316 ; gain = 0.000
+
+Phase 3.6 Fast Optimization
+Phase 3.6 Fast Optimization | Checksum: 17114c1cc
+
+Time (s): cpu = 00:01:08 ; elapsed = 00:00:49 . Memory (MB): peak = 1821.316 ; gain = 0.000
+
+Phase 3.7 Small Shape Detail Placement
+Phase 3.7 Small Shape Detail Placement | Checksum: 121cbb29f
+
+Time (s): cpu = 00:01:13 ; elapsed = 00:00:54 . Memory (MB): peak = 1821.316 ; gain = 0.000
+
+Phase 3.8 Re-assign LUT pins
+Phase 3.8 Re-assign LUT pins | Checksum: 122d338cc
+
+Time (s): cpu = 00:01:13 ; elapsed = 00:00:55 . Memory (MB): peak = 1821.316 ; gain = 0.000
+
+Phase 3.9 Pipeline Register Optimization
+Phase 3.9 Pipeline Register Optimization | Checksum: 122d338cc
+
+Time (s): cpu = 00:01:14 ; elapsed = 00:00:55 . Memory (MB): peak = 1821.316 ; gain = 0.000
+
+Phase 3.10 Fast Optimization
+Phase 3.10 Fast Optimization | Checksum: 122d338cc
+
+Time (s): cpu = 00:01:17 ; elapsed = 00:00:57 . Memory (MB): peak = 1821.316 ; gain = 0.000
+Phase 3 Detail Placement | Checksum: 122d338cc
+
+Time (s): cpu = 00:01:17 ; elapsed = 00:00:57 . Memory (MB): peak = 1821.316 ; gain = 0.000
+
+Phase 4 Post Placement Optimization and Clean-Up
+
+Phase 4.1 Post Commit Optimization
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+
+Phase 4.1.1 Post Placement Optimization
+Post Placement Optimization Initialization | Checksum: 113d7d844
+
+Phase 4.1.1.1 BUFG Insertion
+INFO: [Place 46-31] BUFG insertion identified 0 candidate nets, 0 success, 0 skipped for placement/routing, 0 skipped for timing, 0 skipped for netlist change reason.
+Phase 4.1.1.1 BUFG Insertion | Checksum: 113d7d844
+
+Time (s): cpu = 00:01:23 ; elapsed = 00:01:01 . Memory (MB): peak = 1821.316 ; gain = 0.000
+INFO: [Place 30-746] Post Placement Timing Summary WNS=0.500. For the most accurate timing information please run report_timing.
+Phase 4.1.1 Post Placement Optimization | Checksum: 15748533a
+
+Time (s): cpu = 00:02:03 ; elapsed = 00:01:42 . Memory (MB): peak = 1821.316 ; gain = 0.000
+Phase 4.1 Post Commit Optimization | Checksum: 15748533a
+
+Time (s): cpu = 00:02:03 ; elapsed = 00:01:42 . Memory (MB): peak = 1821.316 ; gain = 0.000
+
+Phase 4.2 Post Placement Cleanup
+Phase 4.2 Post Placement Cleanup | Checksum: 15748533a
+
+Time (s): cpu = 00:02:03 ; elapsed = 00:01:42 . Memory (MB): peak = 1821.316 ; gain = 0.000
+
+Phase 4.3 Placer Reporting
+Phase 4.3 Placer Reporting | Checksum: 15748533a
+
+Time (s): cpu = 00:02:03 ; elapsed = 00:01:43 . Memory (MB): peak = 1821.316 ; gain = 0.000
+
+Phase 4.4 Final Placement Cleanup
+Phase 4.4 Final Placement Cleanup | Checksum: 19e6d1747
+
+Time (s): cpu = 00:02:03 ; elapsed = 00:01:43 . Memory (MB): peak = 1821.316 ; gain = 0.000
+Phase 4 Post Placement Optimization and Clean-Up | Checksum: 19e6d1747
+
+Time (s): cpu = 00:02:04 ; elapsed = 00:01:43 . Memory (MB): peak = 1821.316 ; gain = 0.000
+Ending Placer Task | Checksum: 1544da6fb
+
+Time (s): cpu = 00:02:04 ; elapsed = 00:01:43 . Memory (MB): peak = 1821.316 ; gain = 0.000
+INFO: [Common 17-83] Releasing license: Implementation
+136 Infos, 12 Warnings, 0 Critical Warnings and 0 Errors encountered.
+place_design completed successfully
+place_design: Time (s): cpu = 00:02:07 ; elapsed = 00:01:45 . Memory (MB): peak = 1821.316 ; gain = 0.000
+INFO: [Timing 38-480] Writing timing data to binary archive.
+Writing placer database...
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:04 ; elapsed = 00:00:01 . Memory (MB): peak = 1821.316 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/impl_1/nexysA7fpga_placed.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_io -file nexysA7fpga_io_placed.rpt
+report_io: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.100 . Memory (MB): peak = 1821.316 ; gain = 0.000
+INFO: [runtcl-4] Executing : report_utilization -file nexysA7fpga_utilization_placed.rpt -pb nexysA7fpga_utilization_placed.pb
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.225 . Memory (MB): peak = 1821.316 ; gain = 0.000
+INFO: [runtcl-4] Executing : report_control_sets -verbose -file nexysA7fpga_control_sets_placed.rpt
+report_control_sets: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.103 . Memory (MB): peak = 1821.316 ; gain = 0.000
+Command: phys_opt_design -directive AlternateFlowWithRetiming
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [Vivado_Tcl 4-137] Directive used for phys_opt_design is: AlternateFlowWithRetiming
+INFO: [Vivado_Tcl 4-383] Design worst setup slack (WNS) is greater than or equal to 0.250 ns. Skipping all physical synthesis optimizations.
+INFO: [Vivado_Tcl 4-232] No setup violation found. The netlist was not modified.
+INFO: [Common 17-83] Releasing license: Implementation
+146 Infos, 12 Warnings, 0 Critical Warnings and 0 Errors encountered.
+phys_opt_design completed successfully
+INFO: [Timing 38-480] Writing timing data to binary archive.
+Writing placer database...
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:04 ; elapsed = 00:00:01 . Memory (MB): peak = 1821.316 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/impl_1/nexysA7fpga_physopt.dcp' has been generated.
+Command: route_design -directive AlternateCLBRouting
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
+Running DRC as a precondition to command route_design
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+
+
+Starting Routing Task
+INFO: [Route 35-270] Using Router directive 'AlternateCLBRouting'.
+INFO: [Route 35-254] Multithreading enabled for route_design using a maximum of 2 CPUs
+Checksum: PlaceDB: b82ef260 ConstDB: 0 ShapeSum: 9c1eb49b RouteDB: 0
+
+Phase 1 Build RT Design
+Phase 1 Build RT Design | Checksum: bc43becc
+
+Time (s): cpu = 00:00:36 ; elapsed = 00:00:30 . Memory (MB): peak = 1821.316 ; gain = 0.000
+Post Restoration Checksum: NetGraph: 5f4b32b6 NumContArr: 5cf88c16 Constraints: 0 Timing: 0
+
+Phase 2 Router Initialization
+
+Phase 2.1 Create Timer
+Phase 2.1 Create Timer | Checksum: bc43becc
+
+Time (s): cpu = 00:00:37 ; elapsed = 00:00:30 . Memory (MB): peak = 1821.316 ; gain = 0.000
+
+Phase 2.2 Fix Topology Constraints
+Phase 2.2 Fix Topology Constraints | Checksum: bc43becc
+
+Time (s): cpu = 00:00:37 ; elapsed = 00:00:31 . Memory (MB): peak = 1821.316 ; gain = 0.000
+
+Phase 2.3 Pre Route Cleanup
+Phase 2.3 Pre Route Cleanup | Checksum: bc43becc
+
+Time (s): cpu = 00:00:37 ; elapsed = 00:00:31 . Memory (MB): peak = 1821.316 ; gain = 0.000
+ Number of Nodes with overlaps = 0
+
+Phase 2.4 Update Timing
+Phase 2.4 Update Timing | Checksum: 23259cef8
+
+Time (s): cpu = 00:00:45 ; elapsed = 00:00:36 . Memory (MB): peak = 1821.316 ; gain = 0.000
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=0.547  | TNS=0.000  | WHS=-0.195 | THS=-159.062|
+
+
+Phase 2.5 Update Timing for Bus Skew
+
+Phase 2.5.1 Update Timing
+Phase 2.5.1 Update Timing | Checksum: 1d25f6b83
+
+Time (s): cpu = 00:00:50 ; elapsed = 00:00:39 . Memory (MB): peak = 1821.316 ; gain = 0.000
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=0.547  | TNS=0.000  | WHS=N/A    | THS=N/A    |
+
+Phase 2.5 Update Timing for Bus Skew | Checksum: 2c8cb2d58
+
+Time (s): cpu = 00:00:50 ; elapsed = 00:00:39 . Memory (MB): peak = 1821.316 ; gain = 0.000
+Phase 2 Router Initialization | Checksum: 24a848f98
+
+Time (s): cpu = 00:00:50 ; elapsed = 00:00:39 . Memory (MB): peak = 1821.316 ; gain = 0.000
+
+Phase 3 Initial Routing
+Phase 3 Initial Routing | Checksum: 1a8f95814
+
+Time (s): cpu = 00:01:52 ; elapsed = 00:01:14 . Memory (MB): peak = 1844.543 ; gain = 23.227
+
+Phase 4 Rip-up And Reroute
+
+Phase 4.1 Global Iteration 0
+ Number of Nodes with overlaps = 1181
+ Number of Nodes with overlaps = 125
+ Number of Nodes with overlaps = 22
+ Number of Nodes with overlaps = 8
+ Number of Nodes with overlaps = 5
+ Number of Nodes with overlaps = 3
+ Number of Nodes with overlaps = 0
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=0.354  | TNS=0.000  | WHS=N/A    | THS=N/A    |
+
+Phase 4.1 Global Iteration 0 | Checksum: 184be6df2
+
+Time (s): cpu = 00:02:22 ; elapsed = 00:01:34 . Memory (MB): peak = 1844.543 ; gain = 23.227
+
+Phase 4.2 Global Iteration 1
+ Number of Nodes with overlaps = 0
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=0.354  | TNS=0.000  | WHS=N/A    | THS=N/A    |
+
+Phase 4.2 Global Iteration 1 | Checksum: 21d438956
+
+Time (s): cpu = 00:02:22 ; elapsed = 00:01:35 . Memory (MB): peak = 1844.543 ; gain = 23.227
+Phase 4 Rip-up And Reroute | Checksum: 21d438956
+
+Time (s): cpu = 00:02:22 ; elapsed = 00:01:35 . Memory (MB): peak = 1844.543 ; gain = 23.227
+
+Phase 5 Delay and Skew Optimization
+
+Phase 5.1 Delay CleanUp
+Phase 5.1 Delay CleanUp | Checksum: 21d438956
+
+Time (s): cpu = 00:02:23 ; elapsed = 00:01:35 . Memory (MB): peak = 1844.543 ; gain = 23.227
+
+Phase 5.2 Clock Skew Optimization
+Phase 5.2 Clock Skew Optimization | Checksum: 21d438956
+
+Time (s): cpu = 00:02:23 ; elapsed = 00:01:35 . Memory (MB): peak = 1844.543 ; gain = 23.227
+Phase 5 Delay and Skew Optimization | Checksum: 21d438956
+
+Time (s): cpu = 00:02:23 ; elapsed = 00:01:35 . Memory (MB): peak = 1844.543 ; gain = 23.227
+
+Phase 6 Post Hold Fix
+
+Phase 6.1 Hold Fix Iter
+
+Phase 6.1.1 Update Timing
+Phase 6.1.1 Update Timing | Checksum: 28e99945b
+
+Time (s): cpu = 00:02:24 ; elapsed = 00:01:36 . Memory (MB): peak = 1844.543 ; gain = 23.227
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=0.354  | TNS=0.000  | WHS=0.022  | THS=0.000  |
+
+Phase 6.1 Hold Fix Iter | Checksum: 273d928cf
+
+Time (s): cpu = 00:02:24 ; elapsed = 00:01:36 . Memory (MB): peak = 1844.543 ; gain = 23.227
+Phase 6 Post Hold Fix | Checksum: 273d928cf
+
+Time (s): cpu = 00:02:24 ; elapsed = 00:01:36 . Memory (MB): peak = 1844.543 ; gain = 23.227
+
+Phase 7 Route finalize
+
+Router Utilization Summary
+  Global Vertical Routing Utilization    = 4.63507 %
+  Global Horizontal Routing Utilization  = 3.54845 %
+  Routable Net Status*
+  *Does not include unroutable nets such as driverless and loadless.
+  Run report_route_status for detailed report.
+  Number of Failed Nets               = 0
+  Number of Unrouted Nets             = 0
+  Number of Partially Routed Nets     = 0
+  Number of Node Overlaps             = 0
+
+Phase 7 Route finalize | Checksum: 1d4c947da
+
+Time (s): cpu = 00:02:25 ; elapsed = 00:01:36 . Memory (MB): peak = 1844.543 ; gain = 23.227
+
+Phase 8 Verifying routed nets
+
+ Verification completed successfully
+Phase 8 Verifying routed nets | Checksum: 1d4c947da
+
+Time (s): cpu = 00:02:25 ; elapsed = 00:01:36 . Memory (MB): peak = 1844.543 ; gain = 23.227
+
+Phase 9 Depositing Routes
+Phase 9 Depositing Routes | Checksum: 186c3e556
+
+Time (s): cpu = 00:02:26 ; elapsed = 00:01:38 . Memory (MB): peak = 1844.543 ; gain = 23.227
+
+Phase 10 Post Router Timing
+INFO: [Route 35-20] Post Routing Timing Summary | WNS=0.355  | TNS=0.000  | WHS=0.024  | THS=0.000  |
+
+INFO: [Route 35-61] The design met the timing requirement.
+Phase 10 Post Router Timing | Checksum: 1f332aca4
+
+Time (s): cpu = 00:02:32 ; elapsed = 00:01:41 . Memory (MB): peak = 1844.543 ; gain = 23.227
+INFO: [Route 35-16] Router Completed Successfully
+
+Time (s): cpu = 00:02:32 ; elapsed = 00:01:41 . Memory (MB): peak = 1844.543 ; gain = 23.227
+
+Routing Is Done.
+INFO: [Common 17-83] Releasing license: Implementation
+163 Infos, 12 Warnings, 0 Critical Warnings and 0 Errors encountered.
+route_design completed successfully
+route_design: Time (s): cpu = 00:02:36 ; elapsed = 00:01:44 . Memory (MB): peak = 1844.543 ; gain = 23.227
+INFO: [Timing 38-480] Writing timing data to binary archive.
+Writing placer database...
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:06 ; elapsed = 00:00:02 . Memory (MB): peak = 1844.543 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/impl_1/nexysA7fpga_routed.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_drc -file nexysA7fpga_drc_routed.rpt -pb nexysA7fpga_drc_routed.pb -rpx nexysA7fpga_drc_routed.rpx
+Command: report_drc -file nexysA7fpga_drc_routed.rpt -pb nexysA7fpga_drc_routed.pb -rpx nexysA7fpga_drc_routed.rpx
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Coretcl 2-168] The results of DRC are in file D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/impl_1/nexysA7fpga_drc_routed.rpt.
+report_drc completed successfully
+INFO: [runtcl-4] Executing : report_methodology -file nexysA7fpga_methodology_drc_routed.rpt -pb nexysA7fpga_methodology_drc_routed.pb -rpx nexysA7fpga_methodology_drc_routed.rpx
+Command: report_methodology -file nexysA7fpga_methodology_drc_routed.rpt -pb nexysA7fpga_methodology_drc_routed.pb -rpx nexysA7fpga_methodology_drc_routed.rpx
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [DRC 23-133] Running Methodology with 2 threads
+INFO: [Coretcl 2-1520] The results of Report Methodology are in file D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/impl_1/nexysA7fpga_methodology_drc_routed.rpt.
+report_methodology completed successfully
+report_methodology: Time (s): cpu = 00:00:13 ; elapsed = 00:00:08 . Memory (MB): peak = 1844.543 ; gain = 0.000
+INFO: [runtcl-4] Executing : report_power -file nexysA7fpga_power_routed.rpt -pb nexysA7fpga_power_summary_routed.pb -rpx nexysA7fpga_power_routed.rpx
+Command: report_power -file nexysA7fpga_power_routed.rpt -pb nexysA7fpga_power_summary_routed.pb -rpx nexysA7fpga_power_routed.rpx
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+Running Vector-less Activity Propagation...
+
+Finished Running Vector-less Activity Propagation
+175 Infos, 12 Warnings, 0 Critical Warnings and 0 Errors encountered.
+report_power completed successfully
+report_power: Time (s): cpu = 00:00:11 ; elapsed = 00:00:06 . Memory (MB): peak = 1844.543 ; gain = 0.000
+INFO: [runtcl-4] Executing : report_route_status -file nexysA7fpga_route_status.rpt -pb nexysA7fpga_route_status.pb
+INFO: [runtcl-4] Executing : report_timing_summary -max_paths 10 -file nexysA7fpga_timing_summary_routed.rpt -pb nexysA7fpga_timing_summary_routed.pb -rpx nexysA7fpga_timing_summary_routed.rpx
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max, Timing Stage: Requireds.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+WARNING: [Timing 38-436] There are set_bus_skew constraint(s) in this design. Please run report_bus_skew to ensure that bus skew requirements are met.
+INFO: [runtcl-4] Executing : report_incremental_reuse -file nexysA7fpga_incremental_reuse_routed.rpt
+INFO: [Vivado_Tcl 4-545] No incremental reuse to report, no incremental placement and routing data was found.
+INFO: [runtcl-4] Executing : report_clock_utilization -file nexysA7fpga_clock_utilization_routed.rpt
+INFO: [runtcl-4] Executing : report_bus_skew -warn_on_violation -file nexysA7fpga_bus_skew_routed.rpt -pb nexysA7fpga_bus_skew_routed.pb -rpx nexysA7fpga_bus_skew_routed.rpx
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max, Timing Stage: Requireds.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+Command: phys_opt_design -directive ExploreWithAggressiveHoldFix
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [Vivado_Tcl 4-241] Physical synthesis in post route mode ( 100.0% nets are fully routed)
+INFO: [Vivado_Tcl 4-137] Directive used for phys_opt_design is: ExploreWithAggressiveHoldFix
+INFO: [Vivado_Tcl 4-383] Design worst setup slack (WNS) is greater than or equal to 0.000 ns. Skipping all physical synthesis optimizations.
+INFO: [Vivado_Tcl 4-232] No setup violation found. The netlist was not modified.
+INFO: [Common 17-83] Releasing license: Implementation
+191 Infos, 13 Warnings, 0 Critical Warnings and 0 Errors encountered.
+phys_opt_design completed successfully
+INFO: [Timing 38-480] Writing timing data to binary archive.
+Writing placer database...
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:06 ; elapsed = 00:00:02 . Memory (MB): peak = 1844.543 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.runs/impl_1/nexysA7fpga_postroute_physopt.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_timing_summary -max_paths 10 -warn_on_violation -file nexysA7fpga_timing_summary_postroute_physopted.rpt -pb nexysA7fpga_timing_summary_postroute_physopted.pb -rpx nexysA7fpga_timing_summary_postroute_physopted.rpx
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max, Timing Stage: Requireds.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+WARNING: [Timing 38-436] There are set_bus_skew constraint(s) in this design. Please run report_bus_skew to ensure that bus skew requirements are met.
+INFO: [runtcl-4] Executing : report_bus_skew -warn_on_violation -file nexysA7fpga_bus_skew_postroute_physopted.rpt -pb nexysA7fpga_bus_skew_postroute_physopted.pb -rpx nexysA7fpga_bus_skew_postroute_physopted.rpx
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max, Timing Stage: Requireds.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+INFO: [Memdata 28-167] Found XPM memory block EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.TX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/gen_sdpram.xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to auto. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.TX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/gen_sdpram.xpm_memory_base_inst block.
+INFO: [Memdata 28-167] Found XPM memory block EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.RX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/gen_sdpram.xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to auto. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the EMBSYS/PmodOLEDrgb_0/inst/axi_quad_spi_0/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.RX_FIFO_II/xpm_fifo_instance.xpm_fifo_async_inst/gnuram_async_fifo.xpm_fifo_base_inst/gen_sdpram.xpm_memory_base_inst block.
+Command: write_bitstream -force nexysA7fpga.bit
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
+Running DRC as a precondition to command write_bitstream
+INFO: [DRC 23-27] Running DRC with 2 threads
+WARNING: [DRC BUFC-1] Input Buffer Connections: Input buffer pmodoledrgb_out_pin1_iobuf/IBUF has no loads. It is recommended to have an input buffer drive an internal load.
+WARNING: [DRC BUFC-1] Input Buffer Connections: Input buffer pmodoledrgb_out_pin4_iobuf/IBUF has no loads. It is recommended to have an input buffer drive an internal load.
+WARNING: [DRC DPIP-1] Input pipelining: DSP EMBSYS/microblaze_0/U0/MicroBlaze_Core_I/Performance.Core/Data_Flow_I/FPU_I/Use_FPU.FPU_MUL_I/Use_DSP48E1.dsp_module_lower/Using_DSP48E1.DSP48E1_I1/Using_FPGA.DSP48E1_I1 input EMBSYS/microblaze_0/U0/MicroBlaze_Core_I/Performance.Core/Data_Flow_I/FPU_I/Use_FPU.FPU_MUL_I/Use_DSP48E1.dsp_module_lower/Using_DSP48E1.DSP48E1_I1/Using_FPGA.DSP48E1_I1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+WARNING: [DRC DPIP-1] Input pipelining: DSP EMBSYS/microblaze_0/U0/MicroBlaze_Core_I/Performance.Core/Data_Flow_I/FPU_I/Use_FPU.FPU_MUL_I/Use_DSP48E1.dsp_module_lower/Using_DSP48E1.DSP48E1_I1/Using_FPGA.DSP48E1_I1 input EMBSYS/microblaze_0/U0/MicroBlaze_Core_I/Performance.Core/Data_Flow_I/FPU_I/Use_FPU.FPU_MUL_I/Use_DSP48E1.dsp_module_lower/Using_DSP48E1.DSP48E1_I1/Using_FPGA.DSP48E1_I1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+WARNING: [DRC DPIP-1] Input pipelining: DSP EMBSYS/microblaze_0/U0/MicroBlaze_Core_I/Performance.Core/Data_Flow_I/FPU_I/Use_FPU.FPU_MUL_I/Use_DSP48E1.dsp_module_upper/Using_DSP48E1.DSP48E1_I1/Using_FPGA.DSP48E1_I1 input EMBSYS/microblaze_0/U0/MicroBlaze_Core_I/Performance.Core/Data_Flow_I/FPU_I/Use_FPU.FPU_MUL_I/Use_DSP48E1.dsp_module_upper/Using_DSP48E1.DSP48E1_I1/Using_FPGA.DSP48E1_I1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+WARNING: [DRC DPIP-1] Input pipelining: DSP EMBSYS/microblaze_0/U0/MicroBlaze_Core_I/Performance.Core/Data_Flow_I/FPU_I/Use_FPU.FPU_MUL_I/Use_DSP48E1.dsp_module_upper/Using_DSP48E1.DSP48E1_I1/Using_FPGA.DSP48E1_I1 input EMBSYS/microblaze_0/U0/MicroBlaze_Core_I/Performance.Core/Data_Flow_I/FPU_I/Use_FPU.FPU_MUL_I/Use_DSP48E1.dsp_module_upper/Using_DSP48E1.DSP48E1_I1/Using_FPGA.DSP48E1_I1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+WARNING: [DRC DPOP-1] PREG Output pipelining: DSP EMBSYS/microblaze_0/U0/MicroBlaze_Core_I/Performance.Core/Data_Flow_I/FPU_I/Use_FPU.FPU_MUL_I/Use_DSP48E1.dsp_module_lower/Using_DSP48E1.DSP48E1_I1/Using_FPGA.DSP48E1_I1 output EMBSYS/microblaze_0/U0/MicroBlaze_Core_I/Performance.Core/Data_Flow_I/FPU_I/Use_FPU.FPU_MUL_I/Use_DSP48E1.dsp_module_lower/Using_DSP48E1.DSP48E1_I1/Using_FPGA.DSP48E1_I1/PATTERNDETECT is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+INFO: [Vivado 12-3199] DRC finished with 0 Errors, 7 Warnings
+INFO: [Vivado 12-3200] Please refer to the DRC report (report_drc) for more information.
+INFO: [Designutils 20-2272] Running write_bitstream with 2 threads.
+Loading data files...
+Loading site data...
+Loading route data...
+Processing options...
+Creating bitmap...
+Creating bitstream...
+Writing bitstream ./nexysA7fpga.bit...
+INFO: [Vivado 12-1842] Bitgen Completed Successfully.
+INFO: [Project 1-120] WebTalk data collection is mandatory when using a WebPACK part without a full Vivado license. To see the specific WebTalk data collected for your design, open the usage_statistics_webtalk.html or usage_statistics_webtalk.xml file in the implementation directory.
+INFO: [Common 17-83] Releasing license: Implementation
+209 Infos, 21 Warnings, 0 Critical Warnings and 0 Errors encountered.
+write_bitstream completed successfully
+write_bitstream: Time (s): cpu = 00:00:52 ; elapsed = 00:00:40 . Memory (MB): peak = 2086.008 ; gain = 241.465
+INFO: [Common 17-206] Exiting Vivado at Sun Jun  7 12:37:28 2020...

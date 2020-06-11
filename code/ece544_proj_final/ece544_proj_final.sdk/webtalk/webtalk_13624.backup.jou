@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Webtalk v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
+# 
+# Start of session at: Sun Jun  7 00:41:13 2020
+# Process ID: 13624
+# Current directory: D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.sdk/webtalk
+# Command line: wbtcv.exe -mode batch -source sdk_webtalk.tcl
+# Log file: D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.sdk/webtalk/webtalk.log
+# Journal file: D:/Projects/Code/ECE544_Proj_Final/code/ece544_proj_final/ece544_proj_final.sdk/webtalk\webtalk.jou
+#-----------------------------------------------------------
+source sdk_webtalk.tcl
